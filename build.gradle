@@ -13,7 +13,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "my-gdx-game"
+        appName = "coalescence"
         gdxVersion = '1.8.0'
         roboVMVersion = '1.12.0'
         box2DLightsVersion = '1.4'
@@ -31,7 +31,6 @@ allprojects {
 project(":desktop") {
     apply plugin: "java"
 
-
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
@@ -42,13 +41,14 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
-
+    apply plugin: "scala"
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        compile "org.scala-lang:scala-library:2.11.7"
     }
 }
 
