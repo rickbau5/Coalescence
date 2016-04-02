@@ -10,7 +10,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.bau5.coalescence.entities.PlayerEntity;
 
 /**
  * Created by Rick on 4/1/16.
@@ -27,7 +29,10 @@ public class GameStage extends Stage {
     private Engine engine;
     private EntityDrawer entityDrawer;
 
-    public GameEntity testEntity;
+    public PlayerEntity player;
+
+    private long secondTime = TimeUtils.millis();
+    private boolean replaying = false;
 
     public GameStage() {
         super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
@@ -47,12 +52,19 @@ public class GameStage extends Stage {
         this.entityDrawer = new EntityDrawer(shapeRenderer);
         engine.addSystem(entityDrawer);
 
-        this.testEntity = new GameEntity(engine, 1, 1, 7, 7);
+        this.player = new PlayerEntity(engine, 1, 1, 7, 7);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        if (replaying) {
+            if (TimeUtils.millis() - secondTime > 1000) {
+                replaying = player.performNext();
+                secondTime = TimeUtils.millis();
+            }
+        }
 
         engine.update(delta);
     }
@@ -95,5 +107,10 @@ public class GameStage extends Stage {
         int row = (int) stageCoords.x / tileSize;
         int col = (int) stageCoords.y / tileSize;
         return stageCoords.set(row * tileSize, col * tileSize);
+    }
+
+    public void beginPlayback() {
+        player.beginPlayback();
+        replaying = true;
     }
 }
