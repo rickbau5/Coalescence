@@ -15,10 +15,8 @@ class InputHandler(stage: GameStage) extends InputListener {
   }
 
   override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
-    val pos = stage.testEntity.getComponent[PositionComponent](classOf[PositionComponent])
     val trans = stage.stageToMapCoordinates(new Vector2(x, y))
-    pos.x = trans.x
-    pos.y = trans.y
+    stage.testEntity.setPosition(trans.x, trans.y)
     true
   }
 

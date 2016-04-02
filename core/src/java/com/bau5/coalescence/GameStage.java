@@ -1,7 +1,6 @@
 package com.bau5.coalescence;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -26,7 +25,9 @@ public class GameStage extends Stage {
     private InputHandler inputHandler;
 
     private Engine engine;
-    public Entity testEntity;
+    private EntityDrawer entityDrawer;
+
+    public GameEntity testEntity;
 
     public GameStage() {
         super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
@@ -43,14 +44,17 @@ public class GameStage extends Stage {
         this.addListener(inputHandler);
 
         this.engine = new Engine();
-        this.testEntity = new Entity();
-        engine.addEntity(testEntity);
-        testEntity.add(new PositionComponent(0, 0));
+        this.entityDrawer = new EntityDrawer(shapeRenderer);
+        engine.addSystem(entityDrawer);
+
+        this.testEntity = new GameEntity(engine, 1, 1, 7, 7);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        engine.update(delta);
     }
 
     @Override
@@ -61,15 +65,7 @@ public class GameStage extends Stage {
         mapRenderer.setView(getCamera());
         mapRenderer.render();
 
-        for (Entity entity : engine.getEntities()) {
-            PositionComponent pos = entity.getComponent(PositionComponent.class);
-
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(pos.x() - 10, pos.y() - 10, 20, 20);
-            shapeRenderer.end();
-        }
-
+        entityDrawer.update(0.0f);
         drawTileOutline();
     }
 

@@ -1,7 +1,6 @@
 package com.bau5.coalescence;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.bau5.coalescence.screens.BaseScreen;
 import com.bau5.coalescence.screens.GameScreen;
 

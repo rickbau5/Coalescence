@@ -7,3 +7,4 @@ import com.badlogic.ashley.core.Component
   */
 case class PositionComponent(var x: Float, var y: Float) extends Component
 case class VelocityComponent(var vx: Float, var vy: Float) extends Component
+case class AttributeComponent(var width: Int, var height: Int) extends Component
