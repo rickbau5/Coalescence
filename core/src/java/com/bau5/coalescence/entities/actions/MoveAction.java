@@ -9,15 +9,15 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Rick on 4/2/16.
  */
 public class MoveAction extends Action {
-    float targetX, targetY;
+    int targetX, targetY;
 
-    public MoveAction(float x, float y) {
+    public MoveAction(int x, int y) {
         this.targetX = x;
         this.targetY = y;
     }
 
     public MoveAction(Vector2 vec) {
-        this(vec.x, vec.y);
+        this((int)vec.x, (int)vec.y);
     }
 
     @Override
@@ -27,6 +27,6 @@ public class MoveAction extends Action {
 
     @Override
     public String toString() {
-        return String.format("[MoveAction: %f, %f]", targetX, targetY);
+        return String.format("[MoveAction: %d, %d]", targetX, targetY);
     }
 }

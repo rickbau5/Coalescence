@@ -2,6 +2,7 @@ package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 
@@ -27,11 +28,11 @@ public class GameEntity extends Entity {
         this.engine.addEntity(this);
     }
 
-    public GameEntity(Engine engine, float x, float y, int w, int h) {
-        this(engine, new PositionComponent(x, y), new AttributeComponent(w, h));
+    public GameEntity(Engine engine, int x, int y, int w, int h, Color color) {
+        this(engine, new PositionComponent(x, y), new AttributeComponent(w, h, color));
     }
 
-    public void setPosition(float x, float y) {
+    public void setPosition(int x, int y) {
         pos.x_$eq(x);
         pos.y_$eq(y);
     }

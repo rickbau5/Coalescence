@@ -32,7 +32,7 @@ public class EntityDrawer extends IteratingSystem {
 
             renderer.setColor(Color.RED);
             renderer.begin(ShapeRenderer.ShapeType.Filled);
-            renderer.rect(position.x() - width / 2 + 16, position.y() - height / 2 + 16, width, height);
+            renderer.rect(position.x() * Constants.tileSize - width / 2 + 16, position.y() * Constants.tileSize - height / 2 + 16, width, height);
             renderer.end();
         }
     }

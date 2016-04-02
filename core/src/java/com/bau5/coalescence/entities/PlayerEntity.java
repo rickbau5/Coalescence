@@ -1,6 +1,7 @@
 package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 
@@ -14,8 +15,8 @@ public class PlayerEntity extends GameEntity {
 
     private LinkedList<Action> playback;
 
-    public PlayerEntity(Engine engine, float x, float y, int w, int h) {
-        super(engine, x, y, w, h);
+    public PlayerEntity(Engine engine, int x, int y, int w, int h) {
+        super(engine, x, y, w, h, Color.RED);
 
         this.actions = new LinkedList<>();
         this.playback = new LinkedList<>();
@@ -42,5 +43,18 @@ public class PlayerEntity extends GameEntity {
         next.execute();
 
         return true;
+    }
+
+    public void moveInDirection(Direction dir) {
+        switch (dir) {
+            case Up:
+            case Down:
+            case Left:
+            case Right:
+        }
+    }
+
+    public enum Direction {
+        Up, Down, Left, Right
     }
 }

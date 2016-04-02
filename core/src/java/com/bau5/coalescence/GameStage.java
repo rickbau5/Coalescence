@@ -18,8 +18,6 @@ import com.bau5.coalescence.entities.PlayerEntity;
  * Created by Rick on 4/1/16.
  */
 public class GameStage extends Stage {
-    private Main main;
-
     private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
     private ShapeRenderer shapeRenderer;
@@ -86,7 +84,7 @@ public class GameStage extends Stage {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(mapCoords.x, mapCoords.y, Constants.tileSize, Constants.tileSize);
+        shapeRenderer.rect(mapCoords.x * Constants.tileSize, mapCoords.y * Constants.tileSize, Constants.tileSize, Constants.tileSize);
         shapeRenderer.end();
     }
 
@@ -106,7 +104,7 @@ public class GameStage extends Stage {
         int tileSize = Constants.tileSize;
         int row = (int) stageCoords.x / tileSize;
         int col = (int) stageCoords.y / tileSize;
-        return stageCoords.set(row * tileSize, col * tileSize);
+        return stageCoords.set(row, col);
     }
 
     public void beginPlayback() {
