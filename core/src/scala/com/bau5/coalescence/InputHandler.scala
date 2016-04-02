@@ -1,7 +1,9 @@
 package com.bau5.coalescence
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
+import com.bau5.coalescence.entities.PlayerEntity
 import com.bau5.coalescence.entities.actions.MoveAction
 
 /**
@@ -23,7 +25,20 @@ class InputHandler(stage: GameStage) extends InputListener {
 
 
   override def keyTyped(event: InputEvent, character: Char): Boolean = character match {
-    case 'r' => stage.beginPlayback()
+    case 'w' =>
+      stage.player.moveInDirection(PlayerEntity.Direction.Up)
+      true
+    case 'a' =>
+      stage.player.moveInDirection(PlayerEntity.Direction.Left)
+      true
+    case 's' =>
+      stage.player.moveInDirection(PlayerEntity.Direction.Down)
+      true
+    case 'd' =>
+      stage.player.moveInDirection(PlayerEntity.Direction.Right)
+      true
+    case 'r' =>
+      stage.beginPlayback()
       true
     case _ => false
   }

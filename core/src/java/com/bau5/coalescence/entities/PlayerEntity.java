@@ -46,12 +46,23 @@ public class PlayerEntity extends GameEntity {
     }
 
     public void moveInDirection(Direction dir) {
+        int xOff = 0;
+        int yOff = 0;
         switch (dir) {
             case Up:
+                yOff = 1;
+                break;
             case Down:
+                yOff = -1;
+                break;
             case Left:
+                xOff = -1;
+                break;
             case Right:
+                xOff = 1;
+                break;
         }
+        performAction(new MoveAction(pos.x() + xOff, pos.y() + yOff));
     }
 
     public enum Direction {

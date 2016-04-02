@@ -15,7 +15,7 @@ import com.bau5.coalescence.PositionComponent;
  */
 public class GameEntity extends Entity {
     protected Engine engine;
-    private PositionComponent pos;
+    public PositionComponent pos;
 
     public GameEntity(Engine engine, PositionComponent pos, AttributeComponent attrib) {
         super();
@@ -33,6 +33,16 @@ public class GameEntity extends Entity {
     }
 
     public void setPosition(int x, int y) {
+        if (x < 0) {
+            x = 0;
+        } else if (x > 15) {  //TODO un-hard code these bounds
+            x = 15;
+        }
+        if (y < 0) {
+            y = 0;
+        } else if (y > 15) {
+            y = 15;
+        }
         pos.x_$eq(x);
         pos.y_$eq(y);
     }
