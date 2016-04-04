@@ -5,25 +5,21 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-
+import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.entities.GameEntity;
 
 
 /**
  * Created by Rick on 4/4/16.
  */
-public class World {
+public class World implements Disposable {
     private Engine engine;
     private TiledMap map;
     private TmxMapLoader loader;
 
-    public World() {
+    public World(Maps mapToLoad) {
         this.engine = new Engine();
         this.loader = new TmxMapLoader();
-    }
-
-    public World(Maps mapToLoad) {
-        this();
 
         loadMap(mapToLoad);
     }
@@ -61,6 +57,7 @@ public class World {
         return map;
     }
 
+    @Override
     public void dispose() {
         this.map.dispose();
     }
@@ -73,9 +70,9 @@ public class World {
         Maps(String name) {
             this.name = name;
         }
+
         public String getPath() {
             return String.format("maps/%s.tmx", name);
         }
-
     }
 }

@@ -1,9 +1,6 @@
 package com.bau5.coalescence;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
@@ -17,13 +14,9 @@ import com.bau5.coalescence.entities.PlayerEntity;
  */
 public class GameStage extends Stage {
     private World world;
-
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private ShapeRenderer shapeRenderer;
+    private WorldRenderer worldRenderer;
 
     private InputHandler inputHandler;
-
-    private EntityDrawer entityDrawer;
 
     public PlayerEntity player;
 
@@ -37,22 +30,23 @@ public class GameStage extends Stage {
         getCamera().setToOrtho(false, Constants.sizeX, Constants.sizeY);
         getCamera().update();
 
-        this.shapeRenderer = new ShapeRenderer();
-
         this.inputHandler = new InputHandler(this);
         this.addListener(inputHandler);
 
         this.world = new World(World.Maps.Testing);
+        this.worldRenderer = new WorldRenderer(world, this);
 
-        this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap(), Constants.scale);
+        setupPlayer();
+        addTestEntities();
+    }
 
-        this.entityDrawer = new EntityDrawer(shapeRenderer);
-        world.addSystemToEngine(entityDrawer);
-
-        world.addEntity(new EnemyEntity(7, 7));
-
+    private void setupPlayer() {
         this.player = new PlayerEntity(1, 1, 7, 7);
         world.addEntity(player);
+    }
+
+    private void addTestEntities() {
+        world.addEntity(new EnemyEntity(7, 7));
     }
 
     @Override
@@ -74,20 +68,7 @@ public class GameStage extends Stage {
         super.draw();
         getCamera().update();
 
-        mapRenderer.setView(getCamera());
-        mapRenderer.render();
-
-        entityDrawer.update(0.0f);
-        drawTileOutline();
-    }
-
-    private void drawTileOutline() {
-        Vector2 mapCoords = stageToMapCoordinates(inputHandler.getMouseLocation());
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(mapCoords.x * Constants.tileSize, mapCoords.y * Constants.tileSize, Constants.tileSize, Constants.tileSize);
-        shapeRenderer.end();
+        worldRenderer.render();
     }
 
     @Override
@@ -95,11 +76,15 @@ public class GameStage extends Stage {
         return (OrthographicCamera)super.getCamera();
     }
 
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
     @Override
     public void dispose() {
         super.dispose();
-        
-        mapRenderer.dispose();
+
+        worldRenderer.dispose();
         world.dispose();
     }
 
