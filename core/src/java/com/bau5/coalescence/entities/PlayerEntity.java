@@ -1,7 +1,6 @@
 package com.bau5.coalescence.entities;
 
 import com.badlogic.gdx.graphics.Color;
-
 import com.bau5.coalescence.entities.actions.MoveAction;
 
 

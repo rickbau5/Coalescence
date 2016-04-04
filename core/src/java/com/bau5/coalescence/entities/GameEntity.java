@@ -2,7 +2,6 @@ package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
-
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.World;
