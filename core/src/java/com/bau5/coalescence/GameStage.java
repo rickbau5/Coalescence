@@ -1,30 +1,28 @@
 package com.bau5.coalescence;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.bau5.coalescence.entities.EnemyEntity;
 import com.bau5.coalescence.entities.PlayerEntity;
 
 /**
  * Created by Rick on 4/1/16.
  */
 public class GameStage extends Stage {
-    private TiledMap map;
+    private World world;
+
     private OrthogonalTiledMapRenderer mapRenderer;
     private ShapeRenderer shapeRenderer;
 
     private InputHandler inputHandler;
 
-    private Engine engine;
     private EntityDrawer entityDrawer;
 
     public PlayerEntity player;
@@ -36,8 +34,6 @@ public class GameStage extends Stage {
         super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
                 new OrthographicCamera(Constants.sizeX, Constants.sizeY)));
 
-        this.map = new TmxMapLoader().load("maps/level-test.tmx");
-        this.mapRenderer = new OrthogonalTiledMapRenderer(map, Constants.scale);
         getCamera().setToOrtho(false, Constants.sizeX, Constants.sizeY);
         getCamera().update();
 
@@ -46,11 +42,17 @@ public class GameStage extends Stage {
         this.inputHandler = new InputHandler(this);
         this.addListener(inputHandler);
 
-        this.engine = new Engine();
-        this.entityDrawer = new EntityDrawer(shapeRenderer);
-        engine.addSystem(entityDrawer);
+        this.world = new World(World.Maps.Testing);
 
-        this.player = new PlayerEntity(engine, 1, 1, 7, 7);
+        this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap(), Constants.scale);
+
+        this.entityDrawer = new EntityDrawer(shapeRenderer);
+        world.addSystemToEngine(entityDrawer);
+
+        world.addEntity(new EnemyEntity(7, 7));
+
+        this.player = new PlayerEntity(1, 1, 7, 7);
+        world.addEntity(player);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class GameStage extends Stage {
             }
         }
 
-        engine.update(delta);
+        world.update(delta);
     }
 
     @Override
@@ -96,8 +98,9 @@ public class GameStage extends Stage {
     @Override
     public void dispose() {
         super.dispose();
+        
         mapRenderer.dispose();
-        map.dispose();
+        world.dispose();
     }
 
     public Vector2 stageToMapCoordinates(Vector2 stageCoords) {
@@ -110,5 +113,9 @@ public class GameStage extends Stage {
     public void beginPlayback() {
         player.beginPlayback();
         replaying = true;
+    }
+
+    public void reset() {
+        world.reset();
     }
 }
