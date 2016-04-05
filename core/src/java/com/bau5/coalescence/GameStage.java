@@ -53,11 +53,12 @@ public class GameStage extends Stage {
     public void act(float delta) {
         super.act(delta);
 
-        if (replaying) {
-            if (TimeUtils.millis() - secondTime > 1000) {
+        if (TimeUtils.millis() - secondTime > 1000) {
+            if (replaying) {
                 replaying = player.performNext();
-                secondTime = TimeUtils.millis();
             }
+
+            secondTime = TimeUtils.millis();
         }
 
         world.update(delta);

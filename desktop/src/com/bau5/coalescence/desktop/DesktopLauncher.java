@@ -1,4 +1,4 @@
-package com.mygdx.game.desktop;
+package com.bau5.coalescence.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

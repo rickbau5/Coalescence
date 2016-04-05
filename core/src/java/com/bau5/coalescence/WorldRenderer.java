@@ -2,7 +2,6 @@ package com.bau5.coalescence;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -14,7 +13,7 @@ public class WorldRenderer implements Disposable {
     private final World world;
     private final GameStage stage;
 
-    private final MapRenderer mapRenderer;
+    private final OrthogonalTiledMapRenderer mapRenderer;
     private final ShapeRenderer shapeRenderer;
 
     private final InputHandler inputHandler;

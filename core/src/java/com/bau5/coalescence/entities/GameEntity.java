@@ -33,8 +33,6 @@ public abstract class GameEntity extends Entity {
 
         this.actions = new LinkedList<>();
         this.playback = new LinkedList<>();
-
-        performAction(new MoveAction(pos.x(), pos.y()), true);
     }
 
     public GameEntity(int x, int y, int w, int h, Color color) {

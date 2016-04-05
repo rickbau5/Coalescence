@@ -1,8 +1,8 @@
 package com.bau5.coalescence
 
-import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
+import com.badlogic.gdx.{Gdx, Input}
 import com.bau5.coalescence.entities.GameEntity.Direction
 import com.bau5.coalescence.entities.actions.MoveAction
 
@@ -38,10 +38,12 @@ class InputHandler(stage: GameStage) extends InputListener {
       stage.player.moveInDirection(Direction.Right)
       true
 
-    // Force playback (debug)
+    // Reset all to beginning
     case 'r' =>
       stage.reset()
       true
+
+    // Force playback (debug)
     case 'p' =>
       stage.beginPlayback()
       true
