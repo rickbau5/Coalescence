@@ -43,12 +43,12 @@ public class World implements Disposable {
         entity.performAction(new MoveAction(entity.pos.x(), entity.pos.y()), true);
     }
 
-    public void loadMap(Maps map) {
-        this.map = loader.load(map.getPath());
-        this.terrainLayer = ((TiledMapTileLayer) this.map.getLayers().get(0));
+    public void loadMap(Maps mapDef) {
+        this.map = loader.load(mapDef.getPath());
+        this.terrainLayer = ((TiledMapTileLayer) this.map.getLayers().get(mapDef.getTerrainLayerName()));
 
         this.collidableObjects = new ArrayList<>();
-        for (TiledMapTile tile : this.map.getTileSets().getTileSet("terrain")) {
+        for (TiledMapTile tile : this.map.getTileSets().getTileSet(mapDef.getTerrainTileSetName())) {
             if (tile.getProperties().containsKey("collidable")) {
                 collidableObjects.add(tile.getId());
             }
@@ -89,16 +89,28 @@ public class World implements Disposable {
     }
 
     public enum Maps {
-        Testing("level-test");
+        Testing("level-test", "terrain", "terrain");
 
         private final String name;
+        private final String terrainLayerName;
+        private final String terrainTileSetName;
 
-        Maps(String name) {
+        Maps(String name, String terrainLayerName, String terrainTileSetName) {
             this.name = name;
+            this.terrainLayerName = terrainLayerName;
+            this.terrainTileSetName = terrainTileSetName;
         }
 
         public String getPath() {
             return String.format("maps/%s.tmx", name);
+        }
+
+        public String getTerrainLayerName() {
+            return terrainLayerName;
+        }
+
+        public String getTerrainTileSetName() {
+            return terrainTileSetName;
         }
     }
 }
