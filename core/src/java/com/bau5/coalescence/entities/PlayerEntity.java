@@ -1,6 +1,7 @@
 package com.bau5.coalescence.entities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.entities.actions.MoveAction;
 
 
@@ -13,14 +14,14 @@ public class PlayerEntity extends GameEntity {
     }
 
     @Override
-    public MoveAction moveInDirection(GameEntity.Direction dir) {
+    public MoveAction moveInDirection(Direction dir) {
         MoveAction action = super.moveInDirection(dir);
         performAction(action, true);
         return action;
     }
 
     @Override
-    public void die() {
-        // TODO Do something, clone and create a new char for playback?
+    public void onDeath() {
+        System.out.println("Removing player.");
     }
 }

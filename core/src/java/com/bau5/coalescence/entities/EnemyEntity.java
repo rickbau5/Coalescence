@@ -18,7 +18,7 @@ public class EnemyEntity extends GameEntity {
     }
 
     @Override
-    public void die() {
-        world.getEngine().removeEntity(this);
+    public void onDeath() {
+        System.out.println("Removing Enemy.");
     }
 }

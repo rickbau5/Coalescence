@@ -10,4 +10,6 @@ public class Constants {
     public static final int rawTileSize = 16;
     public static final float scale = 2;
     public static final int tileSize = rawTileSize * (int)scale;
+
+    public static final String arrowLauncher = "arrow_launcher";
 }

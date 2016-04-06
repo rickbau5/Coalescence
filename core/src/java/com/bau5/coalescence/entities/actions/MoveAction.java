@@ -4,14 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * MoveAction is a simple action that moves an entity from
- * their position to the target position instanteously
+ * their position to the target position instantaneously
  *
  * Created by Rick on 4/2/16.
  */
 public class MoveAction extends Action {
-    int targetX, targetY;
+    private float targetX, targetY;
 
-    public MoveAction(int x, int y) {
+    public MoveAction(float x, float y) {
         this.targetX = x;
         this.targetY = y;
     }
@@ -22,7 +22,7 @@ public class MoveAction extends Action {
 
     @Override
     public void execute() {
-        if (getActor().world.isTileCollidable(targetX, targetY)) {
+        if (getActor().world.isTileCollidable((int)targetX, (int) targetY)) {
             System.out.println("Cannot execute move, blocked by a collidable tile.");
             return;
         }
@@ -31,6 +31,6 @@ public class MoveAction extends Action {
 
     @Override
     public String toString() {
-        return String.format("[MoveAction: %d, %d]", targetX, targetY);
+        return String.format("[MoveAction: %f, %f]", targetX, targetY);
     }
 }

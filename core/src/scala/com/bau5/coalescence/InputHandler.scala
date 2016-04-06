@@ -3,8 +3,10 @@ package com.bau5.coalescence
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
 import com.badlogic.gdx.{Gdx, Input}
-import com.bau5.coalescence.entities.GameEntity.Direction
+import com.bau5.coalescence.entities.ProjectileEntity
 import com.bau5.coalescence.entities.actions.MoveAction
+
+import scala.collection.JavaConversions._
 
 /**
   * Created by Rick on 4/1/16.
@@ -43,13 +45,22 @@ class InputHandler(stage: GameStage) extends InputListener {
       stage.reset()
       true
 
+    // Spawn testing item
+    case 'x' =>
+      for (obj <- stage.getWorld.getTiledMapObjects.iterator()) {
+        val vec = Direction.getOffsetForDirection(obj.getDirectionFacing)
+        stage.getWorld.addEntity(new ProjectileEntity(obj.getX + vec.x, obj.getY + vec.y))
+      }
+
+      true
+
     // Force playback (debug)
     case 'p' =>
       stage.beginPlayback()
       true
+
     case _ => false
   }
-
 
   override def keyUp(event: InputEvent, keycode: Int): Boolean = keycode match {
     case Input.Keys.ESCAPE =>

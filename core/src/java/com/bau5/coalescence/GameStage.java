@@ -81,6 +81,10 @@ public class GameStage extends Stage {
         return inputHandler;
     }
 
+    public World getWorld() {
+        return world;
+    }
+
     @Override
     public void dispose() {
         super.dispose();

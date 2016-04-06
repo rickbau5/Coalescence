@@ -3,6 +3,7 @@ package com.bau5.coalescence.entities;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.AttributeComponent;
+import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.World;
 import com.bau5.coalescence.entities.actions.Action;
@@ -64,7 +65,7 @@ public abstract class GameEntity extends Entity {
         return true;
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(float x, float y) {
         if (x < 0) {
             x = 0;
         } else if (x > 15) {  //TODO un-hard code these bounds
@@ -80,8 +81,8 @@ public abstract class GameEntity extends Entity {
     }
 
     public MoveAction moveInDirection(Direction dir) {
-        int xOff = 0;
-        int yOff = 0;
+        float xOff = 0;
+        float yOff = 0;
         switch (dir) {
             case Up:
                 yOff = 1;
@@ -99,11 +100,11 @@ public abstract class GameEntity extends Entity {
         return new MoveAction(pos.x() + xOff, pos.y() + yOff);
     }
 
-    public enum Direction {
-        Up, Down, Left, Right
+    public void die() {
+        if (world != null) world.removeEntity(this);
     }
 
-    public abstract void die();
+    public abstract void onDeath();
 
     public void reset() {
         MoveAction action = (MoveAction)actions.getFirst();
