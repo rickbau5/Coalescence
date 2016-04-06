@@ -29,19 +29,33 @@ public class World implements Disposable {
 
     private TiledMapTileLayer terrainLayer;
 
+    // List of id's of collidable tiles, used for faster lookup
     private ArrayList<Integer> collidables;
+    // List of objects on the loaded map, represented in an adapter class
     private ArrayList<TiledMapObject> tiledMapObjects;
 
+    /**
+     * Intializes the world, creating the engine and it's base systems,
+     * and loading the world as per the Maps enum.
+     *
+     * @param mapToLoad Enum representing map to load
+     */
     public World(Maps mapToLoad) {
         this.engine = new Engine();
         this.loader = new TmxMapLoader();
 
         loadMap(mapToLoad);
 
+        // All worlds will need an movement and collision system
         addSystemToEngine(new EntityMovement(this));
         addSystemToEngine(new EntityCollision(this));
     }
 
+    /**
+     * Update the world's logic.
+     *
+     * @param delta time passed since last update
+     */
     public void update(float delta) {
         engine.update(delta);
     }
@@ -63,6 +77,14 @@ public class World implements Disposable {
         return cell.getTile();
     }
 
+    /**
+     * Checks if the tile at the given coords is collidable
+     *
+     * @param x map coordinant
+     * @param y map coordinant
+     * @return  false if out of bounds, or not collidable
+     *          true if collidable
+     */
     public boolean isTileCollidable(int x, int y) {
         TiledMapTile tile = getTileAt(x, y);
         if (tile == null) return false;

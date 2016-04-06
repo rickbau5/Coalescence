@@ -6,11 +6,12 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
-import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.World;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayerEntity;
+import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
 
 /**
  * Created by Rick on 4/5/2016.
@@ -19,11 +20,17 @@ public class EntityCollision extends IteratingSystem {
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<AttributeComponent> am = ComponentMapper.getFor(AttributeComponent.class);
 
+    // Rectangles, reused to avoid excessive GC
     private Rectangle r1 = new Rectangle();
     private Rectangle r2 = new Rectangle();
 
     private final World world;
 
+    /**
+     * A system for detecting collisions between entities, other entities, and tiles.
+     *
+     * @param world the world, for checking tiles.
+     */
     public EntityCollision(World world) {
         super(Family.all(PositionComponent.class, AttributeComponent.class).get());
 
@@ -40,27 +47,36 @@ public class EntityCollision extends IteratingSystem {
                 AttributeComponent attributeComponent = am.get(gameEntity);
 
                 // Check if collide with tile
-                if (world.isTileCollidable(((int) positionComponent.x()), (int) positionComponent.y())) {
-                    gameEntity.die();
+                if (world.isTileCollidable((int) positionComponent.x(), (int) positionComponent.y())) {
+                    gameEntity.handleEvent(new EntityTerrainCollisionEvent(gameEntity));
                     continue;
                 }
 
                 //Check if collision with other entity
                 mapToRectangle(r1, positionComponent, attributeComponent);
                 for (Entity otherEntity : getEngine().getEntities()) {
-                    if (otherEntity == entity) continue;
-                    PositionComponent otherPos = pm.get(otherEntity);
-                    AttributeComponent otherAttrib = am.get(otherEntity);
+                    if (otherEntity == entity || !(otherEntity instanceof GameEntity)) continue;        // Skip this entity
+                    GameEntity otherGameEntity = (GameEntity) otherEntity;
+                    PositionComponent otherPos = pm.get(otherGameEntity);
+                    AttributeComponent otherAttrib = am.get(otherGameEntity);
                     mapToRectangle(r2, otherPos, otherAttrib);
                     if (r1.overlaps(r2)) {
-                        System.out.println("Collided with entity!");
-                        gameEntity.die();
+                        EntityCollisionEvent event = new EntityCollisionEvent(gameEntity, otherGameEntity);
+                        gameEntity.handleEvent(event);
+                        otherGameEntity.handleEvent(event);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Projects an entity's bounding box onto a rectangle, for maths
+     * @param rectangle The rectangle to project onto.
+     * @param pos The position component for the entity.
+     * @param attrib The attribute component for the entity.
+     * @return The rectangle provided, but updated.
+     */
     public Rectangle mapToRectangle(Rectangle rectangle, PositionComponent pos, AttributeComponent attrib) {
         float x = pos.x();
         float y = pos.y();

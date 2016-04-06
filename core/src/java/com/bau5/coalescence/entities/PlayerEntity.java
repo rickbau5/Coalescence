@@ -3,6 +3,8 @@ package com.bau5.coalescence.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.entities.actions.MoveAction;
+import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.Event;
 
 
 /**
@@ -18,6 +20,17 @@ public class PlayerEntity extends GameEntity {
         MoveAction action = super.moveInDirection(dir);
         performAction(action, true);
         return action;
+    }
+
+    @Override
+    public void handleEvent(Event event) {
+        if (event.type == Event.EventType.EntityCollision) {
+            EntityCollisionEvent collision = (EntityCollisionEvent) event;
+            if (collision.getOtherEntity(this) instanceof ProjectileEntity) {
+                System.out.println("Hit by arrow");
+                this.reset();
+            }
+        }
     }
 
     @Override

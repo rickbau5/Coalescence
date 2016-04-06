@@ -8,6 +8,7 @@ import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.World;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
+import com.bau5.coalescence.entities.events.Event;
 
 import java.util.LinkedList;
 
@@ -100,7 +101,20 @@ public abstract class GameEntity extends Entity {
         return new MoveAction(pos.x() + xOff, pos.y() + yOff);
     }
 
+    /**
+     * Abstract function for handling of events. Descendants
+     * must implement their own collision logic.
+     *
+     * Note: The primary entity of the event may not be this
+     * entity. Use event.getOtherEntity(this) to access the
+     * other entity of the event.
+     *
+     * @param event The event to handle.
+     */
+    public abstract void handleEvent(Event event);
+
     public void die() {
+        onDeath();
         if (world != null) world.removeEntity(this);
     }
 

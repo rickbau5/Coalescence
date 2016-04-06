@@ -3,6 +3,7 @@ package com.bau5.coalescence.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.entities.events.Event;
 
 
 /**
@@ -11,6 +12,11 @@ import com.bau5.coalescence.PositionComponent;
 public class EnemyEntity extends GameEntity {
     public EnemyEntity(PositionComponent pos, AttributeComponent attrib) {
         super(pos, attrib);
+    }
+
+    @Override
+    public void handleEvent(Event event) {
+        System.out.println("Unimplemented enemy collision.");
     }
 
     public EnemyEntity(int x, int y) {
