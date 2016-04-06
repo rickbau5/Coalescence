@@ -17,7 +17,7 @@ public class MoveAction extends Action {
     }
 
     public MoveAction(Vector2 vec) {
-        this((int)vec.x, (int)vec.y);
+        this(vec.x, vec.y);
     }
 
     @Override

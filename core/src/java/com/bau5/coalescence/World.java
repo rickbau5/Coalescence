@@ -11,6 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
+import com.bau5.coalescence.engine.systems.EntityCollision;
+import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.actions.MoveAction;
 
@@ -35,6 +37,9 @@ public class World implements Disposable {
         this.loader = new TmxMapLoader();
 
         loadMap(mapToLoad);
+
+        addSystemToEngine(new EntityMovement(this));
+        addSystemToEngine(new EntityCollision(this));
     }
 
     public void update(float delta) {
@@ -52,8 +57,24 @@ public class World implements Disposable {
         engine.removeEntity(entity);
     }
 
-    public ArrayList<TiledMapObject> getTiledMapObjects() {
-        return tiledMapObjects;
+    public TiledMapTile getTileAt(int x, int y) {
+        TiledMapTileLayer.Cell cell = terrainLayer.getCell(x, y);
+        if (cell == null) return null;
+        return cell.getTile();
+    }
+
+    public boolean isTileCollidable(int x, int y) {
+        TiledMapTile tile = getTileAt(x, y);
+        if (tile == null) return false;
+        return collidables.contains(tile.getId());
+    }
+
+    public int getMapWidth() {
+        return terrainLayer.getWidth();
+    }
+
+    public int getMapHeight() {
+        return terrainLayer.getHeight();
     }
 
     public void loadMap(Maps mapDef) {
@@ -85,14 +106,6 @@ public class World implements Disposable {
         }
     }
 
-    public TiledMapTile getTileAt(int x, int y) {
-        return terrainLayer.getCell(x, y).getTile();
-    }
-
-    public boolean isTileCollidable(int x, int y) {
-        return collidables.contains(getTileAt(x, y).getId());
-    }
-
     public void addSystemToEngine(EntitySystem system) {
         this.engine.addSystem(system);
     }
@@ -103,6 +116,10 @@ public class World implements Disposable {
 
     public TiledMap getMap() {
         return map;
+    }
+
+    public ArrayList<TiledMapObject> getTiledMapObjects() {
+        return tiledMapObjects;
     }
 
     @Override

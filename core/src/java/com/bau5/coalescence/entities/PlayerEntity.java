@@ -9,7 +9,7 @@ import com.bau5.coalescence.entities.actions.MoveAction;
  * Created by Rick on 4/2/16.
  */
 public class PlayerEntity extends GameEntity {
-    public PlayerEntity(int x, int y, int w, int h) {
+    public PlayerEntity(float x, float y, int w, int h) {
         super(x, y, w, h, Color.RED);
     }
 

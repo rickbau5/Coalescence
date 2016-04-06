@@ -37,11 +37,11 @@ public class GameStage extends Stage {
         this.worldRenderer = new WorldRenderer(world, this);
 
         setupPlayer();
-        addTestEntities();
+//        addTestEntities();
     }
 
     private void setupPlayer() {
-        this.player = new PlayerEntity(1, 1, 7, 7);
+        this.player = new PlayerEntity(1.5f, 1.5f, 7, 7);
         world.addEntity(player);
     }
 

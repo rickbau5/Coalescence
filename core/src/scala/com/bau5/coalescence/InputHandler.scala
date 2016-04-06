@@ -21,7 +21,7 @@ class InputHandler(stage: GameStage) extends InputListener {
 
   override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
     val trans = stage.stageToMapCoordinates(new Vector2(x, y))
-    stage.player.performAction(new MoveAction(trans), true)
+    stage.player.performAction(new MoveAction(trans.add(0.5f, 0.5f)), true)
     true
   }
 
@@ -47,9 +47,10 @@ class InputHandler(stage: GameStage) extends InputListener {
 
     // Spawn testing item
     case 'x' =>
-      for (obj <- stage.getWorld.getTiledMapObjects.iterator()) {
-        val vec = Direction.getOffsetForDirection(obj.getDirectionFacing)
-        stage.getWorld.addEntity(new ProjectileEntity(obj.getX + vec.x, obj.getY + vec.y))
+      for (obj <- stage.getWorld.getTiledMapObjects) {
+        val dir = obj.getDirectionFacing
+        val vec = Direction.getOffsetForDirection(dir)
+        stage.getWorld.addEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
       }
 
       true

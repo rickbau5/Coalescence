@@ -1,10 +1,13 @@
-package com.bau5.coalescence;
+package com.bau5.coalescence.engine.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.bau5.coalescence.AttributeComponent;
+import com.bau5.coalescence.Constants;
+import com.bau5.coalescence.PositionComponent;
 
 /**
  * Created by Rick on 4/1/16.
@@ -31,7 +34,7 @@ public class EntityDrawer extends IteratingSystem {
 
             renderer.setColor(attributes.color());
             renderer.begin(ShapeRenderer.ShapeType.Filled);
-            renderer.rect(position.x() * Constants.tileSize - width / 2 + 16, position.y() * Constants.tileSize - height / 2 + 16, width, height);
+            renderer.rect(position.x() * Constants.tileSize - width / 2, position.y() * Constants.tileSize - height / 2, width, height);
             renderer.end();
         }
     }

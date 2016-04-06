@@ -36,7 +36,7 @@ public abstract class GameEntity extends Entity {
         this.playback = new LinkedList<>();
     }
 
-    public GameEntity(int x, int y, int w, int h, Color color) {
+    public GameEntity(float x, float y, int w, int h, Color color) {
         this(new PositionComponent(x, y), new AttributeComponent(w, h, color));
     }
 
