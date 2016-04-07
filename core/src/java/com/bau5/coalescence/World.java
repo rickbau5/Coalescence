@@ -15,9 +15,13 @@ import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
 import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
+import com.bau5.coalescence.entities.actions.SpawnAction;
+import scala.Unit;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 /**
@@ -35,6 +39,9 @@ public class World implements Disposable {
     // List of objects on the loaded map, represented in an adapter class
     private ArrayList<TiledMapObject> tiledMapObjects;
 
+    private LinkedList<Action> worldActions;
+    private LinkedList<Action> replayActions;
+
     private long worldStep = 0;
     private float accumulator = 0.0f;
     private float stepThreshold = 0.1f;
@@ -50,6 +57,9 @@ public class World implements Disposable {
     public World(Maps mapToLoad) {
         this.engine = new Engine();
         this.loader = new TmxMapLoader();
+
+        this.worldActions = new LinkedList<>();
+        this.replayActions = new LinkedList<>();
 
         loadMap(mapToLoad);
 
@@ -70,17 +80,35 @@ public class World implements Disposable {
             accumulator = 0.0f;
             worldStep += 1;
         }
+        performStep(worldStep);
         engine.update(delta);
     }
 
-    public void addEntity(GameEntity entity) {
+    public void performStep(long worldStep) {
+        if (replayActions.isEmpty()) return;
+        if (replayActions.peek().getRecordedTime() <= worldStep) {
+            Action action = replayActions.pop();
+
+            System.out.println("Executing world action: " + action + " for world step " + worldStep);
+            action.execute();
+        }
+    }
+
+    public void spawnEntity(GameEntity entity) {
         entity.setWorld(this);
+        SpawnAction spawnAction = new SpawnAction(entity);
+
+        replayActions.add(spawnAction);
+        worldActions.add(spawnAction);
+    }
+
+    public void addEntity(GameEntity entity) {
+        if (entity.world == null) entity.setWorld(this);
         engine.addEntity(entity);
         entity.performAction(new MoveAction(entity.pos.x(), entity.pos.y()), true);
     }
 
     public void removeEntity(GameEntity entity) {
-        entity.setWorld(null);
         engine.removeEntity(entity);
     }
 
@@ -92,11 +120,10 @@ public class World implements Disposable {
         replaying = true;
         worldStep = 0;
 
-        for (Entity entity : engine.getEntities()) {
-            if (entity instanceof GameEntity) {
-                ((GameEntity) entity).beginPlayback();
-            }
-        }
+        if (!replayActions.isEmpty()) replayActions.clear();
+        replayActions.addAll(worldActions);
+
+        engine.removeAllEntities();
     }
 
     public TiledMapTile getTileAt(int x, int y) {

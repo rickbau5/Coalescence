@@ -50,7 +50,7 @@ class InputHandler(stage: GameStage) extends InputListener {
       for (obj <- stage.getWorld.getTiledMapObjects) {
         val dir = obj.getDirectionFacing
         val vec = Direction.getOffsetForDirection(dir)
-        stage.getWorld.addEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
+        stage.getWorld.spawnEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
       }
 
       true

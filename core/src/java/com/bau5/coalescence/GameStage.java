@@ -42,11 +42,11 @@ public class GameStage extends Stage {
 
     private void setupPlayer() {
         this.player = new PlayerEntity(1.5f, 1.5f, 7, 7);
-        world.addEntity(player);
+        world.spawnEntity(player);
     }
 
     private void addTestEntities() {
-        world.addEntity(new EnemyEntity(7, 7));
+        world.spawnEntity(new EnemyEntity(7, 7));
     }
 
     @Override
