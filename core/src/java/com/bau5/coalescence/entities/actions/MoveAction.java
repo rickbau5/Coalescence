@@ -22,6 +22,8 @@ public class MoveAction extends Action {
 
     @Override
     public void execute() {
+        super.execute();
+
         if (getActor().world.isTileCollidable((int)targetX, (int) targetY)) {
             System.out.println("Cannot execute move, blocked by a collidable tile.");
             return;

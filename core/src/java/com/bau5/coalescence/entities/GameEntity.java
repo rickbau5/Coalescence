@@ -66,6 +66,16 @@ public abstract class GameEntity extends Entity {
         return true;
     }
 
+    public void performStep(long worldStep) {
+        if (playback.isEmpty()) return;
+        if (playback.peek().getRecordedTime() <= worldStep) {
+            Action action = playback.pop();
+
+            System.out.println("Executing action: " + action + " for world step " + worldStep);
+            action.execute();
+        }
+    }
+
     public void setPosition(float x, float y) {
         if (x < 0) {
             x = 0;

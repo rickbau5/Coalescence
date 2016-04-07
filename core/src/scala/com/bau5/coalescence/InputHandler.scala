@@ -42,7 +42,7 @@ class InputHandler(stage: GameStage) extends InputListener {
 
     // Reset all to beginning
     case 'r' =>
-      stage.reset()
+      stage.getWorld.replay()
       true
 
     // Spawn testing item

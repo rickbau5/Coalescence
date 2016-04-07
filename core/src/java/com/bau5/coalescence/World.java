@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
+import com.bau5.coalescence.engine.systems.EntityReplayer;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.actions.MoveAction;
 
@@ -34,6 +35,12 @@ public class World implements Disposable {
     // List of objects on the loaded map, represented in an adapter class
     private ArrayList<TiledMapObject> tiledMapObjects;
 
+    private long worldStep = 0;
+    private float accumulator = 0.0f;
+    private float stepThreshold = 0.1f;
+
+    private boolean replaying = false;
+
     /**
      * Intializes the world, creating the engine and it's base systems,
      * and loading the world as per the Maps enum.
@@ -47,8 +54,9 @@ public class World implements Disposable {
         loadMap(mapToLoad);
 
         // All worlds will need an movement and collision system
-        addSystemToEngine(new EntityMovement(this));
         addSystemToEngine(new EntityCollision(this));
+        addSystemToEngine(new EntityMovement(this));
+        addSystemToEngine(new EntityReplayer(this));
     }
 
     /**
@@ -57,6 +65,11 @@ public class World implements Disposable {
      * @param delta time passed since last update
      */
     public void update(float delta) {
+        accumulator += delta;
+        if (accumulator >= stepThreshold) {
+            accumulator = 0.0f;
+            worldStep += 1;
+        }
         engine.update(delta);
     }
 
@@ -69,6 +82,21 @@ public class World implements Disposable {
     public void removeEntity(GameEntity entity) {
         entity.setWorld(null);
         engine.removeEntity(entity);
+    }
+
+    public boolean isReplaying() {
+        return replaying;
+    }
+
+    public void replay() {
+        replaying = true;
+        worldStep = 0;
+
+        for (Entity entity : engine.getEntities()) {
+            if (entity instanceof GameEntity) {
+                ((GameEntity) entity).beginPlayback();
+            }
+        }
     }
 
     public TiledMapTile getTileAt(int x, int y) {
@@ -89,6 +117,10 @@ public class World implements Disposable {
         TiledMapTile tile = getTileAt(x, y);
         if (tile == null) return false;
         return collidables.contains(tile.getId());
+    }
+
+    public long getWorldStep() {
+        return worldStep;
     }
 
     public int getMapWidth() {
