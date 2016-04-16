@@ -30,6 +30,8 @@ public class PlayerEntity extends GameEntity {
                 System.out.println("Hit by arrow");
                 this.reset();
             }
+        } else if (event.type == Event.EventType.EntityObjectCollision) {
+
         }
     }
 

@@ -6,10 +6,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
@@ -38,12 +35,12 @@ public class World implements Disposable {
     // List of objects on the loaded map, represented in an adapter class
     private ArrayList<TiledMapObject> tiledMapObjects;
 
+    private MapCell[][] mapCells;
+
     private LinkedList<Action> worldActions;
     private LinkedList<Action> replayActions;
 
     private long worldStep = 0;
-    private float accumulator = 0.0f;
-    private float stepThreshold = 0.1f;
 
     private boolean replaying = false;
 
@@ -132,10 +129,10 @@ public class World implements Disposable {
         }
     }
 
-    public TiledMapTile getTileAt(int x, int y) {
-        TiledMapTileLayer.Cell cell = terrainLayer.getCell(x, y);
-        if (cell == null) return null;
-        return cell.getTile();
+    public MapCell getCellAt(int x, int y) {
+        if (x < 0 || x >= getMapWidth()) return null;
+        if (y < 0 || y >= getMapHeight()) return null;
+        return mapCells[x][y];
     }
 
     /**
@@ -147,9 +144,8 @@ public class World implements Disposable {
      *          true if collidable
      */
     public boolean isTileCollidable(int x, int y) {
-        TiledMapTile tile = getTileAt(x, y);
-        if (tile == null) return false;
-        return collidables.contains(tile.getId());
+        MapCell cell = getCellAt(x, y);
+        return cell == null ? false : collidables.contains(cell.getTile().getId());
     }
 
     public long getWorldStep() {
@@ -181,6 +177,19 @@ public class World implements Disposable {
             if (mapObject instanceof TextureMapObject) {
                 TextureMapObject object = ((TextureMapObject) mapObject);
                 tiledMapObjects.add(new TiledMapObject(object));
+            }
+        }
+
+        this.mapCells = new MapCell[terrainLayer.getWidth()][terrainLayer.getHeight()];
+        for (int i = 0; i < terrainLayer.getWidth(); i++) {
+            for (int j = 0; j < terrainLayer.getHeight(); j++) {
+                TiledMapObject object = null;
+                for (TiledMapObject obj : tiledMapObjects) {
+                    if (obj.getX() == i && obj.getY() == j) {
+                        object = obj;
+                    }
+                }
+                mapCells[i][j] = new MapCell(i, j, terrainLayer.getCell(i, j).getTile(), object);
             }
         }
     }
@@ -240,7 +249,7 @@ public class World implements Disposable {
     }
 
     public class TiledMapObject {
-        private final float x, y;
+        private final int x, y;
         private final float rotation;
 
         public TiledMapObject(TextureMapObject mapObject) {
@@ -249,16 +258,16 @@ public class World implements Disposable {
                 r = 360 + r;
             }
 
-            float xOff = 0f;
-            float yOff = 0f;
+            int xOff = 0;
+            int yOff = 0;
             if (r > 90f) {
-                xOff -= 1f;
+                xOff -= 1;
             }
             if (r <= 180 && r >= 90) {
-                yOff -= 1f;
+                yOff -= 1;
             }
-            this.x = ((mapObject.getX() * 2) / Constants.tileSize) + xOff;
-            this.y = ((mapObject.getY() * 2) / Constants.tileSize) + yOff;
+            this.x = (int)((mapObject.getX() * 2) / Constants.tileSize) + xOff;
+            this.y = (int)((mapObject.getY() * 2) / Constants.tileSize) + yOff;
             this.rotation = r;
         }
 
@@ -276,6 +285,40 @@ public class World implements Disposable {
 
         public Direction getDirectionFacing() {
             return Direction.fromDegrees(rotation);
+        }
+    }
+
+    public class MapCell {
+        private final int x;
+        private final int y;
+        private final TiledMapTile tile;
+        private final TiledMapObject object;
+
+        public MapCell(int x, int y, TiledMapTile tile, TiledMapObject object) {
+            this.x = x;
+            this.y = y;
+            this.tile = tile;
+            this.object = object;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public TiledMapObject getObject() {
+            return object;
+        }
+
+        public TiledMapTile getTile() {
+            return tile;
+        }
+
+        public boolean hasObject() {
+            return object != null;
         }
     }
 }

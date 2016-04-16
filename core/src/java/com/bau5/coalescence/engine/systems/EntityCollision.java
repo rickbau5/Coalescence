@@ -11,6 +11,7 @@ import com.bau5.coalescence.World;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayerEntity;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
 
 /**
@@ -40,14 +41,22 @@ public class EntityCollision extends IteratingSystem {
     @Override
     public void update(float deltaTime) {
         for (Entity entity : getEntities()) {
-            if (entity instanceof PlayerEntity) continue;
-            if (entity instanceof GameEntity) {
-                GameEntity gameEntity = (GameEntity) entity;
-                PositionComponent positionComponent = pm.get(gameEntity);
-                AttributeComponent attributeComponent = am.get(gameEntity);
+            GameEntity gameEntity = (GameEntity) entity;
+            PositionComponent positionComponent = pm.get(gameEntity);
+            AttributeComponent attributeComponent = am.get(gameEntity);
 
+            int x = (int) positionComponent.x();
+            int y = (int) positionComponent.y();
+
+            // Check if on tile with a collidable object
+            World.MapCell cell = world.getCellAt(x, y);
+            if (cell != null && cell.getObject() != null) {
+                gameEntity.handleEvent(new EntityObjectCollisionEvent(gameEntity, cell.getObject()));
+            }
+
+            if (!(entity instanceof PlayerEntity)) {
                 // Check if collide with tile
-                if (world.isTileCollidable((int) positionComponent.x(), (int) positionComponent.y())) {
+                if (world.isTileCollidable(x, y)) {
                     gameEntity.handleEvent(new EntityTerrainCollisionEvent(gameEntity));
                     continue;
                 }
