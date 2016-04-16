@@ -53,14 +53,6 @@ public class GameStage extends Stage {
     public void act(float delta) {
         super.act(delta);
 
-        if (TimeUtils.millis() - secondTime > 1000) {
-            if (replaying) {
-                replaying = player.performNext();
-            }
-
-            secondTime = TimeUtils.millis();
-        }
-
         world.update(delta);
     }
 
@@ -98,14 +90,5 @@ public class GameStage extends Stage {
         int row = (int) stageCoords.x / tileSize;
         int col = (int) stageCoords.y / tileSize;
         return stageCoords.set(row, col);
-    }
-
-    public void beginPlayback() {
-        player.beginPlayback();
-        replaying = true;
-    }
-
-    public void reset() {
-        world.reset();
     }
 }

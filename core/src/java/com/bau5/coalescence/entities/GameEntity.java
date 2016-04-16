@@ -56,22 +56,11 @@ public abstract class GameEntity extends Entity {
         playback.addAll(actions);
     }
 
-    public boolean performNext() {
-        if (playback.isEmpty()) return false;
-        Action next = playback.pop();
-
-        System.out.println("Executing action: " + next);
-        next.execute();
-
-        return true;
-    }
-
     public void performStep(long worldStep) {
         if (playback.isEmpty()) return;
         if (playback.peek().getRecordedTime() <= worldStep) {
             Action action = playback.pop();
 
-            System.out.println("Executing action: " + action + " for world step " + worldStep);
             action.execute();
         }
     }
@@ -133,5 +122,9 @@ public abstract class GameEntity extends Entity {
     public void reset() {
         MoveAction action = (MoveAction)actions.getFirst();
         performAction(action, false);
+    }
+
+    public boolean shouldRecordSpawn() {
+        return actions.size() == 0;
     }
 }

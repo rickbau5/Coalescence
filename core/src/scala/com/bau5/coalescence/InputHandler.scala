@@ -52,12 +52,6 @@ class InputHandler(stage: GameStage) extends InputListener {
         val vec = Direction.getOffsetForDirection(dir)
         stage.getWorld.spawnEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
       }
-
-      true
-
-    // Force playback (debug)
-    case 'p' =>
-      stage.beginPlayback()
       true
 
     case _ => false
@@ -67,6 +61,7 @@ class InputHandler(stage: GameStage) extends InputListener {
     case Input.Keys.ESCAPE =>
       Gdx.app.exit()
       true;
+
     case _ => super.keyUp(event, keycode)
   }
 

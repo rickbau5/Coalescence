@@ -75,12 +75,9 @@ public class World implements Disposable {
      * @param delta time passed since last update
      */
     public void update(float delta) {
-        accumulator += delta;
-        if (accumulator >= stepThreshold) {
-            accumulator = 0.0f;
-            worldStep += 1;
-        }
+        worldStep += 1;
         performStep(worldStep);
+
         engine.update(delta);
     }
 
@@ -105,7 +102,7 @@ public class World implements Disposable {
     public void addEntity(GameEntity entity) {
         if (entity.world == null) entity.setWorld(this);
         engine.addEntity(entity);
-        entity.performAction(new MoveAction(entity.pos.x(), entity.pos.y()), true);
+        entity.performAction(new MoveAction(entity.pos.x(), entity.pos.y()), entity.shouldRecordSpawn());
     }
 
     public void removeEntity(GameEntity entity) {
@@ -120,10 +117,20 @@ public class World implements Disposable {
         replaying = true;
         worldStep = 0;
 
+        reset();
+
         if (!replayActions.isEmpty()) replayActions.clear();
         replayActions.addAll(worldActions);
 
         engine.removeAllEntities();
+    }
+
+    public void reset() {
+        for (Entity ent: engine.getEntities()) {
+            if (ent instanceof GameEntity) {
+                ((GameEntity)ent).reset();
+            }
+        }
     }
 
     public TiledMapTile getTileAt(int x, int y) {
@@ -175,14 +182,6 @@ public class World implements Disposable {
             if (mapObject instanceof TextureMapObject) {
                 TextureMapObject object = ((TextureMapObject) mapObject);
                 tiledMapObjects.add(new TiledMapObject(object));
-            }
-        }
-    }
-
-    public void reset() {
-        for (Entity ent: engine.getEntities()) {
-            if (ent instanceof GameEntity) {
-                ((GameEntity)ent).reset();
             }
         }
     }
