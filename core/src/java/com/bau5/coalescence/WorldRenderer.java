@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.engine.systems.EntityDrawer;
-import com.bau5.coalescence.engine.systems.EntityMovement;
 
 /**
  * Created by Rick on 4/4/16.

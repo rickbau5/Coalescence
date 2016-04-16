@@ -18,7 +18,6 @@ import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
-import scala.Unit;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

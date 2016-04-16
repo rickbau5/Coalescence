@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.bau5.coalescence.entities.EnemyEntity;
 import com.bau5.coalescence.entities.PlayerEntity;
@@ -20,8 +19,7 @@ public class GameStage extends Stage {
 
     public PlayerEntity player;
 
-    private long secondTime = TimeUtils.millis();
-    private boolean replaying = false;
+    private boolean paused = false;
 
     public GameStage() {
         super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
@@ -53,7 +51,9 @@ public class GameStage extends Stage {
     public void act(float delta) {
         super.act(delta);
 
-        world.update(delta);
+        if (!paused) {
+            world.update(delta);
+        }
     }
 
     @Override
@@ -90,5 +90,15 @@ public class GameStage extends Stage {
         int row = (int) stageCoords.x / tileSize;
         int col = (int) stageCoords.y / tileSize;
         return stageCoords.set(row, col);
+    }
+
+    public void togglePaused() {
+        this.paused = !paused;
+
+        System.out.println("Game is now " + (isPaused() ? "paused." : "unpaused."));
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 }

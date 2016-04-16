@@ -19,13 +19,13 @@ class InputHandler(stage: GameStage) extends InputListener {
     true
   }
 
-  override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
+  override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = if (stage.isPaused) false else {
     val trans = stage.stageToMapCoordinates(new Vector2(x, y))
     stage.player.performAction(new MoveAction(trans.add(0.5f, 0.5f)), true)
     true
   }
 
-  override def keyTyped(event: InputEvent, character: Char): Boolean = character match {
+  override def keyTyped(event: InputEvent, character: Char): Boolean = if (stage.isPaused) false else character match {
     // Player movement
     case 'w' =>
       stage.player.moveInDirection(Direction.Up)
@@ -60,7 +60,11 @@ class InputHandler(stage: GameStage) extends InputListener {
   override def keyUp(event: InputEvent, keycode: Int): Boolean = keycode match {
     case Input.Keys.ESCAPE =>
       Gdx.app.exit()
-      true;
+      true
+
+    case Input.Keys.SPACE =>
+      stage.togglePaused()
+      true
 
     case _ => super.keyUp(event, keycode)
   }
