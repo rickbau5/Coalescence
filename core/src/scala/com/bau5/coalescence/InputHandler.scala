@@ -3,8 +3,7 @@ package com.bau5.coalescence
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
 import com.badlogic.gdx.{Gdx, Input}
-import com.bau5.coalescence.entities.ProjectileEntity
-import com.bau5.coalescence.entities.actions.MoveAction
+import com.bau5.coalescence.entities.{PlayableCharacter, ProjectileEntity}
 
 import scala.collection.JavaConversions._
 
@@ -19,42 +18,64 @@ class InputHandler(stage: GameStage) extends InputListener {
     true
   }
 
-  override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = if (stage.isPaused) false else {
+  override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
     val trans = stage.stageToMapCoordinates(new Vector2(x, y))
-    stage.player.performAction(new MoveAction(trans.add(0.5f, 0.5f)), true)
+
+    val entity = Option(stage.getWorld.getEntityAt(trans))
+
+    if (stage.getWorld.getActivePlayer == null) {
+      entity foreach {
+        case pl: PlayableCharacter => stage.getWorld.setActivePlayer(pl)
+        case _ => ;
+      }
+    }
+
     true
   }
 
-  override def keyTyped(event: InputEvent, character: Char): Boolean = if (stage.isPaused) false else character match {
-    // Player movement
-    case 'w' =>
-      stage.player.moveInDirection(Direction.Up)
-      true
-    case 'a' =>
-      stage.player.moveInDirection(Direction.Left)
-      true
-    case 's' =>
-      stage.player.moveInDirection(Direction.Down)
-      true
-    case 'd' =>
-      stage.player.moveInDirection(Direction.Right)
-      true
-
-    // Reset all to beginning
-    case 'r' =>
-      stage.getWorld.replay()
-      true
-
-    // Spawn testing item
-    case 'x' =>
-      for (obj <- stage.getWorld.getTiledMapObjects) {
-        val dir = obj.getDirectionFacing
-        val vec = Direction.getOffsetForDirection(dir)
-        stage.getWorld.spawnEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
+  override def keyTyped(event: InputEvent, character: Char): Boolean = {
+    val handledMovement = if (!stage.isPaused && stage.getWorld.getActivePlayer != null) {
+      character match {
+        // Player movement
+        case 'w' =>
+          stage.player.moveInDirection(Direction.Up)
+          true
+        case 'a' =>
+          stage.player.moveInDirection(Direction.Left)
+          true
+        case 's' =>
+          stage.player.moveInDirection(Direction.Down)
+          true
+        case 'd' =>
+          stage.player.moveInDirection(Direction.Right)
+          true
+        case _ =>
+          false
       }
-      true
+    } else {
+      false
+    }
+    val handledOther = if (!handledMovement) {
+      character match {
+        // Reset all to beginning
+        case 'r' =>
+          stage.getWorld.replay()
+          true
 
-    case _ => false
+        // Spawn testing item
+        case 'x' =>
+          for (obj <- stage.getWorld.getTiledMapObjects) {
+            val dir = obj.getDirectionFacing
+            val vec = Direction.getOffsetForDirection(dir)
+            stage.getWorld.spawnEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
+          }
+          true
+
+        case _ => false
+      }
+    } else false
+
+    handledMovement || handledOther
   }
 
   override def keyUp(event: InputEvent, keycode: Int): Boolean = keycode match {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="46">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="75">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -18,23 +18,22 @@
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,2,2,2,2,1,2,2,2,2,2,2,2,2,1,
-1,2,2,2,2,1,2,2,2,2,2,1,1,1,1,
-1,2,2,2,2,1,2,2,2,2,2,2,2,2,1,
 1,2,2,2,2,1,2,2,2,2,2,2,2,2,1,
 1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,
-1,2,2,2,2,1,2,2,2,1,1,2,1,1,1,
-1,2,2,2,2,1,2,2,2,1,2,2,2,2,1,
-1,2,2,2,2,1,1,1,1,1,1,2,2,2,1,
-1,2,2,2,2,2,2,2,2,2,1,1,1,2,1,
-1,2,2,2,2,2,2,1,2,2,1,2,2,2,1,
-1,2,2,2,2,2,2,1,2,2,1,2,2,2,1,
-1,2,2,2,2,2,2,1,2,2,2,2,2,2,1,
+1,2,2,2,2,1,1,1,2,2,2,2,2,2,1,
+1,2,1,1,1,1,2,1,1,1,1,1,1,1,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,
+1,2,2,2,2,2,1,2,2,1,2,2,2,2,1,
+1,2,2,2,2,2,1,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,1,2,1,1,1,1,2,2,1,
+1,2,2,2,2,2,2,2,1,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,1,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,1,2,2,2,2,2,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
  <objectgroup name="objects">
-  <object id="38" gid="33" x="176.096" y="176.152" width="16" height="16" rotation="-90"/>
-  <object id="44" gid="35" x="111.997" y="160.026" width="16" height="16" rotation="-270.025"/>
+  <object id="73" gid="33" x="0" y="96" width="16" height="16" rotation="-270"/>
  </objectgroup>
 </map>

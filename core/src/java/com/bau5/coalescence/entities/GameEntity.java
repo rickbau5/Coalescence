@@ -2,10 +2,12 @@ package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;
+import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.World;
+import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.events.Event;
@@ -21,14 +23,16 @@ import java.util.LinkedList;
  */
 public abstract class GameEntity extends Entity {
     public World world = null;
-    public PositionComponent pos;
+    public final PositionComponent pos;
+    public final AttributeComponent attributes;
 
-    private LinkedList<Action> actions;
-    private LinkedList<Action> playback;
+    protected LinkedList<Action> actions;
+    protected LinkedList<Action> playback;
 
     public GameEntity(PositionComponent pos, AttributeComponent attrib) {
         super();
         this.pos = pos;
+        this.attributes = attrib;
 
         this.add(pos);
         this.add(attrib);
@@ -78,6 +82,10 @@ public abstract class GameEntity extends Entity {
         }
         pos.x_$eq(x);
         pos.y_$eq(y);
+    }
+
+    public Vector2 getTiledPosition() {
+        return new Vector2((int)pos.x(), (int)pos.y());
     }
 
     public MoveAction moveInDirection(Direction dir) {

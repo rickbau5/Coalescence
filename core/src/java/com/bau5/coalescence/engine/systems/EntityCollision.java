@@ -7,9 +7,10 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.World;
+import com.bau5.coalescence.world.MapCell;
+import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.PlayerEntity;
+import com.bau5.coalescence.entities.PlayableCharacter;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
@@ -49,12 +50,12 @@ public class EntityCollision extends IteratingSystem {
             int y = (int) positionComponent.y();
 
             // Check if on tile with a collidable object
-            World.MapCell cell = world.getCellAt(x, y);
-            if (cell != null && cell.getObject() != null) {
+            MapCell cell = world.getCellAt(x, y);
+            if (cell != null && cell.hasObject()) {
                 gameEntity.handleEvent(new EntityObjectCollisionEvent(gameEntity, cell.getObject()));
             }
 
-            if (!(entity instanceof PlayerEntity)) {
+            if (!(entity instanceof PlayableCharacter)) {
                 // Check if collide with tile
                 if (world.isTileCollidable(x, y)) {
                     gameEntity.handleEvent(new EntityTerrainCollisionEvent(gameEntity));
@@ -86,7 +87,7 @@ public class EntityCollision extends IteratingSystem {
      * @param attrib The attribute component for the entity.
      * @return The rectangle provided, but updated.
      */
-    public Rectangle mapToRectangle(Rectangle rectangle, PositionComponent pos, AttributeComponent attrib) {
+    private Rectangle mapToRectangle(Rectangle rectangle, PositionComponent pos, AttributeComponent attrib) {
         float x = pos.x();
         float y = pos.y();
         float w = attrib.width();

@@ -1,4 +1,4 @@
-package com.bau5.coalescence;
+package com.bau5.coalescence.world;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -7,11 +7,14 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
 import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.entities.PlayableCharacter;
+import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
@@ -43,6 +46,7 @@ public class World implements Disposable {
     private long worldStep = 0;
 
     private boolean replaying = false;
+    private PlayableCharacter activePlayer = null;
 
     /**
      * Intializes the world, creating the engine and it's base systems,
@@ -77,13 +81,37 @@ public class World implements Disposable {
         engine.update(delta);
     }
 
-    public void performStep(long worldStep) {
+    private void performStep(long worldStep) {
         if (replayActions.isEmpty()) return;
         if (replayActions.peek().getRecordedTime() <= worldStep) {
             Action action = replayActions.pop();
 
             System.out.println("Executing world action: " + action + " for world step " + worldStep);
             action.execute();
+        }
+    }
+
+    public GameEntity getEntityAt(Vector2 position) {
+        for (Entity entity : engine.getEntities()) {
+            if (entity instanceof GameEntity) {
+                GameEntity gameEntity = (GameEntity) entity;
+
+                if (gameEntity.getTiledPosition().equals(position)) {
+                    return gameEntity;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void replacePlayableCharacter(PlayableCharacter character, ReplayableCharacter replayer) {
+        // TODO
+        setActivePlayer(null);
+        for (Action worldAction : worldActions) {
+            if (worldAction.getActor() == character) {
+                worldAction.setActor(replayer);
+            }
         }
     }
 
@@ -114,6 +142,9 @@ public class World implements Disposable {
         worldStep = 0;
 
         reset();
+        if (activePlayer != null) {
+            activePlayer.die();
+        }
 
         if (!replayActions.isEmpty()) replayActions.clear();
         replayActions.addAll(worldActions);
@@ -145,7 +176,7 @@ public class World implements Disposable {
      */
     public boolean isTileCollidable(int x, int y) {
         MapCell cell = getCellAt(x, y);
-        return cell == null ? false : collidables.contains(cell.getTile().getId());
+        return cell != null && collidables.contains(cell.getTile().getId());
     }
 
     public long getWorldStep() {
@@ -198,6 +229,22 @@ public class World implements Disposable {
         this.engine.addSystem(system);
     }
 
+    public PlayableCharacter getActivePlayer() {
+        return this.activePlayer;
+    }
+
+    public void setActivePlayer(PlayableCharacter newActivePlayer) {
+        if (this.activePlayer != null) {
+            this.activePlayer.setActive(false);
+        }
+
+        this.activePlayer = newActivePlayer;
+        if (newActivePlayer != null) {
+            newActivePlayer.setActive(true);
+            System.out.println("Activated " + newActivePlayer);
+        }
+    }
+
     public Engine getEngine() {
         return engine;
     }
@@ -214,111 +261,5 @@ public class World implements Disposable {
     public void dispose() {
         this.map.dispose();
     }
-
-    public enum Maps {
-        Testing("level-test", "terrain", "terrain", "objects");
-
-        private final String name;
-        private final String terrainLayerName;
-        private final String terrainTileSetName;
-
-        private final String objectLayerName;
-
-        Maps(String name, String terrainLayerName, String terrainTileSetName, String objectLayerName) {
-            this.name = name;
-            this.terrainLayerName = terrainLayerName;
-            this.terrainTileSetName = terrainTileSetName;
-            this.objectLayerName = objectLayerName;
-        }
-
-        public String getPath() {
-            return String.format("maps/%s.tmx", name);
-        }
-
-        public String getTerrainLayerName() {
-            return terrainLayerName;
-        }
-
-        public String getTerrainTileSetName() {
-            return terrainTileSetName;
-        }
-
-        public String getObjectLayerName() {
-            return objectLayerName;
-        }
-    }
-
-    public class TiledMapObject {
-        private final int x, y;
-        private final float rotation;
-
-        public TiledMapObject(TextureMapObject mapObject) {
-            float r = mapObject.getRotation();
-            if (mapObject.getRotation() < 0) {
-                r = 360 + r;
-            }
-
-            int xOff = 0;
-            int yOff = 0;
-            if (r > 90f) {
-                xOff -= 1;
-            }
-            if (r <= 180 && r >= 90) {
-                yOff -= 1;
-            }
-            this.x = (int)((mapObject.getX() * 2) / Constants.tileSize) + xOff;
-            this.y = (int)((mapObject.getY() * 2) / Constants.tileSize) + yOff;
-            this.rotation = r;
-        }
-
-        public float getX() {
-            return x;
-        }
-
-        public float getY() {
-            return y;
-        }
-
-        public float getRotation() {
-            return rotation;
-        }
-
-        public Direction getDirectionFacing() {
-            return Direction.fromDegrees(rotation);
-        }
-    }
-
-    public class MapCell {
-        private final int x;
-        private final int y;
-        private final TiledMapTile tile;
-        private final TiledMapObject object;
-
-        public MapCell(int x, int y, TiledMapTile tile, TiledMapObject object) {
-            this.x = x;
-            this.y = y;
-            this.tile = tile;
-            this.object = object;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public TiledMapObject getObject() {
-            return object;
-        }
-
-        public TiledMapTile getTile() {
-            return tile;
-        }
-
-        public boolean hasObject() {
-            return object != null;
-        }
-    }
 }
+

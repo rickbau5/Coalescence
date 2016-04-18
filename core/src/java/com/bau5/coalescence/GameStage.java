@@ -6,7 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.bau5.coalescence.entities.EnemyEntity;
-import com.bau5.coalescence.entities.PlayerEntity;
+import com.bau5.coalescence.entities.PlayableCharacter;
+import com.bau5.coalescence.world.Maps;
+import com.bau5.coalescence.world.World;
+import com.bau5.coalescence.world.WorldRenderer;
 
 /**
  * Created by Rick on 4/1/16.
@@ -17,7 +20,7 @@ public class GameStage extends Stage {
 
     private InputHandler inputHandler;
 
-    public PlayerEntity player;
+    public PlayableCharacter player;
 
     private boolean paused = false;
 
@@ -31,15 +34,15 @@ public class GameStage extends Stage {
         this.inputHandler = new InputHandler(this);
         this.addListener(inputHandler);
 
-        this.world = new World(World.Maps.Testing);
+        this.world = new World(Maps.Testing);
         this.worldRenderer = new WorldRenderer(world, this);
 
-        setupPlayer();
+        setupPlayableCharacters();
 //        addTestEntities();
     }
 
-    private void setupPlayer() {
-        this.player = new PlayerEntity(1.5f, 1.5f, 7, 7);
+    private void setupPlayableCharacters() {
+        this.player = new PlayableCharacter(1.5f, 1.5f, 7, 7);
         world.spawnEntity(player);
     }
 

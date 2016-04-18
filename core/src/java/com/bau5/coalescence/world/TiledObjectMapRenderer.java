@@ -1,4 +1,4 @@
-package com.bau5.coalescence;
+package com.bau5.coalescence.world;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
