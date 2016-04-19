@@ -15,7 +15,7 @@ public class PlayableCharacter extends GameEntity {
     private boolean active = false;
 
     public PlayableCharacter(float x, float y, int w, int h) {
-        super(x, y, w, h, Color.RED);
+        super(x, y, w, h, Color.FOREST);
     }
 
     @Override
@@ -52,5 +52,6 @@ public class PlayableCharacter extends GameEntity {
 
     public void setActive(boolean active) {
         this.active = active;
+        this.attributes.color_$eq(Color.RED);
     }
 }
