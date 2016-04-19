@@ -9,10 +9,12 @@ import com.bau5.coalescence.entities.GameEntity;
  */
 public abstract class Action {
     protected GameEntity actor;
-    private long recordedTime;
+    protected long recordedTime;
 
-    public void setActor(GameEntity entity) {
+    public GameEntity setActor(GameEntity entity) {
         this.actor = entity;
+
+        return this.actor;
     }
 
     public void execute() {
@@ -27,5 +29,9 @@ public abstract class Action {
 
     public long getRecordedTime() {
         return recordedTime;
+    }
+
+    public void setRecordedTime(long time) {
+        this.recordedTime = time;
     }
 }

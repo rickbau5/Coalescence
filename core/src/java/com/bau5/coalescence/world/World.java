@@ -18,6 +18,7 @@ import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
+import com.bau5.coalescence.world.objects.Stateful;
 import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.world.objects.TriggerObject;
 import com.bau5.coalescence.world.objects.TriggerableObject;
@@ -136,6 +137,10 @@ public class World implements Disposable {
         engine.removeEntity(entity);
     }
 
+    public void addAction(Action worldAction) {
+        worldActions.add(worldAction);
+    }
+
     public boolean isReplaying() {
         return replaying;
     }
@@ -161,11 +166,17 @@ public class World implements Disposable {
                 ((GameEntity)ent).reset();
             }
         }
+
+        for (TiledMapObject object : tiledMapObjects) {
+            if (object instanceof Stateful) {
+                ((Stateful) object).reset();
+            }
+        }
     }
 
     public MapCell getCellAt(int x, int y) {
-        if (x < 0 || x >= getMapWidth()) return null;
-        if (y < 0 || y >= getMapHeight()) return null;
+        if (x < 0 || x > getMapWidth()) return null;
+        if (y < 0 || y > getMapHeight()) return null;
         return mapCells[x][y];
     }
 

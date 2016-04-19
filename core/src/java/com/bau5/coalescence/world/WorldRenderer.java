@@ -30,7 +30,7 @@ public class WorldRenderer implements Disposable {
         this.stage = stage;
 
         // Renderer
-        this.mapRenderer = new TiledObjectMapRenderer(world.getMap(), Constants.scale);
+        this.mapRenderer = new TiledObjectMapRenderer(world, Constants.scale);
         this.shapeRenderer = new ShapeRenderer();
 
         // Systems

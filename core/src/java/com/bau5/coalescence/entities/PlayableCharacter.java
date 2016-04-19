@@ -30,15 +30,11 @@ public class PlayableCharacter extends GameEntity {
         if (event.type == Event.EventType.EntityCollision) {
             EntityCollisionEvent collision = (EntityCollisionEvent) event;
             if (collision.getOtherEntity(this) instanceof ProjectileEntity) {
-                System.out.println("Hit by arrow");
-
                 //TODO Log death event!
                 this.die();
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
             ((EntityObjectCollisionEvent) event).handlePlayerCollision();
-
-            System.out.println("Collision");
         }
     }
 

@@ -4,9 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;
-import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.entities.actions.DespawnAction;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
@@ -121,7 +121,9 @@ public abstract class GameEntity extends Entity {
     public abstract void handleEvent(Event event);
 
     public void die() {
+        this.createDespawnEvent(world.getWorldStep());
         onDeath();
+
         if (world != null) world.removeEntity(this);
     }
 
@@ -134,5 +136,9 @@ public abstract class GameEntity extends Entity {
 
     public boolean shouldRecordSpawn() {
         return actions.size() == 0;
+    }
+
+    public void createDespawnEvent(long worldStep) {
+        actions.add(new DespawnAction(this, worldStep));
     }
 }

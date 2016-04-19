@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.world.World;
-import com.bau5.coalescence.world.objects.TiledMapObject;
 
 /**
  * Created by Rick on 4/18/2016.

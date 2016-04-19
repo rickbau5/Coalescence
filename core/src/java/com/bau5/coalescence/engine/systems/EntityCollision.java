@@ -52,7 +52,7 @@ public class EntityCollision extends IteratingSystem {
 
             // Check if on tile with a collidable object
             MapCell cell = world.getCellAt(x, y);
-            if (cell != null && cell.hasObject()) {
+            if (cell != null && cell.hasObject() && cell.getObject() instanceof TriggerObject) {
                 gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
             }
 
