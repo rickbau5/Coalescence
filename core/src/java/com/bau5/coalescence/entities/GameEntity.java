@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.entities.actions.DespawnAction;
-import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.actions.Action;
+import com.bau5.coalescence.entities.actions.DespawnAction;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.events.Event;
+import com.bau5.coalescence.world.World;
 
 import java.util.LinkedList;
 

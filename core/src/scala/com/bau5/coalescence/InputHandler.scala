@@ -3,9 +3,7 @@ package com.bau5.coalescence
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
 import com.badlogic.gdx.{Gdx, Input}
-import com.bau5.coalescence.entities.{PlayableCharacter, ProjectileEntity}
-
-import scala.collection.JavaConversions._
+import com.bau5.coalescence.entities.PlayableCharacter
 
 /**
   * Created by Rick on 4/1/16.
@@ -34,20 +32,22 @@ class InputHandler(stage: GameStage) extends InputListener {
   }
 
   override def keyTyped(event: InputEvent, character: Char): Boolean = {
-    val handledMovement = if (!stage.isPaused && stage.getWorld.getActivePlayer != null) {
+    val world = stage.getWorld
+    val handledMovement = if (!stage.isPaused && world.getActivePlayer != null) {
+      val player = world.getActivePlayer
       character match {
         // Player movement
         case 'w' =>
-          stage.player.moveInDirection(Direction.Up)
+          player.moveInDirection(Direction.Up)
           true
         case 'a' =>
-          stage.player.moveInDirection(Direction.Left)
+          player.moveInDirection(Direction.Left)
           true
         case 's' =>
-          stage.player.moveInDirection(Direction.Down)
+          player.moveInDirection(Direction.Down)
           true
         case 'd' =>
-          stage.player.moveInDirection(Direction.Right)
+          player.moveInDirection(Direction.Right)
           true
         case _ =>
           false
@@ -59,7 +59,7 @@ class InputHandler(stage: GameStage) extends InputListener {
       character match {
         // Reset all to beginning
         case 'r' =>
-          stage.getWorld.replay()
+          world.replay()
           true
 
         case _ => false

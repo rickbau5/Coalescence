@@ -1,7 +1,7 @@
 package com.bau5.coalescence.entities.events;
 
-import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 
 /**
  * Created by Rick on 4/16/2016.

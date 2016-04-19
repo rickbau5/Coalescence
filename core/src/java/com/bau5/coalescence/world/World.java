@@ -6,7 +6,10 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
-import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.engine.systems.EntityCollision;
@@ -88,10 +91,7 @@ public class World implements Disposable {
     private void performStep(long worldStep) {
         if (replayActions.isEmpty()) return;
         if (replayActions.peek().getRecordedTime() <= worldStep) {
-            Action action = replayActions.pop();
-
-            System.out.println("Executing world action: " + action + " for world step " + worldStep);
-            action.execute();
+            replayActions.pop().execute();
         }
     }
 
@@ -110,7 +110,6 @@ public class World implements Disposable {
     }
 
     public void replacePlayableCharacter(PlayableCharacter character, ReplayableCharacter replayer) {
-        // TODO
         setActivePlayer(null);
         for (Action worldAction : worldActions) {
             if (worldAction.getActor() == character) {
@@ -264,7 +263,6 @@ public class World implements Disposable {
         this.activePlayer = newActivePlayer;
         if (newActivePlayer != null) {
             newActivePlayer.setActive(true);
-            System.out.println("Activated " + newActivePlayer);
         }
     }
 

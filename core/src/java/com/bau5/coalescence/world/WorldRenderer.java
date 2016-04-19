@@ -8,8 +8,6 @@ import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.GameStage;
 import com.bau5.coalescence.InputHandler;
 import com.bau5.coalescence.engine.systems.EntityDrawer;
-import com.bau5.coalescence.world.TiledObjectMapRenderer;
-import com.bau5.coalescence.world.World;
 
 /**
  * Created by Rick on 4/4/16.

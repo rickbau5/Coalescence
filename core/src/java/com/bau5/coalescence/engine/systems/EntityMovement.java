@@ -6,8 +6,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.VelocityComponent;
-import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.world.World;
 
 /**
  * Created by Rick on 4/5/2016.

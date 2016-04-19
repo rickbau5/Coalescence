@@ -7,14 +7,14 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.entities.events.TriggerCollisionEvent;
-import com.bau5.coalescence.world.MapCell;
-import com.bau5.coalescence.world.objects.TriggerObject;
-import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayableCharacter;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
+import com.bau5.coalescence.entities.events.TriggerCollisionEvent;
+import com.bau5.coalescence.world.MapCell;
+import com.bau5.coalescence.world.World;
+import com.bau5.coalescence.world.objects.TriggerObject;
 
 /**
  * Created by Rick on 4/5/2016.

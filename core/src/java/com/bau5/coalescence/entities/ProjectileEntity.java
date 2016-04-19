@@ -28,12 +28,12 @@ public class ProjectileEntity extends GameEntity {
                 this.die();
                 break;
             default:
-                System.out.println("Unimplemented collision in Project Entity: " + event.type);
+                // TODO some
         }
     }
 
     @Override
     public void onDeath() {
-        System.out.println(String.format("Destroying projectile at %f, %f", pos.x(), pos.y()));
+
     }
 }

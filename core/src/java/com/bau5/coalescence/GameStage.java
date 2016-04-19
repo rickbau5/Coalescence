@@ -97,8 +97,6 @@ public class GameStage extends Stage {
 
     public void togglePaused() {
         this.paused = !paused;
-
-        System.out.println("Game is now " + (isPaused() ? "paused." : "unpaused."));
     }
 
     public boolean isPaused() {

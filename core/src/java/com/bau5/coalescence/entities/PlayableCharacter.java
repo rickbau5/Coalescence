@@ -40,11 +40,7 @@ public class PlayableCharacter extends GameEntity {
 
     @Override
     public void onDeath() {
-        System.out.println("Removing player.");
-
-        ReplayableCharacter newCharacter = new ReplayableCharacter(this);
-
-        this.world.replacePlayableCharacter(this, newCharacter);
+        this.world.replacePlayableCharacter(this, new ReplayableCharacter(this));
     }
 
     public boolean isActive() {

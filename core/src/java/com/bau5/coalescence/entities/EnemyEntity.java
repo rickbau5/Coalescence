@@ -16,7 +16,7 @@ public class EnemyEntity extends GameEntity {
 
     @Override
     public void handleEvent(Event event) {
-        System.out.println("Unimplemented enemy collision.");
+
     }
 
     public EnemyEntity(int x, int y) {
@@ -25,6 +25,6 @@ public class EnemyEntity extends GameEntity {
 
     @Override
     public void onDeath() {
-        System.out.println("Removing Enemy.");
+
     }
 }
