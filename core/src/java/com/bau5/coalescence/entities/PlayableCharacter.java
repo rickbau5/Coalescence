@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.bau5.coalescence.Direction;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 
 
@@ -30,9 +31,13 @@ public class PlayableCharacter extends GameEntity {
             EntityCollisionEvent collision = (EntityCollisionEvent) event;
             if (collision.getOtherEntity(this) instanceof ProjectileEntity) {
                 System.out.println("Hit by arrow");
+
+                //TODO Log death event!
                 this.die();
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
+            ((EntityObjectCollisionEvent) event).handlePlayerCollision();
+
             System.out.println("Collision");
         }
     }

@@ -1,13 +1,12 @@
 package com.bau5.coalescence.entities.events;
 
-import com.bau5.coalescence.world.TiledMapObject;
-import com.bau5.coalescence.world.World;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.entities.GameEntity;
 
 /**
  * Created by Rick on 4/16/2016.
  */
-public class EntityObjectCollisionEvent extends Event {
+public abstract class EntityObjectCollisionEvent extends Event {
     private final TiledMapObject collidedObject;
 
     /**
@@ -21,6 +20,8 @@ public class EntityObjectCollisionEvent extends Event {
 
         this.collidedObject = collidedObject;
     }
+
+    public abstract void handlePlayerCollision();
 
     public TiledMapObject getCollidedObject() {
         return collidedObject;

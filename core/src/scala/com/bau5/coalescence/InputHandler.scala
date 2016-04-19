@@ -62,15 +62,6 @@ class InputHandler(stage: GameStage) extends InputListener {
           stage.getWorld.replay()
           true
 
-        // Spawn testing item
-        case 'x' =>
-          for (obj <- stage.getWorld.getTiledMapObjects) {
-            val dir = obj.getDirectionFacing
-            val vec = Direction.getOffsetForDirection(dir)
-            stage.getWorld.spawnEntity(new ProjectileEntity(obj.getX + vec.x + 0.5f, obj.getY + vec.y + 0.5f, vec.scl(4f)))
-          }
-          true
-
         case _ => false
       }
     } else false

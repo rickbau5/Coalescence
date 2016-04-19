@@ -18,6 +18,9 @@ import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
+import com.bau5.coalescence.world.objects.TiledMapObject;
+import com.bau5.coalescence.world.objects.TriggerObject;
+import com.bau5.coalescence.world.objects.TriggerableObject;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -191,7 +194,7 @@ public class World implements Disposable {
         return terrainLayer.getHeight();
     }
 
-    public void loadMap(Maps mapDef) {
+    private void loadMap(Maps mapDef) {
         this.map = loader.load(mapDef.getPath());
         this.terrainLayer = ((TiledMapTileLayer) this.map.getLayers().get(mapDef.getTerrainLayerName()));
 
@@ -207,7 +210,16 @@ public class World implements Disposable {
         for (MapObject mapObject : objects) {
             if (mapObject instanceof TextureMapObject) {
                 TextureMapObject object = ((TextureMapObject) mapObject);
-                tiledMapObjects.add(new TiledMapObject(object));
+                if (mapObject.getProperties().containsKey("triggerable")) {
+                    // Triggerable
+                    tiledMapObjects.add(new TriggerableObject(this, object));
+                } else if (mapObject.getProperties().containsKey("triggers")) {
+                    // Triggers a Triggerable
+                    tiledMapObjects.add(new TriggerObject(this, object));
+                } else {
+                    // Regular object
+                    tiledMapObjects.add(new TiledMapObject(this, object));
+                }
             }
         }
 

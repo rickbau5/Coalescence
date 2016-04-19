@@ -1,6 +1,7 @@
 package com.bau5.coalescence.world;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 
 
 /**

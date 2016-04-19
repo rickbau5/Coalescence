@@ -1,8 +1,9 @@
-package com.bau5.coalescence.world;
+package com.bau5.coalescence.world.objects;
 
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.Direction;
+import com.bau5.coalescence.world.World;
 
 /**
  * Created by Rick on 4/18/16.
@@ -12,7 +13,11 @@ public class TiledMapObject {
     private final int x, y;
     private final float rotation;
 
-    public TiledMapObject(TextureMapObject mapObject) {
+    private final TextureMapObject mapObject;
+
+    public final World world;
+
+    public TiledMapObject(World world, TextureMapObject mapObject) {
         float r = mapObject.getRotation();
 
         while (r < 0) r = r + 360;
@@ -36,6 +41,9 @@ public class TiledMapObject {
         this.x = originX + xOff;
         this.y = originY + yOff;
         this.rotation = r;
+        this.mapObject = mapObject;
+
+        this.world = world;
     }
 
     public float getX() {
@@ -44,6 +52,10 @@ public class TiledMapObject {
 
     public float getY() {
         return y;
+    }
+
+    public TextureMapObject getMapObject() {
+        return mapObject;
     }
 
     public int getOriginX() {

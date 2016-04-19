@@ -7,12 +7,13 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.entities.events.TriggerCollisionEvent;
 import com.bau5.coalescence.world.MapCell;
+import com.bau5.coalescence.world.objects.TriggerObject;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayableCharacter;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
-import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
 
 /**
@@ -52,7 +53,7 @@ public class EntityCollision extends IteratingSystem {
             // Check if on tile with a collidable object
             MapCell cell = world.getCellAt(x, y);
             if (cell != null && cell.hasObject()) {
-                gameEntity.handleEvent(new EntityObjectCollisionEvent(gameEntity, cell.getObject()));
+                gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
             }
 
             if (!(entity instanceof PlayableCharacter)) {
