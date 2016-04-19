@@ -20,8 +20,6 @@ public class GameStage extends Stage {
 
     private InputHandler inputHandler;
 
-    public PlayableCharacter player;
-
     private boolean paused = false;
 
     public GameStage() {
@@ -38,16 +36,15 @@ public class GameStage extends Stage {
         this.worldRenderer = new WorldRenderer(world, this);
 
         setupPlayableCharacters();
-//        addTestEntities();
+
+        world.spawnEntity(new EnemyEntity(5.5f, 11.5f));
     }
 
     private void setupPlayableCharacters() {
-        this.player = new PlayableCharacter(1.5f, 1.5f, 7, 7);
-        world.spawnEntity(player);
-    }
-
-    private void addTestEntities() {
-        world.spawnEntity(new EnemyEntity(7, 7));
+        world.spawnEntity(new PlayableCharacter(1.5f, 1.5f, 7, 7));
+        world.spawnEntity(new PlayableCharacter(2.5f, 4.5f, 7, 7));
+        world.spawnEntity(new PlayableCharacter(3.5f, 2.5f, 7, 7));
+        world.spawnEntity(new PlayableCharacter(5.5f, 2.5f, 7, 7));
     }
 
     @Override

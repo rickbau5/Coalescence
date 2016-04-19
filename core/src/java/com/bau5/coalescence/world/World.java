@@ -21,10 +21,7 @@ import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
-import com.bau5.coalescence.world.objects.Stateful;
-import com.bau5.coalescence.world.objects.TiledMapObject;
-import com.bau5.coalescence.world.objects.TriggerObject;
-import com.bau5.coalescence.world.objects.TriggerableObject;
+import com.bau5.coalescence.world.objects.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -53,6 +50,8 @@ public class World implements Disposable {
     private long worldStep = 0;
 
     private boolean replaying = false;
+
+    private boolean canReplay = true;
     private PlayableCharacter activePlayer = null;
 
     /**
@@ -171,6 +170,8 @@ public class World implements Disposable {
                 ((Stateful) object).reset();
             }
         }
+
+        this.canReplay = true;
     }
 
     public MapCell getCellAt(int x, int y) {
@@ -226,6 +227,8 @@ public class World implements Disposable {
                 } else if (mapObject.getProperties().containsKey("triggers")) {
                     // Triggers a Triggerable
                     tiledMapObjects.add(new TriggerObject(this, object));
+                } else if (mapObject.getName().equals("exit")) {
+                    tiledMapObjects.add(new ExitObject(this, object));
                 } else {
                     // Regular object
                     tiledMapObjects.add(new TiledMapObject(this, object));
@@ -260,9 +263,14 @@ public class World implements Disposable {
             this.activePlayer.setActive(false);
         }
 
-        this.activePlayer = newActivePlayer;
-        if (newActivePlayer != null) {
-            newActivePlayer.setActive(true);
+        if (canReplay) {
+            this.activePlayer = newActivePlayer;
+            if (activePlayer != null) {
+                activePlayer.setActive(true);
+            }
+            canReplay = false;
+        } else {
+            this.activePlayer = null;
         }
     }
 

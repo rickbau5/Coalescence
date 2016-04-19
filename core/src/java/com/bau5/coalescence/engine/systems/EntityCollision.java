@@ -9,11 +9,14 @@ import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayableCharacter;
+import com.bau5.coalescence.entities.events.ControlCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
 import com.bau5.coalescence.entities.events.TriggerCollisionEvent;
 import com.bau5.coalescence.world.MapCell;
 import com.bau5.coalescence.world.World;
+import com.bau5.coalescence.world.objects.ControlObject;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.world.objects.TriggerObject;
 
 /**
@@ -52,8 +55,13 @@ public class EntityCollision extends IteratingSystem {
 
             // Check if on tile with a collidable object
             MapCell cell = world.getCellAt(x, y);
-            if (cell != null && cell.hasObject() && cell.getObject() instanceof TriggerObject) {
-                gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
+            if (cell != null && cell.hasObject()) {
+                TiledMapObject object = cell.getObject();
+                if (object instanceof TriggerObject) {
+                    gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
+                } else  if (object instanceof ControlObject) {
+                    gameEntity.handleEvent(new ControlCollisionEvent(gameEntity, ((ControlObject) cell.getObject())));
+                }
             }
 
             if (!(entity instanceof PlayableCharacter)) {

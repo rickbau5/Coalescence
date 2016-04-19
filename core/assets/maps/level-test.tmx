@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="79">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="82">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -39,15 +39,16 @@
     <property name="triggerable" value="true"/>
    </properties>
   </object>
-  <object id="75" gid="35" x="176" y="96" width="16" height="16" rotation="-270">
+  <object id="75" name="trigger_rope" gid="35" x="176" y="96" width="16" height="16" rotation="-270">
    <properties>
     <property name="triggers" value="0,8;14,8"/>
    </properties>
   </object>
-  <object id="77" gid="33" x="240.002" y="111.998" width="16" height="16" rotation="-90">
+  <object id="77" name="arrow_launcher" gid="33" x="240.002" y="111.998" width="16" height="16" rotation="-90">
    <properties>
     <property name="triggerable" value="true"/>
    </properties>
   </object>
+  <object id="80" name="exit" gid="36" x="192" y="48" width="16" height="16"/>
  </objectgroup>
 </map>

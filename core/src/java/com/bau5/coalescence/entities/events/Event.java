@@ -24,7 +24,7 @@ public abstract class Event {
      * Enum representing possible event types.
      */
     public enum EventType {
-        EntityStaticCollision, EntityCollision, EntityObjectCollision
+        EntityStaticCollision, EntityCollision, EntityObjectCollision, EntityControlCollision
     }
 }
 
