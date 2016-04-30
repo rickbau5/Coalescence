@@ -4,10 +4,12 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.entities.living.LivingEntity;
 
 /**
  * Created by Rick on 4/1/16.
@@ -32,9 +34,29 @@ public class EntityDrawer extends IteratingSystem {
             int width = attributes.width();
             int height = attributes.height();
 
-            renderer.setColor(attributes.color());
+            float drawX = position.x() * Constants.tileSize;
+            float drawY = position.y() * Constants.tileSize;
+
             renderer.begin(ShapeRenderer.ShapeType.Filled);
-            renderer.rect(position.x() * Constants.tileSize - width / 2, position.y() * Constants.tileSize - height / 2, width, height);
+
+            if (entity instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) entity;
+                if (living.getHealth() < living.getMaxHealth()) {
+                    renderer.setColor(Color.RED);
+
+                    float percent = (float) living.getHealth() / (float) living.getMaxHealth();
+
+                    renderer.rect(
+                            ((int) position.x()) * Constants.tileSize,
+                            (int) drawY + 12,
+                            Constants.tileSize * percent,
+                            4
+                    );
+                }
+            }
+
+            renderer.setColor(attributes.color());
+            renderer.rect(drawX - width / 2, drawY - height / 2, width, height);
             renderer.end();
         }
     }

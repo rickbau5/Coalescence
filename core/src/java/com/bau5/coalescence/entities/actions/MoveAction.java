@@ -24,6 +24,7 @@ public class MoveAction extends Action implements Undoable {
         if (getActor().world.isTileCollidable((int)targetX, (int) targetY)) {
             return;
         }
+
         Vector2 pos = this.actor.getTiledPosition();
         this.prevX = pos.x;
         this.prevY = pos.y;
