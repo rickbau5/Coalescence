@@ -11,7 +11,7 @@ import com.bau5.coalescence.entities.events.Event;
  */
 public class ReplayableCharacter extends GameEntity {
     public ReplayableCharacter(PlayableCharacter clone) {
-        super(new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.color()));
+        super(clone.type, new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.color()));
         this.attributes.color_$eq(Color.BLUE);
 
         for (Action action : clone.actions) {

@@ -5,16 +5,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
+import com.bau5.coalescence.entities.EnemyEntity;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.PlayableCharacter;
 import com.bau5.coalescence.entities.ReplayableCharacter;
@@ -22,6 +26,7 @@ import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
 import com.bau5.coalescence.world.objects.*;
+import scala.collection.immutable.Stream;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -232,6 +237,24 @@ public class World implements Disposable {
                 } else {
                     // Regular object
                     tiledMapObjects.add(new TiledMapObject(this, object));
+                }
+            } else if (mapObject instanceof RectangleMapObject) {
+                RectangleMapObject object = (RectangleMapObject) mapObject;
+                Rectangle rect = object.getRectangle();
+
+                float xPos = (int)((rect.getX() * 2) / Constants.tileSize) + .5f;
+                float yPos = (int)((rect.getY() * 2) / Constants.tileSize) + .5f;
+
+                int type = Integer.parseInt((String)object.getProperties().get("type"));
+                switch (object.getName()) {
+                    case "character":
+                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 8, 8));
+                        break;
+                    case "enemy":
+                        spawnEntity(new EnemyEntity(type, xPos, yPos));
+                        break;
+                    default:
+                        break;
                 }
             }
         }

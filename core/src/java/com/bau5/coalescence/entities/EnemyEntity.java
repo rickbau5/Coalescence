@@ -13,12 +13,12 @@ import com.bau5.coalescence.entities.events.Event;
 public class EnemyEntity extends GameEntity {
     private int health = 20;
 
-    public EnemyEntity(PositionComponent pos, AttributeComponent attrib) {
-        super(pos, attrib);
+    public EnemyEntity(int type, PositionComponent pos, AttributeComponent attrib) {
+        super(type, pos, attrib);
     }
 
-    public EnemyEntity(float x, float y) {
-        this(new PositionComponent(x, y), new AttributeComponent(16, 16, Color.BLACK));
+    public EnemyEntity(int type, float x, float y) {
+        this(type, new PositionComponent(x, y), new AttributeComponent(16, 16, Color.BLACK));
     }
 
     @Override

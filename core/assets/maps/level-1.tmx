@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="85">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+  <image source="../tile.png" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="type" value="dangerous"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="terrain" width="15" height="15">
+  <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,1,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+</data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="82" name="enemy" type="0" x="128.835" y="193.252" width="13.6887" height="14.0913"/>
+  <object id="83" name="character" type="0" x="33.4165" y="193.655" width="13.2861" height="12.4809"/>
+ </objectgroup>
+</map>

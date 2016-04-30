@@ -29,10 +29,13 @@ public abstract class GameEntity extends Entity {
     protected LinkedList<Action> actions;
     protected LinkedList<Action> playback;
 
-    public GameEntity(PositionComponent pos, AttributeComponent attrib) {
+    public final int type;
+
+    public GameEntity(int type, PositionComponent pos, AttributeComponent attrib) {
         super();
         this.pos = pos;
         this.attributes = attrib;
+        this.type = type;
 
         this.add(pos);
         this.add(attrib);
@@ -41,8 +44,8 @@ public abstract class GameEntity extends Entity {
         this.playback = new LinkedList<>();
     }
 
-    public GameEntity(float x, float y, int w, int h, Color color) {
-        this(new PositionComponent(x, y), new AttributeComponent(w, h, color));
+    public GameEntity(int type, float x, float y, int w, int h, Color color) {
+        this(type, new PositionComponent(x, y), new AttributeComponent(w, h, color));
     }
 
     public void setWorld(World world) {

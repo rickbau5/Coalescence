@@ -14,8 +14,8 @@ import com.bau5.coalescence.entities.events.Event;
 public class PlayableCharacter extends GameEntity {
     private boolean active = false;
 
-    public PlayableCharacter(float x, float y, int w, int h) {
-        super(x, y, w, h, Color.FOREST);
+    public PlayableCharacter(int type, float x, float y, int w, int h) {
+        super(type, x, y, w, h, Color.FOREST);
     }
 
     @Override

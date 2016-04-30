@@ -4,7 +4,8 @@ package com.bau5.coalescence.world;
  * Created by Rick on 4/18/16.
  */
 public enum Maps {
-    Testing("level-test", "terrain", "terrain", "objects");
+    Testing("level-test", "terrain", "terrain", "objects"),
+    One("level-1", "terrain", "terrain", "objects");
 
     private final String name;
     private final String terrainLayerName;
