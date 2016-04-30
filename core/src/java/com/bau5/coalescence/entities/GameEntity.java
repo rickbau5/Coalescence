@@ -58,6 +58,10 @@ public abstract class GameEntity extends Entity {
         if (record) actions.addLast(action);
     }
 
+    public Action getLastAction() {
+        return actions.getLast();
+    }
+
     public void beginPlayback() {
         if (!playback.isEmpty()) playback.clear();
         playback.addAll(actions);

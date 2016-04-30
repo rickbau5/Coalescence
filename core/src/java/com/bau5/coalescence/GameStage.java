@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.bau5.coalescence.entities.PlayableCharacter;
 import com.bau5.coalescence.world.Maps;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.WorldRenderer;

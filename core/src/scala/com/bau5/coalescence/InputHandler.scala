@@ -3,7 +3,7 @@ package com.bau5.coalescence
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, InputListener}
 import com.badlogic.gdx.{Gdx, Input}
-import com.bau5.coalescence.entities.PlayableCharacter
+import com.bau5.coalescence.entities.living.PlayableCharacter
 
 /**
   * Created by Rick on 4/1/16.

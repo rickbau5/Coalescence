@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.PlayableCharacter;
+import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.entities.events.ControlCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;

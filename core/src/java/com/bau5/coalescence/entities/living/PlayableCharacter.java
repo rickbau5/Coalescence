@@ -1,7 +1,11 @@
-package com.bau5.coalescence.entities;
+package com.bau5.coalescence.entities.living;
 
 import com.badlogic.gdx.graphics.Color;
-import com.bau5.coalescence.Direction;
+import com.bau5.coalescence.*;
+import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.entities.ProjectileEntity;
+import com.bau5.coalescence.entities.ReplayableCharacter;
+import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
@@ -11,11 +15,16 @@ import com.bau5.coalescence.entities.events.Event;
 /**
  * Created by Rick on 4/2/16.
  */
-public class PlayableCharacter extends GameEntity {
+public class PlayableCharacter extends LivingEntity {
     private boolean active = false;
 
     public PlayableCharacter(int type, float x, float y, int w, int h) {
-        super(type, x, y, w, h, Color.FOREST);
+        super(
+            type,
+            new PositionComponent(x, y),
+            CharacterStats.forType(type),
+            new AttributeComponent(w, h, Color.FOREST)
+        );
     }
 
     @Override
@@ -34,7 +43,11 @@ public class PlayableCharacter extends GameEntity {
                 //TODO Log death event!
                 this.die();
             } else if (otherEntity instanceof EnemyEntity) {
-                this.die();
+                this.damage(((EnemyEntity) otherEntity).getAttackDamage());
+                Action last = getLastAction();
+                if (last instanceof MoveAction) {
+                    ((MoveAction) last).undo();
+                }
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
             ((EntityObjectCollisionEvent) event).handlePlayerCollision();

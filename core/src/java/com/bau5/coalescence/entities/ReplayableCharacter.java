@@ -5,6 +5,7 @@ import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.events.Event;
+import com.bau5.coalescence.entities.living.PlayableCharacter;
 
 /**
  * Created by Rick on 4/18/16.

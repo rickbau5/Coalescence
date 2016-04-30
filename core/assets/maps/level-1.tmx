@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="85">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="88">
  <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
@@ -36,5 +36,6 @@
  <objectgroup name="objects">
   <object id="82" name="enemy" type="0" x="128.835" y="193.252" width="13.6887" height="14.0913"/>
   <object id="83" name="character" type="0" x="33.4165" y="193.655" width="13.2861" height="12.4809"/>
+  <object id="87" name="enemy" type="1" x="98.2366" y="115.549" width="11.273" height="9.66261"/>
  </objectgroup>
 </map>
