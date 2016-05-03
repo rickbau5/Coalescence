@@ -1,6 +1,9 @@
 package com.bau5.coalescence.entities.living;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bau5.coalescence.*;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
@@ -16,6 +19,7 @@ import com.bau5.coalescence.entities.events.Event;
  * Created by Rick on 4/2/16.
  */
 public class PlayableCharacter extends LivingEntity {
+    private final TextureRegion textureRegion;
     private boolean active = false;
 
     public PlayableCharacter(int type, float x, float y, int w, int h) {
@@ -25,6 +29,13 @@ public class PlayableCharacter extends LivingEntity {
             CharacterStats.forType(type),
             new AttributeComponent(w, h, Color.FOREST)
         );
+
+        this.textureRegion = new TextureRegion(new Texture(Gdx.files.internal(String.format("textures/character/%d.png", type))));
+    }
+
+    @Override
+    public TextureRegion getTextureRegion() {
+        return textureRegion;
     }
 
     @Override

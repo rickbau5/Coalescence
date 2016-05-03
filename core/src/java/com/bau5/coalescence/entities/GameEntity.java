@@ -2,6 +2,7 @@ package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.Direction;
@@ -43,6 +44,8 @@ public abstract class GameEntity extends Entity {
         this.actions = new LinkedList<>();
         this.playback = new LinkedList<>();
     }
+
+    public abstract TextureRegion getTextureRegion();
 
     public GameEntity(int type, float x, float y, int w, int h, Color color) {
         this(type, new PositionComponent(x, y), new AttributeComponent(w, h, color));

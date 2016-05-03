@@ -1,6 +1,7 @@
 package com.bau5.coalescence.entities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.actions.Action;
@@ -11,6 +12,7 @@ import com.bau5.coalescence.entities.living.PlayableCharacter;
  * Created by Rick on 4/18/16.
  */
 public class ReplayableCharacter extends GameEntity {
+    private final TextureRegion textureRegion;
     public ReplayableCharacter(PlayableCharacter clone) {
         super(clone.type, new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.color()));
         this.attributes.color_$eq(Color.BLUE);
@@ -21,6 +23,13 @@ public class ReplayableCharacter extends GameEntity {
         }
 
         setWorld(clone.world);
+
+        this.textureRegion = clone.getTextureRegion();
+    }
+
+    @Override
+    public TextureRegion getTextureRegion() {
+        return textureRegion;
     }
 
     @Override
