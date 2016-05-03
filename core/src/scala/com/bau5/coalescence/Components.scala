@@ -29,7 +29,6 @@ object EnemyAttributes {
 }
 case class AttributeComponent(var width: Int, var height: Int, var rotation: Float) extends Component
 
-
 object CharacterStats {
   def forType(typ: Int): StatsComponent = typ match {
     case 0 =>

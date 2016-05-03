@@ -1,6 +1,5 @@
 package com.bau5.coalescence.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;

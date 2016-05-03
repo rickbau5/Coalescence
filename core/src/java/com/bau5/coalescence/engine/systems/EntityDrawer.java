@@ -14,6 +14,7 @@ import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
+import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.living.LivingEntity;
 
 /**
@@ -51,19 +52,13 @@ public class EntityDrawer extends IteratingSystem {
             if (entity instanceof GameEntity) {
                 float rotation = ((GameEntity) entity).attributes.rotation();
                 int off = Constants.tileSize / 2;
+                boolean flipX = entity instanceof LivingEntity && ((LivingEntity) entity).isFlipped();
+                float rotate = 0;
+                if (entity instanceof ProjectileEntity) {
+                    rotate = rotation % 180 == 0 ? 0 : 180;
+                }
                 batch.begin();
-                boolean flipY = entity instanceof ProjectileEntity;
-                boolean flipX = entity instanceof LivingEntity && rotation > 0;
-                batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, 16, 16, off * 2, off * 2, 1, 1, rotation, 0, 0, 32, 32, flipX, flipY);
-//                batch.draw(
-//                    ((GameEntity) entity).getTextureRegion(),
-//                    drawX - off,
-//                    drawY - off,
-//                    16, 16,
-//                    off * 2, off * 2,
-//                    1, 1,
-//                    rotation
-//                );
+                batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, 16, 16, off * 2, off * 2, 1, 1, rotation + rotate, 0, 0, 32, 32, flipX, false);
                 batch.end();
                 renderer.rect(drawX - width / 2, drawY - height / 2, width, height);
 

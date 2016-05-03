@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.*;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
@@ -62,6 +63,14 @@ public class PlayableCharacter extends LivingEntity {
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
             ((EntityObjectCollisionEvent) event).handlePlayerCollision();
+        }
+    }
+
+    public void useMainAbility() {
+        if (type == 1) {
+             Direction dir = getDirectionFacing();
+            Vector2 vec = Direction.getOffsetForDirection(dir);
+            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x, pos.y() + vec.y, vec.scl(4f), Direction.toDegrees(dir)));
         }
     }
 

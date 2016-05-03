@@ -62,6 +62,12 @@ class InputHandler(stage: GameStage) extends InputListener {
           world.replay()
           true
 
+        case 'p' =>
+          if (!stage.table.isVisible) {
+            stage.togglePaused()
+          }
+          true
+
         case _ => false
       }
     } else false
@@ -76,9 +82,7 @@ class InputHandler(stage: GameStage) extends InputListener {
       true
 
     case Input.Keys.SPACE =>
-      if (!stage.table.isVisible) {
-        stage.togglePaused()
-      }
+      Option(stage.getWorld.getActivePlayer).foreach(_.useMainAbility())
       true
 
     case _ => super.keyUp(event, keycode)

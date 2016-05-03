@@ -25,6 +25,21 @@ public enum Direction {
         return Direction.Up;
     }
 
+    public static float toDegrees(Direction dir) {
+        switch (dir) {
+            case Up:
+                return 0f;
+            case Down:
+                return 180f;
+            case Right:
+                return 90f;
+            case Left:
+                return 270f;
+        }
+
+        return 0f;
+    }
+
     public static Vector2 getOffsetForDirection(Direction dir) {
         int x = 0;
         int y = 0;

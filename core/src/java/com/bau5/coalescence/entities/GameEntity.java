@@ -32,6 +32,9 @@ public abstract class GameEntity extends Entity {
 
     public final int type;
 
+    protected Direction visualFacing = Direction.Left;
+    protected Direction facing = Direction.Left;
+
     public GameEntity(int type, PositionComponent pos, AttributeComponent attrib) {
         super();
         this.pos = pos;
@@ -89,6 +92,12 @@ public abstract class GameEntity extends Entity {
             y = 0;
         } else if (y > 15) {
             y = 15;
+        }
+        if (y != pos.y()) {
+            facing = y > pos.y() ? Direction.Up : Direction.Down;
+        }
+        if (x != pos.x()) {
+            visualFacing = facing = x > pos.x() ? Direction.Right : Direction.Left;
         }
         pos.x_$eq(x);
         pos.y_$eq(y);
@@ -150,5 +159,13 @@ public abstract class GameEntity extends Entity {
 
     public void createDespawnEvent(long worldStep) {
         actions.add(new DespawnAction(this, worldStep));
+    }
+
+    public Direction getDirectionFacing() {
+        return facing;
+    }
+
+    public boolean isFlipped() {
+        return this.visualFacing == Direction.Right;
     }
 }
