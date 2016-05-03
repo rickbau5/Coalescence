@@ -4,17 +4,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
-import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.living.LivingEntity;
 
 /**
@@ -46,7 +43,6 @@ public class EntityDrawer extends IteratingSystem {
 
             float drawX = position.x() * Constants.tileSize;
             float drawY = position.y() * Constants.tileSize;
-
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
             if (entity instanceof GameEntity) {

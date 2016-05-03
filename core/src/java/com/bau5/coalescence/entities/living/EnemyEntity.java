@@ -3,7 +3,9 @@ package com.bau5.coalescence.entities.living;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.bau5.coalescence.*;
+import com.bau5.coalescence.EnemyAttributes;
+import com.bau5.coalescence.EnemyStats;
+import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 

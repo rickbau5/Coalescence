@@ -1,7 +1,6 @@
 package com.bau5.coalescence.entities;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;

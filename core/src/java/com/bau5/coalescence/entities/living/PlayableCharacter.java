@@ -1,11 +1,13 @@
 package com.bau5.coalescence.entities.living;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.bau5.coalescence.*;
+import com.bau5.coalescence.AttributeComponent;
+import com.bau5.coalescence.CharacterStats;
+import com.bau5.coalescence.Direction;
+import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.entities.ReplayableCharacter;

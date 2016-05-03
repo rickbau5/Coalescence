@@ -18,13 +18,13 @@ import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
-import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
+import com.bau5.coalescence.entities.living.EnemyEntity;
+import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.objects.*;
 
 import java.util.ArrayList;

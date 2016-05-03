@@ -1,8 +1,8 @@
 package com.bau5.coalescence.entities.living;
 
 import com.bau5.coalescence.AttributeComponent;
-import com.bau5.coalescence.StatsComponent;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.StatsComponent;
 import com.bau5.coalescence.entities.GameEntity;
 
 
