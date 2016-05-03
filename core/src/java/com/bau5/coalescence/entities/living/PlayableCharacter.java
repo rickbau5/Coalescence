@@ -22,12 +22,12 @@ public class PlayableCharacter extends LivingEntity {
     private final TextureRegion textureRegion;
     private boolean active = false;
 
-    public PlayableCharacter(int type, float x, float y, int w, int h) {
+    public PlayableCharacter(int type, float x, float y, int w, int h, float rotation) {
         super(
             type,
             new PositionComponent(x, y),
             CharacterStats.forType(type),
-            new AttributeComponent(w, h, Color.FOREST)
+            new AttributeComponent(w, h, rotation)
         );
 
         this.textureRegion = new TextureRegion(new Texture(Gdx.files.internal(String.format("textures/character/%d.png", type))));
@@ -76,6 +76,5 @@ public class PlayableCharacter extends LivingEntity {
 
     public void setActive(boolean active) {
         this.active = active;
-        this.attributes.color_$eq(Color.RED);
     }
 }

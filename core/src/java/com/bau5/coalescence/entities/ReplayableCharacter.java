@@ -14,8 +14,8 @@ import com.bau5.coalescence.entities.living.PlayableCharacter;
 public class ReplayableCharacter extends GameEntity {
     private final TextureRegion textureRegion;
     public ReplayableCharacter(PlayableCharacter clone) {
-        super(clone.type, new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.color()));
-        this.attributes.color_$eq(Color.BLUE);
+        super(clone.type, new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.rotation()));
+        this.attributes.rotation_$eq(clone.attributes.rotation());
 
         for (Action action : clone.actions) {
             action.setActor(this);

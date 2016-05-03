@@ -28,6 +28,8 @@ public class EntityDrawer extends IteratingSystem {
         super(Family.all(PositionComponent.class, AttributeComponent.class).get());
         this.renderer = renderer;
         this.batch = new SpriteBatch();
+
+        this.renderer.setColor(Color.RED);
     }
 
     @Override
@@ -47,24 +49,32 @@ public class EntityDrawer extends IteratingSystem {
             if (entity instanceof GameEntity) {
                 int off = Constants.tileSize / 2;
                 batch.begin();
-                batch.draw(((GameEntity) entity).getTextureRegion(), drawX - off, drawY - off);
+                batch.draw(
+                    ((GameEntity) entity).getTextureRegion(),
+                    drawX - off,
+                    drawY - off,
+                    16, 16,
+                    off * 2, off * 2,
+                    1, 1,
+                    ((GameEntity) entity).attributes.rotation()
+                );
                 batch.end();
-                renderer.setColor(attributes.color());
                 renderer.rect(drawX - width / 2, drawY - height / 2, width, height);
-            }
 
-            if (entity instanceof LivingEntity) {
-                LivingEntity living = (LivingEntity) entity;
-                if (living.getHealth() < living.getMaxHealth()) {
-                    float percent = (float) living.getHealth() / (float) living.getMaxHealth();
+                if (entity instanceof LivingEntity) {
+                    LivingEntity living = (LivingEntity) entity;
+                    if (living.getHealth() < living.getMaxHealth()) {
+                        float percent = (float) living.getHealth() / (float) living.getMaxHealth();
 
-                    renderer.setColor(Color.RED);
-                    renderer.rect(
-                        ((int) position.x()) * Constants.tileSize,
-                        (int) drawY + 12,
-                        Constants.tileSize * percent,
-                        4
-                    );
+                        renderer.setColor(Color.RED);
+                        renderer.rect(
+                                ((int) position.x()) * Constants.tileSize,
+                                (int) drawY + 12,
+                                Constants.tileSize * percent,
+                                4
+                        );
+                        renderer.setColor(Color.WHITE);
+                    }
                 }
             }
             renderer.end();

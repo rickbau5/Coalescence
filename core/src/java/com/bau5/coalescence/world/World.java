@@ -247,7 +247,7 @@ public class World implements Disposable {
                 int type = Integer.parseInt((String)object.getProperties().get("type"));
                 switch (object.getName()) {
                     case "character":
-                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 8, 8));
+                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 8, 8, 0f));
                         break;
                     case "enemy":
                         spawnEntity(new EnemyEntity(type, xPos, yPos));

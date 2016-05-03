@@ -16,6 +16,6 @@ public class TriggerableObject extends TiledMapObject {
 
     public void trigger() {
         Vector2 vec = Direction.getOffsetForDirection(this.getDirectionFacing());
-        world.spawnEntity(new ProjectileEntity(0, getX() + vec.x + 0.5f, getY() + vec.y + 0.5f, vec.scl(4f)));
+        world.spawnEntity(new ProjectileEntity(0, getX() + vec.x + 0.5f, getY() + vec.y + 0.5f, vec.scl(4f), this.getRotation()));
     }
 }

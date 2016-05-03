@@ -47,8 +47,8 @@ public abstract class GameEntity extends Entity {
 
     public abstract TextureRegion getTextureRegion();
 
-    public GameEntity(int type, float x, float y, int w, int h, Color color) {
-        this(type, new PositionComponent(x, y), new AttributeComponent(w, h, color));
+    public GameEntity(int type, float x, float y, int w, int h, float rotation) {
+        this(type, new PositionComponent(x, y), new AttributeComponent(w, h, rotation));
     }
 
     public void setWorld(World world) {

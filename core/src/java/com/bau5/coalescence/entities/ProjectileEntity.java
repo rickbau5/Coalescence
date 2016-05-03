@@ -17,8 +17,8 @@ public class ProjectileEntity extends GameEntity {
     private VelocityComponent velocity;
     private TextureRegion textureRegion;
 
-    public ProjectileEntity(int type, float x, float y, Vector2 vec) {
-        super(type, new PositionComponent(x, y), new AttributeComponent(10, 3, Color.GREEN));
+    public ProjectileEntity(int type, float x, float y, Vector2 vec, float rotation) {
+        super(type, new PositionComponent(x, y), new AttributeComponent(10, 3, rotation));
 
         this.velocity = new VelocityComponent(vec.x, vec.y);
         this.add(velocity);

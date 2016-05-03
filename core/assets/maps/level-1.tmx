@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="88">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="91">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -37,5 +37,15 @@
   <object id="82" name="enemy" type="0" x="128.835" y="193.252" width="13.6887" height="14.0913"/>
   <object id="83" name="character" type="0" x="33.4165" y="193.655" width="13.2861" height="12.4809"/>
   <object id="87" name="enemy" type="1" x="98.2366" y="115.549" width="11.273" height="9.66261"/>
+  <object id="88" name="trigger_rope" gid="35" x="144" y="176" width="16" height="16">
+   <properties>
+    <property name="triggers" value="9,9"/>
+   </properties>
+  </object>
+  <object id="89" gid="33" x="160.005" y="80.0053" width="16" height="16" rotation="-180">
+   <properties>
+    <property name="triggerable" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

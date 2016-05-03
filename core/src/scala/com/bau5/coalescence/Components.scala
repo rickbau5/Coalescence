@@ -22,12 +22,12 @@ case class VelocityComponent(var vx: Float, var vy: Float) extends Component {
 object EnemyAttributes {
   def forType(typ: Int): AttributeComponent = typ match {
     case 0 =>
-      new AttributeComponent(16, 16, Color.BLACK)
+      new AttributeComponent(16, 16, 0f)
     case _ =>
-      new AttributeComponent(4, 4, Color.BROWN)
+      new AttributeComponent(4, 4, 0f)
   }
 }
-case class AttributeComponent(var width: Int, var height: Int, var color: Color) extends Component
+case class AttributeComponent(var width: Int, var height: Int, var rotation: Float) extends Component
 
 
 object CharacterStats {

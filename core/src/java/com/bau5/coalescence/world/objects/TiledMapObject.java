@@ -31,7 +31,7 @@ public class TiledMapObject {
         if (r > 90f) {
             xOff -= 1;
         }
-        if (r <= 180 && r >= 90) {
+        if (r < 180 && r >= 90) {
             yOff -= 1;
         }
 
