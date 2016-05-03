@@ -32,17 +32,25 @@ case class AttributeComponent(var width: Int, var height: Int, var rotation: Flo
 object CharacterStats {
   def forType(typ: Int): StatsComponent = typ match {
     case 0 =>
-      new StatsComponent(20, 5)
-    case _ =>
-      new StatsComponent(20, 5)
+      // Dwarf warrior
+      new StatsComponent(40, 5)
+    case 1 =>
+      // Mage - projectile: 1
+      new StatsComponent(20, 10)
   }
 }
 object EnemyStats {
   def forType(typ: Int): StatsComponent = typ match {
     case 0 =>
       new StatsComponent(20, 5)
-    case _ =>
-      new StatsComponent(20, 5)
+  }
+}
+object ProjectileStats {
+  def forType(typ: Int): StatsComponent = typ match {
+    case 0 =>
+      new StatsComponent(1, 10)
+    case 1 =>
+      new StatsComponent(1, 15)
   }
 }
 case class StatsComponent(getMaxHealth: Int, attackDamage: Int) extends Component

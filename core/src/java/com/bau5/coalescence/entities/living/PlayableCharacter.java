@@ -53,7 +53,7 @@ public class PlayableCharacter extends LivingEntity {
         if (event.type == Event.EventType.EntityCollision) {
             EntityCollisionEvent collision = (EntityCollisionEvent) event;
             GameEntity otherEntity = collision.getOtherEntity(this);
-            if (otherEntity instanceof ProjectileEntity) {
+            if (otherEntity instanceof ProjectileEntity && !((ProjectileEntity) otherEntity).isFriendly()) {
                 //TODO Log death event!
                 this.die();
             } else if (otherEntity instanceof EnemyEntity) {
@@ -70,9 +70,9 @@ public class PlayableCharacter extends LivingEntity {
 
     public void useMainAbility() {
         if (type == 1) {
-             Direction dir = getDirectionFacing();
+            Direction dir = getDirectionFacing();
             Vector2 vec = Direction.getOffsetForDirection(dir);
-            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x, pos.y() + vec.y, vec.scl(4f), Direction.toDegrees(dir)));
+            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x, pos.y() + vec.y, vec.scl(4f), Direction.toDegrees(dir)).markFriendly());
         }
     }
 

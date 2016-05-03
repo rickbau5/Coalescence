@@ -83,6 +83,7 @@ public class EntityCollision extends IteratingSystem {
                         EntityCollisionEvent event = new EntityCollisionEvent(gameEntity, otherGameEntity);
                         gameEntity.handleEvent(event);
                         otherGameEntity.handleEvent(event);
+                        System.out.println("Handled collision.");
                     }
                 }
             }

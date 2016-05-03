@@ -160,6 +160,7 @@ public class World implements Disposable {
         replayActions.addAll(worldActions);
 
         engine.removeAllEntities();
+        canReplay = true;
     }
 
     public void reset() {
