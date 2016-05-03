@@ -1,9 +1,12 @@
-package com.bau5.coalescence.screens;
+package com.bau5.coalescence.ui.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bau5.coalescence.Main;
+import com.bau5.coalescence.ui.elements.GameButton;
 
 /**
  * Created by Rick on 4/1/16.
@@ -11,8 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public abstract class BaseScreen implements Screen {
     public final Stage stage;
 
-    public BaseScreen(Stage stage) {
+    protected BitmapFont font = GameButton.Font();
+
+    public BaseScreen(Main main, Stage stage) {
         this.stage = stage;
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -33,6 +39,14 @@ public abstract class BaseScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
+    }
+
+    public int getWidth() {
+        return ((int) stage.getWidth());
+    }
+
+    public int getHeight() {
+        return ((int) stage.getHeight());
     }
 
     @Override

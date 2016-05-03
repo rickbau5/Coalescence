@@ -1,6 +1,8 @@
 package com.bau5.coalescence.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -32,7 +34,7 @@ public class WorldRenderer implements Disposable {
         this.shapeRenderer = new ShapeRenderer();
 
         // Systems
-        this.entityDrawer = new EntityDrawer(shapeRenderer);
+        this.entityDrawer = new EntityDrawer(stage.getBatch(), shapeRenderer);
         world.addSystemToEngine(entityDrawer);
 
         this.inputHandler = stage.getInputHandler();
@@ -42,6 +44,15 @@ public class WorldRenderer implements Disposable {
         mapRenderer.setView(stage.getCamera());
         mapRenderer.render();
 
+        if (stage.isPaused()) {
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(0, 0, 0, 0.5f);
+            shapeRenderer.rect(0, 0, stage.getWidth(), stage.getHeight());
+            shapeRenderer.end();
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+        }
         entityDrawer.update(0.0f);
         drawTileOutline();
     }

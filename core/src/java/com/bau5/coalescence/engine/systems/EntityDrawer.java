@@ -6,12 +6,14 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
+import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.entities.living.LivingEntity;
 
 /**
@@ -22,12 +24,12 @@ public class EntityDrawer extends IteratingSystem {
     private ComponentMapper<AttributeComponent> am = ComponentMapper.getFor(AttributeComponent.class);
 
     private ShapeRenderer renderer;
-    private SpriteBatch batch;
+    private Batch batch;
 
-    public EntityDrawer(ShapeRenderer renderer) {
+    public EntityDrawer(Batch batch, ShapeRenderer renderer) {
         super(Family.all(PositionComponent.class, AttributeComponent.class).get());
         this.renderer = renderer;
-        this.batch = new SpriteBatch();
+        this.batch = batch;
 
         this.renderer.setColor(Color.RED);
     }
@@ -47,17 +49,21 @@ public class EntityDrawer extends IteratingSystem {
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
             if (entity instanceof GameEntity) {
+                float rotation = ((GameEntity) entity).attributes.rotation();
                 int off = Constants.tileSize / 2;
                 batch.begin();
-                batch.draw(
-                    ((GameEntity) entity).getTextureRegion(),
-                    drawX - off,
-                    drawY - off,
-                    16, 16,
-                    off * 2, off * 2,
-                    1, 1,
-                    ((GameEntity) entity).attributes.rotation()
-                );
+                boolean flipY = entity instanceof ProjectileEntity;
+                boolean flipX = entity instanceof LivingEntity && rotation > 0;
+                batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, 16, 16, off * 2, off * 2, 1, 1, rotation, 0, 0, 32, 32, flipX, flipY);
+//                batch.draw(
+//                    ((GameEntity) entity).getTextureRegion(),
+//                    drawX - off,
+//                    drawY - off,
+//                    16, 16,
+//                    off * 2, off * 2,
+//                    1, 1,
+//                    rotation
+//                );
                 batch.end();
                 renderer.rect(drawX - width / 2, drawY - height / 2, width, height);
 

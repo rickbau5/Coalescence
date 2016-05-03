@@ -71,11 +71,14 @@ class InputHandler(stage: GameStage) extends InputListener {
 
   override def keyUp(event: InputEvent, keycode: Int): Boolean = keycode match {
     case Input.Keys.ESCAPE =>
-      Gdx.app.exit()
+      if (!stage.isPaused || stage.table.isVisible) stage.togglePaused()
+      stage.toggleInGameMenu()
       true
 
     case Input.Keys.SPACE =>
-      stage.togglePaused()
+      if (!stage.table.isVisible) {
+        stage.togglePaused()
+      }
       true
 
     case _ => super.keyUp(event, keycode)
