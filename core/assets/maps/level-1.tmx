@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="88">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -51,7 +51,7 @@
   </object>
   <object id="80" name="exit" gid="36" x="192" y="48" width="16" height="16">
    <properties>
-    <property name="level" value="Testing"/>
+    <property name="level" value="Two"/>
    </properties>
   </object>
   <object id="82" name="character" type="0" x="33" y="177.333" width="13.3333" height="13"/>

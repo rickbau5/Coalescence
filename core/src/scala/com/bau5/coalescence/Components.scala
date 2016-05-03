@@ -23,6 +23,8 @@ object EnemyAttributes {
   def forType(typ: Int): AttributeComponent = typ match {
     case 0 =>
       new AttributeComponent(16, 16, 0f)
+    case 2 =>
+      new AttributeComponent(32, 45, 0f);
     case _ =>
       new AttributeComponent(4, 4, 0f)
   }
@@ -45,6 +47,8 @@ object EnemyStats {
       new StatsComponent(20, 5)
     case 1 =>
       new StatsComponent(10, 5);
+    case 2 =>
+      new StatsComponent(30, 20);
   }
 }
 object ProjectileStats {
