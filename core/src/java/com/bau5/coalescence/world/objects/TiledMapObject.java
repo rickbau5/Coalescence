@@ -12,6 +12,7 @@ public class TiledMapObject {
     private final int originX, originY;
     private final int x, y;
     private final float rotation;
+    private boolean collidable;
 
     private final TextureMapObject mapObject;
 
@@ -44,6 +45,7 @@ public class TiledMapObject {
         this.mapObject = mapObject;
 
         this.world = world;
+        this.collidable = mapObject.getProperties().containsKey("collidable");
     }
 
     public float getX() {
@@ -64,6 +66,10 @@ public class TiledMapObject {
 
     public int getOriginY() {
         return originY;
+    }
+
+    public boolean isCollidable() {
+        return collidable;
     }
 
     public float getRotation() {

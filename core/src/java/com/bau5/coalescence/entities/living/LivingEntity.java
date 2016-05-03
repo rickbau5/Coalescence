@@ -42,4 +42,10 @@ public abstract class LivingEntity extends GameEntity {
             this.die();
         }
     }
+
+    @Override
+    public void reset() {
+        super.reset();
+        health = stats.getMaxHealth();
+    }
 }

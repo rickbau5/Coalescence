@@ -3,6 +3,9 @@ package com.bau5.coalescence.world;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,17 +18,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bau5.coalescence.Constants;
+import com.bau5.coalescence.GameStage;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ReplayableCharacter;
-import com.bau5.coalescence.entities.actions.Action;
-import com.bau5.coalescence.entities.actions.MoveAction;
-import com.bau5.coalescence.entities.actions.SpawnAction;
+import com.bau5.coalescence.entities.actions.*;
 import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.objects.*;
+import com.bau5.coalescence.world.objects.triggers.TriggerObject;
+import com.bau5.coalescence.world.objects.triggers.TriggerableObject;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,6 +39,7 @@ import java.util.LinkedList;
  * Created by Rick on 4/4/16.
  */
 public class World implements Disposable {
+    private final GameStage stage;
     private Engine engine;
     private TiledMap map;
     private TmxMapLoader loader;
@@ -64,7 +69,8 @@ public class World implements Disposable {
      *
      * @param mapToLoad Enum representing map to load
      */
-    public World(Maps mapToLoad) {
+    public World(GameStage stage, Maps mapToLoad) {
+        this.stage = stage;
         this.engine = new Engine();
         this.loader = new TmxMapLoader();
 
@@ -127,6 +133,11 @@ public class World implements Disposable {
 
         replayActions.add(spawnAction);
         worldActions.add(spawnAction);
+    }
+
+    public void addTriggeredEvent(TriggerableObject object) {
+        Action action = new TriggeredAction(object);
+        worldActions.add(action);
     }
 
     public void addEntity(GameEntity entity) {
@@ -195,7 +206,7 @@ public class World implements Disposable {
      */
     public boolean isTileCollidable(int x, int y) {
         MapCell cell = getCellAt(x, y);
-        return cell != null && collidables.contains(cell.getTile().getId());
+        return cell != null && (collidables.contains(cell.getTile().getId()) || (cell.hasObject() && cell.getObject().isCollidable()));
     }
 
     public long getWorldStep() {
@@ -226,12 +237,17 @@ public class World implements Disposable {
         for (MapObject mapObject : objects) {
             if (mapObject instanceof TextureMapObject) {
                 TextureMapObject object = ((TextureMapObject) mapObject);
+                if (object.getName() == null) {
+                    System.out.println("Skipping object with no name.");
+                    continue;
+                }
+
                 if (mapObject.getProperties().containsKey("triggerable")) {
                     // Triggerable
-                    tiledMapObjects.add(new TriggerableObject(this, object));
+                    tiledMapObjects.add(TriggerableObject.build(this, object));
                 } else if (mapObject.getProperties().containsKey("triggers")) {
                     // Triggers a Triggerable
-                    tiledMapObjects.add(new TriggerObject(this, object));
+                    tiledMapObjects.add(TriggerObject.build(this, object));
                 } else if (mapObject.getName().equals("exit")) {
                     tiledMapObjects.add(new ExitObject(this, object));
                 } else {
@@ -312,6 +328,10 @@ public class World implements Disposable {
     @Override
     public void dispose() {
         this.map.dispose();
+    }
+
+    public GameStage getStage() {
+        return stage;
     }
 }
 

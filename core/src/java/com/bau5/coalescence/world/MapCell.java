@@ -37,6 +37,6 @@ public class MapCell {
     }
 
     public boolean hasObject() {
-            return object != null;
-        }
+        return object != null;
+    }
 }

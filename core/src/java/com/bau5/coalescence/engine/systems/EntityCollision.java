@@ -17,7 +17,7 @@ import com.bau5.coalescence.world.MapCell;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.objects.ControlObject;
 import com.bau5.coalescence.world.objects.TiledMapObject;
-import com.bau5.coalescence.world.objects.TriggerObject;
+import com.bau5.coalescence.world.objects.triggers.TriggerObject;
 
 /**
  * Created by Rick on 4/5/2016.
@@ -83,7 +83,6 @@ public class EntityCollision extends IteratingSystem {
                         EntityCollisionEvent event = new EntityCollisionEvent(gameEntity, otherGameEntity);
                         gameEntity.handleEvent(event);
                         otherGameEntity.handleEvent(event);
-                        System.out.println("Handled collision.");
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.bau5.coalescence.world.objects;
+package com.bau5.coalescence.world.objects.triggers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,6 +7,9 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.entities.actions.TriggerObjectAction;
 import com.bau5.coalescence.world.World;
+import com.bau5.coalescence.world.objects.Stateful;
+import com.bau5.coalescence.world.objects.TiledMapObject;
+import com.bau5.coalescence.world.objects.triggers.TriggerableObject;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class TriggerObject extends TiledMapObject implements Stateful {
     private TextureRegion activeTexture;
     private TextureRegion inactiveTexture;
 
-    public TriggerObject(World world, TextureMapObject mapObject) {
+    public TriggerObject(World world, TextureMapObject mapObject, TextureRegion inactiveTexture) {
         super(world, mapObject);
 
         this.links = new ArrayList<>();
@@ -31,7 +34,7 @@ public class TriggerObject extends TiledMapObject implements Stateful {
         }
 
         this.activeTexture = mapObject.getTextureRegion();
-        this.inactiveTexture = new TextureRegion(new Texture(Gdx.files.internal("textures/rope_broken.png")));
+        this.inactiveTexture = inactiveTexture == null ? mapObject.getTextureRegion() : inactiveTexture;
     }
 
     public void activateTrigger() {
@@ -63,5 +66,13 @@ public class TriggerObject extends TiledMapObject implements Stateful {
     @Override
     public void reset() {
         trigger = true;
+    }
+
+    public static TriggerObject build(World world, TextureMapObject object) {
+        if (object.getName().equals("rope")) {
+            return new TriggerObject(world, object, new TextureRegion(new Texture(Gdx.files.internal("textures/rope_broken.png"))));
+        }
+
+        return new TriggerObject(world, object, null);
     }
 }

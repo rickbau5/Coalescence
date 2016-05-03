@@ -1,7 +1,7 @@
 package com.bau5.coalescence.entities.events;
 
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.world.objects.TriggerObject;
+import com.bau5.coalescence.world.objects.triggers.TriggerObject;
 
 /**
  * Created by Rick on 4/18/2016.

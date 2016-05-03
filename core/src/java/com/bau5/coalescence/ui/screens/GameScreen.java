@@ -17,17 +17,21 @@ public class GameScreen extends BaseScreen {
     }
 
     public GameScreen(Main main) {
-        this(main, Maps.One);
+        this(main, Maps.Testing);
     }
 
     @Override
     public void render(float delta) {
-        super.render(delta);
+        if (gameStage.getNextLevel() != null) {
+            main.switchToScreen(new GameScreen(main, gameStage.getNextLevel()));
+        } else {
+            super.render(delta);
 
-        if (((GameStage) stage).isPaused()) {
-            gameStage.getBatch().begin();
-            font.draw(gameStage.getBatch(), "Paused", getWidth() / 2, getHeight() - 10);
-            gameStage.getBatch().end();
+            if (((GameStage) stage).isPaused()) {
+                gameStage.getBatch().begin();
+                font.draw(gameStage.getBatch(), "Paused", getWidth() / 2, getHeight() - 10);
+                gameStage.getBatch().end();
+            }
         }
     }
 }

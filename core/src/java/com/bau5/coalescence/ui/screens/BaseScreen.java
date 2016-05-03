@@ -13,10 +13,12 @@ import com.bau5.coalescence.ui.elements.GameButton;
  */
 public abstract class BaseScreen implements Screen {
     public final Stage stage;
+    protected final Main main;
 
     protected BitmapFont font = GameButton.Font();
 
     public BaseScreen(Main main, Stage stage) {
+        this.main = main;
         this.stage = stage;
 
         Gdx.input.setInputProcessor(stage);

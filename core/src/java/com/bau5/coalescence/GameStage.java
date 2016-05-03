@@ -25,6 +25,7 @@ public class GameStage extends Stage {
 
     private boolean paused = false;
     private Maps loadedWorld;
+    private Maps nextLevel = null;
 
     public GameStage(Main main, Maps map) {
         super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
@@ -38,7 +39,7 @@ public class GameStage extends Stage {
         this.inputHandler = new InputHandler(this);
         this.addListener(inputHandler);
 
-        this.world = new World(map);
+        this.world = new World(this, map);
         this.worldRenderer = new WorldRenderer(world, this);
 
         this.table = new Table();
@@ -111,5 +112,13 @@ public class GameStage extends Stage {
 
     public Maps getLoadedWorld() {
         return this.loadedWorld;
+    }
+
+    public void moveToLevel(String level) {
+        this.nextLevel = Maps.valueOf(level);
+    }
+
+    public Maps getNextLevel() {
+        return nextLevel;
     }
 }
