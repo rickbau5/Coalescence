@@ -165,9 +165,6 @@ public class World implements Disposable {
         worldStep = 0;
 
         reset();
-        if (activePlayer != null) {
-            activePlayer.die();
-        }
 
         if (!replayActions.isEmpty()) replayActions.clear();
         replayActions.addAll(worldActions);
@@ -189,12 +186,14 @@ public class World implements Disposable {
             }
         }
 
-        this.canReplay = true;
+        if (activePlayer != null) {
+            activePlayer = null;
+        }
     }
 
     public MapCell getCellAt(int x, int y) {
-        if (x < 0 || x > getMapWidth()) return null;
-        if (y < 0 || y > getMapHeight()) return null;
+        if (x < 0 || x >= getMapWidth()) return null;
+        if (y < 0 || y >= getMapHeight()) return null;
         return mapCells[x][y];
     }
 
@@ -266,7 +265,7 @@ public class World implements Disposable {
                 int type = Integer.parseInt((String)object.getProperties().get("type"));
                 switch (object.getName()) {
                     case "character":
-                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 8, 8, 0f));
+                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 16, 16, 0f));
                         break;
                     case "enemy":
                         spawnEntity(new EnemyEntity(type, xPos, yPos));

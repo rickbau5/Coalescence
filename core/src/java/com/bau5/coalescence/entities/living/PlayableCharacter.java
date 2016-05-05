@@ -72,7 +72,7 @@ public class PlayableCharacter extends LivingEntity {
         if (type == 1) {
             Direction dir = getDirectionFacing();
             Vector2 vec = Direction.getOffsetForDirection(dir);
-            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x, pos.y() + vec.y, vec.scl(4f), Direction.toDegrees(dir)).markFriendly());
+            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x / 2, pos.y() + vec.y / 2, vec.scl(4f), Direction.toDegrees(dir)).markFriendly());
         }
     }
 

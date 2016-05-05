@@ -53,9 +53,10 @@ public class WorldRenderer implements Disposable {
             shapeRenderer.rect(0, 0, stage.getWidth(), stage.getHeight());
             shapeRenderer.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
+        } else {
+            drawTileOutline();
         }
         entityDrawer.update(0.0f);
-        drawTileOutline();
     }
 
     private void drawTileOutline() {

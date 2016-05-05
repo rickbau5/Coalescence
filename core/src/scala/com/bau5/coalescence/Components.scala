@@ -20,7 +20,7 @@ case class VelocityComponent(var vx: Float, var vy: Float) extends Component {
 
 object EnemyAttributes {
   def forType(typ: Int): AttributeComponent = typ match {
-    case 0 =>
+    case 0 | 1 =>
       new AttributeComponent(16, 16, 0f)
     case 2 =>
       new AttributeComponent(32, 45, 0f);
