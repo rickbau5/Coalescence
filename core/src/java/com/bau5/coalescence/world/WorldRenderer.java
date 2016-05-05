@@ -32,6 +32,7 @@ public class WorldRenderer implements Disposable {
         // Renderer
         this.mapRenderer = new TiledObjectMapRenderer(world, Constants.scale);
         this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
 
         // Systems
         this.entityDrawer = new EntityDrawer(stage.getBatch(), shapeRenderer);
