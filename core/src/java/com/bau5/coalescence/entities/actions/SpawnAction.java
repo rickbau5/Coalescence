@@ -20,5 +20,6 @@ public class SpawnAction extends Action {
         actor.setPosition(x, y);
         actor.world.addEntity(actor);
         actor.beginPlayback();
+        actor.onSpawn();
     }
 }

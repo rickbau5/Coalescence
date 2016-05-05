@@ -40,4 +40,9 @@ public class ReplayableCharacter extends GameEntity {
     public void onDeath() {
         // Nothing; only replaying
     }
+
+    @Override
+    public void onSpawn() {
+        // Nothing
+    }
 }

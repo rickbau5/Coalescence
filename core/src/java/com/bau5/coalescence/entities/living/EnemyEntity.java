@@ -49,4 +49,9 @@ public class EnemyEntity extends LivingEntity {
 
     @Override
     public void onDeath() {}
+
+    @Override
+    public void onSpawn() {
+
+    }
 }

@@ -147,6 +147,8 @@ public abstract class GameEntity extends Entity {
 
     public abstract void onDeath();
 
+    public abstract void onSpawn();
+
     public void reset() {
         MoveAction action = (MoveAction)actions.getFirst();
         performAction(action, false);

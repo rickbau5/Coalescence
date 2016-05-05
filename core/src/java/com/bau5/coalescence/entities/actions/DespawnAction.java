@@ -13,7 +13,6 @@ public class DespawnAction extends Action {
 
     @Override
     public void execute() {
-        System.out.println("Removing actor. " + actor);
         actor.world.removeEntity(actor);
     }
 }

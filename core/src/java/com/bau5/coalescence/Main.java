@@ -9,7 +9,6 @@ import com.bau5.coalescence.ui.screens.MenuScreen;
  * Created by Rick on 3/30/2016.
  */
 public class Main extends Game {
-
     @Override
     public void create () {
         switchToScreen(new MenuScreen(this));

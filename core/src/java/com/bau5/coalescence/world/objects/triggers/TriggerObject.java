@@ -19,6 +19,7 @@ public class TriggerObject extends TiledMapObject implements Stateful {
     private ArrayList<Vector2> links;
 
     private boolean trigger = true;
+    private boolean onTriggered = true;
 
     private TextureRegion activeTexture;
     private TextureRegion inactiveTexture;
@@ -50,11 +51,17 @@ public class TriggerObject extends TiledMapObject implements Stateful {
                     System.out.println("this = " + this);
                 }
             }
+            onTrigger();
         }
+    }
+
+    public void onTrigger() {
+
     }
 
     public void replayActivateTrigger() {
         trigger = false;
+        onTrigger();
     }
 
     @Override
@@ -69,7 +76,7 @@ public class TriggerObject extends TiledMapObject implements Stateful {
 
     public static TriggerObject build(World world, TextureMapObject object) {
         if (object.getName().equals("rope")) {
-            return new TriggerObject(world, object, new TextureRegion(new Texture(Gdx.files.internal("textures/rope_broken.png"))));
+            return new RopeObject(world, object);
         }
 
         return new TriggerObject(world, object, null);

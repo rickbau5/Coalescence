@@ -1,7 +1,9 @@
 package com.bau5.coalescence.world.objects.triggers;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.bau5.coalescence.SoundManager;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.objects.Stateful;
 
@@ -23,6 +25,7 @@ public class Gate extends TriggerableObject implements Stateful {
     public void trigger() {
         this.active = false;
         world.addTriggeredEvent(this);
+        SoundManager.instance.playSound("gate-close");
     }
 
     @Override

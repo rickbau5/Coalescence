@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.bau5.coalescence.AttributeComponent;
-import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.ProjectileStats;
-import com.bau5.coalescence.VelocityComponent;
+import com.bau5.coalescence.*;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 import com.bau5.coalescence.entities.living.EnemyEntity;
@@ -60,6 +57,23 @@ public class ProjectileEntity extends GameEntity {
     @Override
     public void onDeath() {
         this.damage = 0;
+        switch (type) {
+            case 0:
+                SoundManager.instance.playSound("arrow-hit");
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onSpawn() {
+        switch (type) {
+            case 1:
+                SoundManager.instance.playSound("magic-missile", 1, 1);
+                break;
+            default:
+        }
+
     }
 
     public ProjectileEntity markFriendly() {
