@@ -8,7 +8,6 @@ import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.ProjectileStats;
 import com.bau5.coalescence.VelocityComponent;
-import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 import com.bau5.coalescence.entities.living.EnemyEntity;

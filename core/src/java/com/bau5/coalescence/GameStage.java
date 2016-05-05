@@ -47,8 +47,10 @@ public class GameStage extends Stage {
         table.row();
         table.add(GameButton.ReloadWorld(main));
         table.row();
+        table.add(GameButton.SelectWorld(main));
+        table.row();
         table.add(GameButton.Exit());
-        table.setPosition(getViewport().getScreenWidth() / 2, getViewport().getScreenHeight() / 2);
+        table.setPosition(getViewport().getWorldWidth() / 2, getViewport().getWorldHeight() / 2);
         this.addActor(table);
         table.setVisible(false);
     }
@@ -64,7 +66,6 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
-        getCamera().update();
         worldRenderer.render();
 
         super.draw();

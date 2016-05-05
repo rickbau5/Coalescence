@@ -1,7 +1,6 @@
 package com.bau5.coalescence
 
 import com.badlogic.ashley.core.Component
-import com.badlogic.gdx.graphics.Color
 
 /**
   * Created by Rick on 3/31/16.

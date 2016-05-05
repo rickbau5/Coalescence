@@ -13,7 +13,7 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage) {
   val table = new Table
   table.add(new GameButton("Start Game", GameButton.Skin)(() => main.switchToScreen(new GameScreen(main, Maps.One))))
   table.row()
-  table.add(new GameButton("Map Select", GameButton.Skin)(() => main.switchToScreen(new WorldSelectScreen(main))))
+  table.add(GameButton.SelectWorld(main))
   table.row()
   table.add(GameButton.Exit)
 

@@ -9,7 +9,6 @@ import com.bau5.coalescence.entities.actions.TriggerObjectAction;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.objects.Stateful;
 import com.bau5.coalescence.world.objects.TiledMapObject;
-import com.bau5.coalescence.world.objects.triggers.TriggerableObject;
 
 import java.util.ArrayList;
 

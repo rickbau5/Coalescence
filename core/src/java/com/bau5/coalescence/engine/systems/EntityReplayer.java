@@ -20,7 +20,6 @@ public class EntityReplayer extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        if (!world.isReplaying()) return;
         if (entity instanceof GameEntity) {
             GameEntity gameEntity = (GameEntity) entity;
             gameEntity.performStep(world.getWorldStep());

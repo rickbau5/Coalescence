@@ -1,14 +1,14 @@
 package com.bau5.coalescence.ui.elements
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.{Color, Pixmap, Texture}
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.{Color, Pixmap, Texture}
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.{Skin, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent
+import com.bau5.coalescence.ui.screens.{BaseScreen, GameScreen, MenuScreen, WorldSelectScreen}
 import com.bau5.coalescence.{GameStage, Main}
-import com.bau5.coalescence.ui.screens.{BaseScreen, GameScreen, MenuScreen}
 
 
 /**
@@ -36,6 +36,7 @@ object GameButton {
   def Exit = new GameButton("Exit", Skin)(() => Gdx.app.exit())
   def MainMenu(main: Main) = new GameButton("Main Menu", Skin)(() => main.switchToScreen(new MenuScreen(main)))
   def ReloadWorld(main: Main) = new GameButton("Reload", Skin)(() => main.switchToScreen(new GameScreen(main, main.getScreen.asInstanceOf[BaseScreen].stage.asInstanceOf[GameStage].getLoadedWorld)))
+  def SelectWorld(main: Main) = new GameButton("Map Select", GameButton.Skin)(() => main.switchToScreen(new WorldSelectScreen(main)))
 }
 class GameButton(text: String, skin: Skin)(callback: () => Unit) extends TextButton(s"  $text  ", skin) {
   this.addListener(new ButtonListener(callback))

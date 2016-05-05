@@ -2,7 +2,7 @@ package com.bau5.coalescence.ui.screens
 
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.bau5.coalescence.{GameStage, Main}
+import com.bau5.coalescence.Main
 import com.bau5.coalescence.ui.elements.GameButton
 import com.bau5.coalescence.world.Maps
 
