@@ -34,6 +34,8 @@ public abstract class GameEntity extends Entity {
     protected Direction visualFacing = Direction.Left;
     protected Direction facing = Direction.Left;
 
+    protected boolean ignoreCollisions = false;
+
     public GameEntity(int type, PositionComponent pos, AttributeComponent attrib) {
         super();
         this.pos = pos;
@@ -136,7 +138,15 @@ public abstract class GameEntity extends Entity {
      *
      * @param event The event to handle.
      */
-    public abstract void handleEvent(Event event);
+    public abstract boolean handleEvent(Event event);
+
+    public boolean ignoreCollisions() {
+        return ignoreCollisions;
+    }
+
+    public void setIgnoreCollisions(boolean flag) {
+        ignoreCollisions = flag;
+    }
 
     public void die() {
         this.createDespawnEvent(world.getWorldStep());

@@ -19,6 +19,7 @@ import com.bau5.coalescence.GameStage;
 import com.bau5.coalescence.engine.systems.EntityCollision;
 import com.bau5.coalescence.engine.systems.EntityMovement;
 import com.bau5.coalescence.engine.systems.EntityReplayer;
+import com.bau5.coalescence.entities.Enemy;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
@@ -287,7 +288,7 @@ public class World implements Disposable {
                         spawnEntity(new PlayableCharacter(type, xPos, yPos, 16, 16, 0f));
                         break;
                     case "enemy":
-                        spawnEntity(new EnemyEntity(type, xPos, yPos));
+                        spawnEntity(Enemy.forType(type, xPos, yPos));
                         break;
                     default:
                         break;

@@ -49,30 +49,34 @@ public class PlayableCharacter extends LivingEntity {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public boolean handleEvent(Event event) {
         if (event.type == Event.EventType.EntityCollision) {
             EntityCollisionEvent collision = (EntityCollisionEvent) event;
             GameEntity otherEntity = collision.getOtherEntity(this);
             if (otherEntity instanceof ProjectileEntity && !((ProjectileEntity) otherEntity).isFriendly()) {
-                //TODO Log death event!
                 this.die();
+                return true;
             } else if (otherEntity instanceof EnemyEntity) {
                 this.damage(((EnemyEntity) otherEntity).getAttackDamage());
                 Action last = getLastAction();
                 if (last instanceof MoveAction) {
                     ((MoveAction) last).undo();
                 }
+                return true;
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
             ((EntityObjectCollisionEvent) event).handleEntityCollision();
+            return true;
         }
+
+        return false;
     }
 
     public void useMainAbility() {
         if (type == 1) {
             Direction dir = getDirectionFacing();
             Vector2 vec = Direction.getOffsetForDirection(dir);
-            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x / 2, pos.y() + vec.y / 2, vec.scl(4f), Direction.toDegrees(dir)).markFriendly());
+            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x / 2, pos.y() + vec.y / 2, vec.scl(4f), Direction.toDegrees(dir)).setFriendly(true));
         }
     }
 

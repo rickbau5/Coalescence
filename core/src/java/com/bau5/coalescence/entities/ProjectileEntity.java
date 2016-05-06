@@ -10,6 +10,7 @@ import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
+import com.bau5.coalescence.entities.living.ReflectorEnemy;
 
 /**
  * Created by Rick on 4/5/2016.
@@ -38,28 +39,31 @@ public class ProjectileEntity extends GameEntity {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public boolean handleEvent(Event event) {
          switch (event.type) {
             case EntityCollision:
                 GameEntity otherEntity = ((EntityCollisionEvent) event).getOtherEntity(this);
-                if (isFriendly() && otherEntity instanceof PlayableCharacter) {
+                if (isFriendly() && (otherEntity instanceof PlayableCharacter || otherEntity instanceof ReflectorEnemy)) {
                     break;
                 } else if (!isFriendly() && otherEntity instanceof EnemyEntity) {
                     break;
                 }
             case EntityStaticCollision:
                 this.die();
-                break;
+                return true;
 
             case EntityObjectCollision:
                 if (event instanceof DestructibleCollisionEvent) {
                     this.die();
                     ((DestructibleCollisionEvent) event).handleEntityCollision();
+                    return true;
                 }
                 break;
             default:
                 // TODO some
         }
+
+        return false;
     }
 
     @Override
@@ -84,8 +88,8 @@ public class ProjectileEntity extends GameEntity {
 
     }
 
-    public ProjectileEntity markFriendly() {
-        this.friendly = true;
+    public ProjectileEntity setFriendly(boolean flag) {
+        this.friendly = flag;
         return this;
     }
 
@@ -99,6 +103,10 @@ public class ProjectileEntity extends GameEntity {
 
     public void setDamage(int amount) {
         this.damage = amount;
+    }
+
+    public VelocityComponent getVelocity() {
+        return velocity;
     }
 
     @Override

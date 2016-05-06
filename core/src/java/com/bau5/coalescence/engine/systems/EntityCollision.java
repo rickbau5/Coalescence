@@ -44,7 +44,12 @@ public class EntityCollision extends IteratingSystem {
     @Override
     public void update(float deltaTime) {
         for (Entity entity : getEntities()) {
+            ((GameEntity) entity).setIgnoreCollisions(false);
+        }
+
+        for (Entity entity : getEntities()) {
             GameEntity gameEntity = (GameEntity) entity;
+            if (gameEntity.ignoreCollisions()) continue;
             PositionComponent positionComponent = pm.get(gameEntity);
             AttributeComponent attributeComponent = am.get(gameEntity);
 
@@ -83,8 +88,10 @@ public class EntityCollision extends IteratingSystem {
                     mapToRectangle(r2, otherPos, otherAttrib);
                     if (r1.overlaps(r2)) {
                         EntityCollisionEvent event = new EntityCollisionEvent(gameEntity, otherGameEntity);
-                        gameEntity.handleEvent(event);
-                        otherGameEntity.handleEvent(event);
+                        boolean handledA = gameEntity.handleEvent(event);
+                        boolean handledB = otherGameEntity.handleEvent(event);
+                        gameEntity.setIgnoreCollisions(handledA);
+                        otherGameEntity.setIgnoreCollisions(handledB);
                     }
                 }
             }

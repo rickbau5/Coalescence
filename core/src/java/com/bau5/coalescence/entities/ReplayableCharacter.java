@@ -32,13 +32,15 @@ public class ReplayableCharacter extends GameEntity {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public boolean handleEvent(Event event) {
         // Nothing; only replaying
+        return false;
     }
 
     @Override
     public void onDeath() {
         // Nothing; only replaying
+        System.out.println("Killing");
     }
 
     @Override

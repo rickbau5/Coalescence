@@ -30,21 +30,23 @@ public class EnemyEntity extends LivingEntity {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public boolean handleEvent(Event event) {
         if (event.type == Event.EventType.EntityCollision) {
             EntityCollisionEvent entityCollision = (EntityCollisionEvent) event;
 
             GameEntity otherEntity = entityCollision.getOtherEntity(this);
             if (otherEntity instanceof PlayableCharacter) {
                 this.damage(((LivingEntity) entityCollision.getOtherEntity(this)).getAttackDamage());
-                return;
+                return true;
             }
 
             if (otherEntity instanceof ProjectileEntity && ((ProjectileEntity) otherEntity).isFriendly()) {
                 this.damage(((ProjectileEntity) otherEntity).getDamage());
+                return true;
             }
-
         }
+
+        return false;
     }
 
     @Override
