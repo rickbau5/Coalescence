@@ -108,6 +108,8 @@ public class World implements Disposable {
             Action action = replayActions.pop();
             action.execute();
 
+            System.out.println("Replayed " + action);
+
             if (!actionList.contains(action)) {
                 actionList.add(action);
             }

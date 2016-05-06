@@ -170,6 +170,7 @@ public abstract class GameEntity extends Entity {
 
     public void createDespawnEvent(long worldStep) {
         actions.add(new DespawnAction(this, worldStep));
+        System.out.println("Entity: " + actions.getLast());
     }
 
     public Direction getDirectionFacing() {

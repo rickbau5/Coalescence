@@ -20,11 +20,18 @@ public class ProjectileEntity extends GameEntity {
     private TextureRegion textureRegion;
 
     private boolean friendly = false;
+    private GameEntity firedBy;
+
     private int damage = 10;
+
+    private float originalX, originalY, originalRotation;
 
     public ProjectileEntity(int type, float x, float y, Vector2 vec, float rotation) {
         super(type, new PositionComponent(x, y), new AttributeComponent(10, 3, rotation));
 
+        this.originalX = vec.x;
+        this.originalY = vec.y;
+        this.originalRotation = rotation;
         this.velocity = new VelocityComponent(vec.x, vec.y);
         this.add(velocity);
 
@@ -43,7 +50,7 @@ public class ProjectileEntity extends GameEntity {
          switch (event.type) {
             case EntityCollision:
                 GameEntity otherEntity = ((EntityCollisionEvent) event).getOtherEntity(this);
-                if (isFriendly() && (otherEntity instanceof PlayableCharacter || otherEntity instanceof ReflectorEnemy)) {
+                if (isFriendly() && (otherEntity instanceof PlayableCharacter || otherEntity instanceof ReplayableCharacter || otherEntity instanceof ReflectorEnemy)) {
                     break;
                 } else if (!isFriendly() && otherEntity instanceof EnemyEntity) {
                     break;
@@ -86,9 +93,21 @@ public class ProjectileEntity extends GameEntity {
             default:
         }
 
+        if (firedBy instanceof PlayableCharacter || firedBy instanceof ReplayableCharacter) {
+            this.friendly = true;
+        }
+
+        velocity.vx_$eq(originalX);
+        velocity.vy_$eq(originalY);
+        attributes.rotation_$eq(originalRotation);
     }
 
-    public ProjectileEntity setFriendly(boolean flag) {
+    public ProjectileEntity setFiredBy(GameEntity entity) {
+        this.firedBy = entity;
+        return this;
+    }
+
+    public ProjectileEntity setIsFriendly(boolean flag) {
         this.friendly = flag;
         return this;
     }

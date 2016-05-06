@@ -25,7 +25,7 @@ public class ReflectorEnemy extends EnemyEntity {
                 VelocityComponent vel = projectile.getVelocity();
                 vel.vx_$eq(vel.vx() * -1);
                 vel.vy_$eq(vel.vy() * -1);
-                projectile.setFriendly(false);
+                projectile.setIsFriendly(false);
                 float newRotation = projectile.attributes.rotation() - 180;
                 projectile.attributes.rotation_$eq(newRotation);
                 return true;
