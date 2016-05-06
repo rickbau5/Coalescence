@@ -35,7 +35,7 @@ class InputHandler(stage: GameStage) extends InputListener {
     val world = stage.getWorld
     val handledMovement = if (!stage.isPaused && world.getActivePlayer != null) {
       val player = world.getActivePlayer
-      character match {
+      character.toLower match {
         // Player movement
         case 'w' =>
           player.moveInDirection(Direction.Up)

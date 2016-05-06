@@ -64,7 +64,7 @@ public class PlayableCharacter extends LivingEntity {
                 }
             }
         } else if (event.type == Event.EventType.EntityObjectCollision) {
-            ((EntityObjectCollisionEvent) event).handlePlayerCollision();
+            ((EntityObjectCollisionEvent) event).handleEntityCollision();
         }
     }
 

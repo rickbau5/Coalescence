@@ -22,7 +22,7 @@ public class TriggerCollisionEvent extends EntityObjectCollisionEvent {
     }
 
     @Override
-    public void handlePlayerCollision() {
+    public void handleEntityCollision() {
         triggerObject.activateTrigger();
     }
 }

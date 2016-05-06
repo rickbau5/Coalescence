@@ -24,7 +24,7 @@ public class ControlCollisionEvent extends EntityObjectCollisionEvent {
 
 
     @Override
-    public void handlePlayerCollision() {
+    public void handleEntityCollision() {
         controlObject.executeControl();
     }
 }

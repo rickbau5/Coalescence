@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="88">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="91">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -58,5 +58,7 @@
   <object id="83" name="enemy" type="0" x="81.6667" y="48.3333" width="12.3333" height="13.3333"/>
   <object id="86" name="character" type="1" x="32.75" y="208.5" width="14" height="14.25"/>
   <object id="87" name="enemy" type="1" x="145.667" y="144.667" width="13" height="14.6667"/>
+  <object id="88" name="crate" gid="241" x="112" y="144" width="16" height="16"/>
+  <object id="89" name="crate" gid="241" x="96" y="96" width="16" height="16"/>
  </objectgroup>
 </map>

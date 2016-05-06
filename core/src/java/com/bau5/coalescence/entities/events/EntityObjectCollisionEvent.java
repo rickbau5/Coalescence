@@ -7,7 +7,7 @@ import com.bau5.coalescence.world.objects.TiledMapObject;
  * Created by Rick on 4/16/2016.
  */
 public abstract class EntityObjectCollisionEvent extends Event {
-    private final TiledMapObject collidedObject;
+    protected final TiledMapObject collidedObject;
 
     /**
      * Event for an entity colliding with a map object
@@ -21,7 +21,7 @@ public abstract class EntityObjectCollisionEvent extends Event {
         this.collidedObject = collidedObject;
     }
 
-    public abstract void handlePlayerCollision();
+    public abstract void handleEntityCollision();
 
     public TiledMapObject getCollidedObject() {
         return collidedObject;

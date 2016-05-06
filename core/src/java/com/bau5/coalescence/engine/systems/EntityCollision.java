@@ -13,7 +13,7 @@ import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.MapCell;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.objects.ControlObject;
-import com.bau5.coalescence.world.objects.Destructible;
+import com.bau5.coalescence.world.objects.DestructibleObject;
 import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.world.objects.triggers.TriggerObject;
 
@@ -59,9 +59,9 @@ public class EntityCollision extends IteratingSystem {
                     gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
                 } else if (object instanceof ControlObject) {
                     gameEntity.handleEvent(new ControlCollisionEvent(gameEntity, ((ControlObject) cell.getObject())));
-                } else if (object instanceof Destructible) {
+                } else if (object instanceof DestructibleObject) {
                     if (object.isCollidable()) {
-                        gameEntity.handleEvent(new DestructibleCollisionEvent(gameEntity, cell.getObject()));
+                        gameEntity.handleEvent(new DestructibleCollisionEvent(gameEntity, (DestructibleObject) cell.getObject()));
                     }
                 }
             }
