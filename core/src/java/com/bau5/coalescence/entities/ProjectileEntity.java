@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.*;
+import com.bau5.coalescence.entities.events.DestructibleCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
+import com.bau5.coalescence.world.objects.Destructible;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 
 /**
  * Created by Rick on 4/5/2016.
@@ -38,7 +42,7 @@ public class ProjectileEntity extends GameEntity {
 
     @Override
     public void handleEvent(Event event) {
-        switch (event.type) {
+         switch (event.type) {
             case EntityCollision:
                 GameEntity otherEntity = ((EntityCollisionEvent) event).getOtherEntity(this);
                 if (isFriendly() && otherEntity instanceof PlayableCharacter) {
@@ -48,6 +52,13 @@ public class ProjectileEntity extends GameEntity {
                 }
             case EntityStaticCollision:
                 this.die();
+                break;
+
+            case EntityObjectCollision:
+                if (event instanceof DestructibleCollisionEvent) {
+                    this.die();
+                    ((DestructibleCollisionEvent) event).handlePlayerCollision();
+                }
                 break;
             default:
                 // TODO some

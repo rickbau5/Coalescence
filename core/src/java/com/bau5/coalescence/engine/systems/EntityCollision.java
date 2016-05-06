@@ -8,14 +8,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.events.ControlCollisionEvent;
-import com.bau5.coalescence.entities.events.EntityCollisionEvent;
-import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
-import com.bau5.coalescence.entities.events.TriggerCollisionEvent;
+import com.bau5.coalescence.entities.events.*;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.MapCell;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.objects.ControlObject;
+import com.bau5.coalescence.world.objects.Destructible;
 import com.bau5.coalescence.world.objects.TiledMapObject;
 import com.bau5.coalescence.world.objects.triggers.TriggerObject;
 
@@ -59,8 +57,12 @@ public class EntityCollision extends IteratingSystem {
                 TiledMapObject object = cell.getObject();
                 if (object instanceof TriggerObject) {
                     gameEntity.handleEvent(new TriggerCollisionEvent(gameEntity, ((TriggerObject) cell.getObject())));
-                } else  if (object instanceof ControlObject) {
+                } else if (object instanceof ControlObject) {
                     gameEntity.handleEvent(new ControlCollisionEvent(gameEntity, ((ControlObject) cell.getObject())));
+                } else if (object instanceof Destructible) {
+                    if (object.isCollidable()) {
+                        gameEntity.handleEvent(new DestructibleCollisionEvent(gameEntity, cell.getObject()));
+                    }
                 }
             }
 

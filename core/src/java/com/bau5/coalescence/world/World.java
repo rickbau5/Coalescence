@@ -30,6 +30,7 @@ import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.objects.ExitObject;
 import com.bau5.coalescence.world.objects.Stateful;
 import com.bau5.coalescence.world.objects.TiledMapObject;
+import com.bau5.coalescence.world.objects.TiledMapObjectBuilder;
 import com.bau5.coalescence.world.objects.triggers.TriggerObject;
 import com.bau5.coalescence.world.objects.triggers.TriggerableObject;
 
@@ -264,8 +265,14 @@ public class World implements Disposable {
                 } else if (mapObject.getName().equals("exit")) {
                     tiledMapObjects.add(new ExitObject(this, object));
                 } else {
-                    // Regular object
-                    tiledMapObjects.add(new TiledMapObject(this, object));
+                    TiledMapObject newObject = TiledMapObjectBuilder.fromName(this, object);
+
+                    if (newObject == null) {
+                        // Regular object
+                        newObject = new TiledMapObject(this, object);
+                    }
+
+                    tiledMapObjects.add(newObject);
                 }
             } else if (mapObject instanceof RectangleMapObject) {
                 RectangleMapObject object = (RectangleMapObject) mapObject;
