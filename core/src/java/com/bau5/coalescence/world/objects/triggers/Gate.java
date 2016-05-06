@@ -1,6 +1,5 @@
 package com.bau5.coalescence.world.objects.triggers;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.bau5.coalescence.SoundManager;

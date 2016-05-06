@@ -54,4 +54,9 @@ public class EnemyEntity extends LivingEntity {
     public void onSpawn() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Enemy entity " + type;
+    }
 }

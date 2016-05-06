@@ -18,7 +18,7 @@ public abstract class Action {
     }
 
     public void execute() {
-        if (actor != null) {
+        if (actor != null && recordedTime == 0) {
             recordedTime = actor.world.getWorldStep();
         }
     }
@@ -31,7 +31,9 @@ public abstract class Action {
         return recordedTime;
     }
 
-    public void setRecordedTime(long time) {
+    public Action setRecordedTime(long time) {
         this.recordedTime = time;
+
+        return this;
     }
 }

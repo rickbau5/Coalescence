@@ -55,8 +55,9 @@ public class World implements Disposable {
 
     private MapCell[][] mapCells;
 
-    private LinkedList<Action> worldActions;
     private LinkedList<Action> replayActions;
+
+    private LinkedList<Action> actionList;
 
     private long worldStep = 0;
 
@@ -76,12 +77,12 @@ public class World implements Disposable {
         this.engine = new Engine();
         this.loader = new TmxMapLoader();
 
-        this.worldActions = new LinkedList<>();
         this.replayActions = new LinkedList<>();
+        this.actionList = new LinkedList<>();
 
         loadMap(mapToLoad);
 
-        // All worlds will need an movement and collision system
+        // All worlds will need a movement and collision system
         addSystemToEngine(new EntityCollision(this));
         addSystemToEngine(new EntityMovement(this));
         addSystemToEngine(new EntityReplayer(this));
@@ -102,7 +103,12 @@ public class World implements Disposable {
     private void performStep(long worldStep) {
         if (replayActions.isEmpty()) return;
         if (replayActions.peek().getRecordedTime() <= worldStep) {
-            replayActions.pop().execute();
+            Action action = replayActions.pop();
+            action.execute();
+
+            if (!actionList.contains(action)) {
+                actionList.add(action);
+            }
         }
     }
 
@@ -122,7 +128,7 @@ public class World implements Disposable {
 
     public void replacePlayableCharacter(PlayableCharacter character, ReplayableCharacter replayer) {
         setActivePlayer(null);
-        for (Action worldAction : worldActions) {
+        for (Action worldAction : actionList) {
             if (worldAction.getActor() == character) {
                 worldAction.setActor(replayer);
             }
@@ -133,13 +139,13 @@ public class World implements Disposable {
         entity.setWorld(this);
         SpawnAction spawnAction = new SpawnAction(entity);
 
-        replayActions.add(spawnAction);
-        worldActions.add(spawnAction);
+        replayActions.addFirst(spawnAction);
+        actionList.add(spawnAction.setRecordedTime(worldStep));
     }
 
     public void addTriggeredEvent(TriggerableObject object) {
         Action action = new TriggeredAction(object);
-        worldActions.add(action);
+        actionList.add(action.setRecordedTime(worldStep));
     }
 
     public void addEntity(GameEntity entity) {
@@ -153,7 +159,7 @@ public class World implements Disposable {
     }
 
     public void addAction(Action worldAction) {
-        worldActions.add(worldAction);
+        actionList.add(worldAction);
     }
 
     public boolean isReplaying() {
@@ -167,7 +173,13 @@ public class World implements Disposable {
         reset();
 
         if (!replayActions.isEmpty()) replayActions.clear();
-        replayActions.addAll(worldActions);
+        actionList.sort((a, b) -> {
+            long t1 = a.getRecordedTime();
+            long t2 = b.getRecordedTime();
+            return (t1 < t2) ? -1 : (t1 == t2) ? 0 : 1;
+        });
+        replayActions.addAll(actionList);
+        actionList.clear();
 
         engine.removeAllEntities();
         canReplay = true;

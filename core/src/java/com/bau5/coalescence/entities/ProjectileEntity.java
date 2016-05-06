@@ -92,4 +92,9 @@ public class ProjectileEntity extends GameEntity {
     public void setDamage(int amount) {
         this.damage = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Projectile Entity " + type;
+    }
 }

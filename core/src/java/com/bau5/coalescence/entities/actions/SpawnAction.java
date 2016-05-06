@@ -22,4 +22,9 @@ public class SpawnAction extends Action {
         actor.beginPlayback();
         actor.onSpawn();
     }
+
+    @Override
+    public String toString() {
+        return String.format("Spawn {%s} at %d", actor.toString(), getRecordedTime());
+    }
 }

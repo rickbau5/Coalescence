@@ -1,7 +1,5 @@
 package com.bau5.coalescence.world.objects.triggers;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Vector2;
@@ -39,10 +37,10 @@ public class TriggerObject extends TiledMapObject implements Stateful {
 
     public void activateTrigger() {
         if (trigger) {
+            world.addAction(new TriggerObjectAction(this));
             for (Vector2 link : links) {
                 TiledMapObject mapObject = world.getCellAt(((int) link.x), ((int) link.y)).getObject();
                 if (mapObject instanceof TriggerableObject) {
-                    world.addAction(new TriggerObjectAction(this));
                     ((TriggerableObject) mapObject).trigger();
                     trigger = false;
                 } else {
