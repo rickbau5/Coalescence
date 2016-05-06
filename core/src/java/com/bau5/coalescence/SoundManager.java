@@ -18,6 +18,10 @@ public class SoundManager {
 
     private Random rand;
 
+    private boolean fading;
+    private float fadeAmount;
+    private Music fadingMusic = null;
+
     public SoundManager() {
         this.music = new HashMap<>();
         this.sounds = new HashMap<>();
@@ -100,7 +104,34 @@ public class SoundManager {
 
     public void stopMusic() {
         Music m = getPlayingMusic();
-        if (m != null) m.stop();
+        if (m != null) {
+            m.setVolume(1.0f);  // Reset the volume, in case of fading.
+            m.stop();
+        }
+    }
+
+    public void beginFadeMusic() {
+        fadingMusic = getPlayingMusic();
+        this.fading = fadingMusic != null;
+    }
+
+    public void fadeMusic(float delta) {
+        if (fading) {
+            Music playingMusic = fadingMusic;
+            fadeAmount += delta / 3;
+
+            if (fadeAmount < 1.0f && playingMusic != null) {
+                playingMusic.setVolume(1.0f - fadeAmount);
+            } else {
+                stopMusic();
+                fadeAmount = 0.0f;
+                fading = false;
+            }
+        }
+    }
+
+    public boolean isFadingMusic() {
+        return this.fading;
     }
 
     public void initialize() {

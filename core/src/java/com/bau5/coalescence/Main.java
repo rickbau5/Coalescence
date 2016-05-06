@@ -20,5 +20,7 @@ public class Main extends Game {
         }
 
         setScreen(screen);
+
+        screen.initialize();
     }
 }

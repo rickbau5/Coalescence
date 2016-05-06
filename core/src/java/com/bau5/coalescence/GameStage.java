@@ -48,16 +48,21 @@ public class GameStage extends Stage {
         table.setPosition(getViewport().getWorldWidth() / 2, getViewport().getWorldHeight() / 2);
         this.addActor(table);
         table.setVisible(false);
+    }
 
-        SoundManager.instance.stopMusic();
-        SoundManager.instance.stopAmbience();
-        map.playMusicForLevel();
-        map.playAmbienceForLevel();
+    public void initialize() {
+        SoundManager.instance.beginFadeMusic();
+        this.loadedWorld.playMusicForLevel();
+        this.loadedWorld.playAmbienceForLevel();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        if (SoundManager.instance.isFadingMusic()) {
+            SoundManager.instance.fadeMusic(delta);
+        }
 
         if (!paused) {
             world.update(delta);
@@ -90,6 +95,8 @@ public class GameStage extends Stage {
 
         worldRenderer.dispose();
         world.dispose();
+        SoundManager.instance.stopAmbience();
+        SoundManager.instance.stopMusic();
     }
 
     public Vector2 stageToMapCoordinates(Vector2 stageCoords) {

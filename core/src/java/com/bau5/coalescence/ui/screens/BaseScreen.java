@@ -25,6 +25,10 @@ public abstract class BaseScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    public void initialize() {
+
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);

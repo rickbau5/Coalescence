@@ -20,8 +20,12 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
   stage.addActor(table)
   centerTable(table)
 
-  SoundManager.instance.playMusic("theme")
 
+  override def initialize(): Unit = {
+    super.initialize()
+
+    SoundManager.instance.playMusic("theme")
+  }
 
   override def resize(width: Int, height: Int): Unit = {
     super.resize(width, height)
@@ -30,6 +34,5 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
 
   override def dispose(): Unit = {
     super.dispose()
-    SoundManager.instance.stopMusic()
   }
 }
