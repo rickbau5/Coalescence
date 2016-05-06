@@ -9,7 +9,7 @@ import com.bau5.coalescence.world.Maps
 /**
   * Created by Rick on 5/2/2016.
   */
-class WorldSelectScreen(main: Main) extends BaseScreen(main, new Stage) {
+class WorldSelectScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport())) {
   val table = new Table
   table.add(GameButton.MainMenu(main))
   table.row()
@@ -19,6 +19,6 @@ class WorldSelectScreen(main: Main) extends BaseScreen(main, new Stage) {
     table.row()
   }
 
-  table.setPosition(stage.getViewport.getScreenWidth / 2, stage.getViewport.getScreenHeight / 2)
+  centerTable(table)
   stage.addActor(table)
 }

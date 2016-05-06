@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bau5.coalescence.Main;
 import com.bau5.coalescence.ui.elements.GameButton;
 
@@ -31,6 +32,10 @@ public abstract class BaseScreen implements Screen {
 
         stage.act(delta);
         stage.draw();
+    }
+
+    public void centerTable(Table table) {
+        table.setPosition(stage.getViewport().getWorldWidth() / 2, stage.getViewport().getWorldHeight() / 2);
     }
 
     @Override

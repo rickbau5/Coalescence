@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.bau5.coalescence.ui.elements.GameButton;
+import com.bau5.coalescence.ui.screens.GameViewport;
 import com.bau5.coalescence.world.Maps;
 import com.bau5.coalescence.world.World;
 import com.bau5.coalescence.world.WorldRenderer;
@@ -28,13 +27,9 @@ public class GameStage extends Stage {
     private Maps nextLevel = null;
 
     public GameStage(Main main, Maps map) {
-        super(new ScalingViewport(Scaling.fit, Constants.sizeX, Constants.sizeY,
-                new OrthographicCamera(Constants.sizeX, Constants.sizeY)));
+        super(new GameViewport());
         this.main = main;
         this.loadedWorld = map;
-
-        getCamera().setToOrtho(false, Constants.sizeX, Constants.sizeY);
-        getCamera().update();
 
         this.inputHandler = new InputHandler(this);
         this.addListener(inputHandler);
@@ -53,6 +48,11 @@ public class GameStage extends Stage {
         table.setPosition(getViewport().getWorldWidth() / 2, getViewport().getWorldHeight() / 2);
         this.addActor(table);
         table.setVisible(false);
+
+        SoundManager.instance.stopMusic();
+        SoundManager.instance.stopAmbience();
+        map.playMusicForLevel();
+        map.playAmbienceForLevel();
     }
 
     @Override
