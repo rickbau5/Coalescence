@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="136">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+  <image source="../tile.png" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="type" value="dangerous"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="terrain" width="15" height="15">
+  <data encoding="csv">
+3,3,3,3,3,3,3,3,1,17,1,3,3,3,3,
+3,6,25,25,1,25,25,25,1,2,1,25,25,7,3,
+3,8,2,2,2,2,2,2,1,2,1,2,2,9,3,
+3,8,2,2,1,1,1,2,2,2,1,2,2,9,3,
+3,8,2,2,2,2,1,2,2,2,2,2,2,9,3,
+3,22,24,24,2,2,1,24,2,2,1,24,24,23,3,
+3,3,3,3,4,5,3,3,4,5,3,3,3,3,3,
+3,3,3,3,20,21,3,3,20,21,3,3,3,3,3,
+1,25,25,25,2,2,1,25,2,9,3,3,1,1,1,
+1,2,2,2,2,2,1,2,2,9,3,3,1,1,1,
+1,1,1,1,2,2,1,2,2,1,3,3,1,1,3,
+1,1,1,1,1,1,1,2,2,1,3,3,1,1,3,
+1,2,2,2,2,1,2,2,2,1,3,3,1,1,3,
+1,2,2,2,2,2,2,2,2,1,3,3,1,1,3,
+1,1,1,1,1,1,1,1,1,1,3,3,1,1,3
+</data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="117" name="prop" gid="37" x="16" y="176" width="16" height="16"/>
+  <object id="119" name="character" type="1" x="17.0972" y="133.061" width="14.1238" height="9.66363"/>
+  <object id="120" name="character" type="0" x="34.9377" y="146.07" width="11.522" height="11.8937"/>
+  <object id="122" name="gate" gid="49" x="96" y="224" width="16" height="16" rotation="270">
+   <properties>
+    <property name="triggerable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="123" name="crate" gid="241" x="80" y="176" width="16" height="16"/>
+  <object id="126" name="gate" gid="49" x="64" y="32" width="16" height="16" rotation="90">
+   <properties>
+    <property name="triggerable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="127" name="plate" gid="38" x="32" y="48" width="16" height="16">
+   <properties>
+    <property name="triggers" value="5,1;9,13"/>
+   </properties>
+  </object>
+  <object id="128" name="triggers" gid="38" x="192" y="48" width="16" height="16">
+   <properties>
+    <property name="triggers" value="4,12;9,12"/>
+   </properties>
+  </object>
+  <object id="130" name="exit" gid="37" x="144" y="16" width="16" height="16">
+   <properties>
+    <property name="level" value="Testing"/>
+   </properties>
+  </object>
+  <object id="132" name="gate" gid="49" x="144" y="32" width="16" height="16">
+   <properties>
+    <property name="triggerable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="133" name="gate" gid="49" x="144" y="48" width="16" height="16">
+   <properties>
+    <property name="triggerable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="134" name="character" type="2" x="18.9556" y="195.503" width="10.0353" height="10.0353"/>
+ </objectgroup>
+</map>

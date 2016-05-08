@@ -1,5 +1,7 @@
 package com.bau5.coalescence.world.objects.triggers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +19,6 @@ public class TriggerObject extends TiledMapObject implements Stateful {
     private ArrayList<Vector2> links;
 
     private boolean trigger = true;
-    private boolean onTriggered = true;
 
     private TextureRegion activeTexture;
     private TextureRegion inactiveTexture;
@@ -75,6 +76,8 @@ public class TriggerObject extends TiledMapObject implements Stateful {
     public static TriggerObject build(World world, TextureMapObject object) {
         if (object.getName().equals("rope")) {
             return new RopeObject(world, object);
+        } else if (object.getName().equals("plate")) {
+            return new TriggerObject(world, object, new TextureRegion(new Texture(Gdx.files.internal("textures/objects/plate_activated.png"))));
         }
 
         return new TriggerObject(world, object, null);

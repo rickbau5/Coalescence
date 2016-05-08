@@ -8,7 +8,8 @@ import com.bau5.coalescence.SoundManager;
 public enum Maps {
     Testing("level-test", null, null),
     One("level-1", null, null),
-    Two("level-2", null, "dripping");
+    Two("level-2", null, "dripping"),
+    Three("level-3", null, "dripping");
 
     private final String name;
     private final String terrainLayerName;

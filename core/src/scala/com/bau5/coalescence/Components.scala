@@ -40,6 +40,8 @@ object CharacterStats {
     case 1 =>
       // Mage - projectile: 1
       new StatsComponent(20, 10)
+    case 2 =>
+      new StatsComponent(30, 15)
   }
 }
 object EnemyStats {
