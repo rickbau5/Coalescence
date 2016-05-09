@@ -1,6 +1,9 @@
 # Coalescence
 This is a repo for a game made for the final project of a Game Development class at University of Idaho. It's not meant to be anything realeased. Mainly putting it here so it shows up on my commit activity. And GitLab is super slow. 
 
+## Running It
+Clone/download it, `cd` to its directory and run `./gradlew run`.
+
 ## Premise
 **Coalescence** is a game that approaches the roll of death in a nonstandard way. Rather than death being an endpoint for the player, or something the player attempts to avoid, **Coalescence** will have the player start again after death, but play with a new character alongside characters from all previous attempts. The player will be expected to work with themselves, both in their previous actions and planning ahead for future actions as well.
 
