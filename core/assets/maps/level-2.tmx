@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="117">
- <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="119">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
   <image source="../tile.png" width="256" height="256"/>
   <tile id="0">
    <properties>
@@ -54,7 +54,7 @@
   </object>
   <object id="102" name="rope" gid="35" x="96" y="208" width="16" height="16" rotation="-270">
    <properties>
-    <property name="triggers" value="11,1;6,0"/>
+    <property name="triggers" value="11,1;6,0;6,2"/>
    </properties>
   </object>
   <object id="104" name="character" type="1" x="161.5" y="49" width="14" height="14"/>
@@ -67,12 +67,18 @@
   <object id="112" name="crate" gid="241" x="48" y="176" width="16" height="16"/>
   <object id="113" name="gate" gid="49" x="112" y="192" width="16" height="16" rotation="270">
    <properties>
-    <property name="triggerable" type="bool" value="true"/>
+    <property name="triggerable" value="true"/>
    </properties>
   </object>
   <object id="115" name="plate" gid="38" x="160" y="160" width="16" height="16">
    <properties>
     <property name="triggers" value="6,3"/>
+   </properties>
+  </object>
+  <object id="117" name="enemy" type="1" x="129" y="178.667" width="14" height="11.3333"/>
+  <object id="118" name="launcher" type="1" gid="33" x="112" y="192" width="16" height="16" rotation="-180">
+   <properties>
+    <property name="triggerable" value="true"/>
    </properties>
   </object>
  </objectgroup>

@@ -136,19 +136,22 @@ public class World implements Disposable {
         if (character == getActivePlayer()) {
             setActivePlayer(null);
         }
-//        for (Action worldAction : actionList) {
-//            if (worldAction.getActor() == character) {
-//                worldAction.setActor(replayer);
-//            }
-//        }
     }
 
-    public void spawnEntity(GameEntity entity) {
+    public void spawnEntity(GameEntity entity, boolean record) {
         entity.setWorld(this);
         SpawnAction spawnAction = new SpawnAction(entity);
 
-        replayActions.addFirst(spawnAction);
-        actionList.add(spawnAction.setRecordedTime(worldStep));
+        if (record) {
+            replayActions.addFirst(spawnAction);
+            actionList.add(spawnAction.setRecordedTime(worldStep));
+        } else {
+            spawnAction.execute();
+        }
+    }
+
+    public void spawnEntity(GameEntity entity) {
+        this.spawnEntity(entity, true);
     }
 
     public void addTriggeredEvent(TriggerableObject object) {

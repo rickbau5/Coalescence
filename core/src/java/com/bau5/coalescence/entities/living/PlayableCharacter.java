@@ -78,7 +78,7 @@ public class PlayableCharacter extends LivingEntity {
 
     public void useMainAbility() {
         if (type == 1) {
-            performAction(new FireProjectileAction(this, 1, pos.x(), pos.y(), this.getDirectionFacing()), true);
+            performAction(new FireProjectileAction(this, 1, pos.x(), pos.y(), this.getDirectionFacing(), Direction.getOffsetForDirection(this.getDirectionFacing())), true);
         }
     }
 

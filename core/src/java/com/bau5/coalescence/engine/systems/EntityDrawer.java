@@ -51,9 +51,9 @@ public class EntityDrawer extends IteratingSystem {
                 int off = Constants.tileSize / 2;
                 boolean flipX = entity instanceof LivingEntity && ((LivingEntity) entity).isFlipped();
                 float rotate = 0;
-//                if (entity instanceof ProjectileEntity) {
-//                    rotate = rotation % 180 == 0 ? 0 : 180;
-//                }
+                if (entity instanceof ProjectileEntity && ((ProjectileEntity) entity).type == 0)  {
+                    rotate = rotation % 180 == 0 ? 0 : 180;
+                }
 
                 if (entity instanceof EnemyEntity && ((EnemyEntity) entity).type == 4) {
                     batch.begin();

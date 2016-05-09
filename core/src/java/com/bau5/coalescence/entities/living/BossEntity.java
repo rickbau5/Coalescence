@@ -2,7 +2,7 @@ package com.bau5.coalescence.entities.living;
 
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.ProjectileEntity;
+import com.bau5.coalescence.entities.actions.FireProjectileAction;
 
 /**
  * Created by Rick on 5/8/2016.
@@ -23,9 +23,7 @@ public class BossEntity extends EnemyEntity {
                     float dy = e.pos.y() - this.pos.y();
                     double angle = Math.atan2(dy, dx) * 180 / Math.PI - 90;
 
-                    ProjectileEntity projectile = new ProjectileEntity(2, this.pos.x(), this.pos.y(), new Vector2((float)Math.cos(Math.toRadians(angle + 90)) * 1.2f, (float)Math.sin(Math.toRadians(angle + 90)) * 1.2f), (float)angle);
-                    projectile.setFiredBy(this);
-                    world.spawnEntity(projectile);
+                    performAction(new FireProjectileAction(this, 2, this.pos.x(), this.pos.y(), new Vector2((float)Math.cos(Math.toRadians(angle + 90)) * 1.2f, (float)Math.sin(Math.toRadians(angle + 90)) * 1.2f), (float)angle), true);
                 }
             });
         }
