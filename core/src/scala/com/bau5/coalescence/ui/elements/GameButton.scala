@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.{Color, Pixmap, Texture}
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.ui.{Skin, TextButton}
+import com.badlogic.gdx.scenes.scene2d.ui.{Label, Skin, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent
 import com.bau5.coalescence.ui.screens.{BaseScreen, GameScreen, MenuScreen, WorldSelectScreen}
@@ -30,6 +30,9 @@ object GameButton {
     buttonStyle.over = skn.newDrawable("white", Color.LIGHT_GRAY)
     buttonStyle.font = Font
     skn.add("default", buttonStyle)
+
+    val labelStyle: Label.LabelStyle = new Label.LabelStyle(GameButton.Font, Color.WHITE)
+    skn.add("labelStyle", labelStyle)
     skn
   }
 
