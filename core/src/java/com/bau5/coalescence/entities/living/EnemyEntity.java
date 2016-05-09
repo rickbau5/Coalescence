@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bau5.coalescence.EnemyAttributes;
 import com.bau5.coalescence.EnemyStats;
 import com.bau5.coalescence.PositionComponent;
+import com.bau5.coalescence.ProjectileStats;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
@@ -40,9 +41,12 @@ public class EnemyEntity extends LivingEntity {
                 return true;
             }
 
-            if (otherEntity instanceof ProjectileEntity && ((ProjectileEntity) otherEntity).isFriendly()) {
-                this.damage(((ProjectileEntity) otherEntity).getDamage());
-                return true;
+            if (otherEntity instanceof ProjectileEntity) {
+                ProjectileEntity projectile = ((ProjectileEntity) otherEntity);
+                if (projectile.isFriendly() || projectile.getFiredBy() == null) {
+                    this.damage(((ProjectileEntity) otherEntity).getDamage());
+                    return true;
+                }
             }
         }
 

@@ -17,11 +17,11 @@ public abstract class LivingEntity extends GameEntity {
     public LivingEntity(int type, PositionComponent pos, StatsComponent statsComponent, AttributeComponent attrib) {
         super(type, pos, attrib);
         this.stats = statsComponent;
-        this.health = statsComponent.getMaxHealth();
+        this.health = statsComponent.maxHealth();
     }
 
     public int getMaxHealth() {
-        return stats.getMaxHealth();
+        return stats.maxHealth();
     }
 
     public int getAttackDamage() {
@@ -46,6 +46,6 @@ public abstract class LivingEntity extends GameEntity {
     @Override
     public void reset() {
         super.reset();
-        health = stats.getMaxHealth();
+        health = stats.maxHealth();
     }
 }

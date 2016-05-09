@@ -23,7 +23,7 @@ object EnemyAttributes {
     case 0 | 1 =>
       new AttributeComponent(16, 16, 0f)
     case 2 =>
-      new AttributeComponent(32, 45, 0f);
+      new AttributeComponent(16, 16, 0f);
     case 3 =>
       new AttributeComponent(16, 16, 0f)
     case _ =>
@@ -41,7 +41,7 @@ object CharacterStats {
       // Mage - projectile: 1
       new StatsComponent(20, 10)
     case 2 =>
-      new StatsComponent(30, 15)
+      new StatsComponent(30, 25)
   }
 }
 object EnemyStats {
@@ -64,4 +64,4 @@ object ProjectileStats {
       new StatsComponent(1, 15)
   }
 }
-case class StatsComponent(getMaxHealth: Int, attackDamage: Int) extends Component
+case class StatsComponent(maxHealth: Int, attackDamage: Int) extends Component

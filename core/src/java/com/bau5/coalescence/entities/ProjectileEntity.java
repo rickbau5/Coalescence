@@ -50,10 +50,12 @@ public class ProjectileEntity extends GameEntity {
          switch (event.type) {
             case EntityCollision:
                 GameEntity otherEntity = ((EntityCollisionEvent) event).getOtherEntity(this);
-                if (isFriendly() && (otherEntity instanceof PlayableCharacter || otherEntity instanceof ReplayableCharacter || otherEntity instanceof ReflectorEnemy)) {
-                    break;
-                } else if (!isFriendly() && otherEntity instanceof EnemyEntity) {
-                    break;
+                if (firedBy != null) {
+                    if (isFriendly() && (otherEntity instanceof PlayableCharacter || otherEntity instanceof ReplayableCharacter || otherEntity instanceof ReflectorEnemy)) {
+                        break;
+                    } else if ((!isFriendly() && otherEntity instanceof EnemyEntity)) {
+                        break;
+                    }
                 }
             case EntityStaticCollision:
                 this.die();
@@ -75,7 +77,6 @@ public class ProjectileEntity extends GameEntity {
 
     @Override
     public void onDeath() {
-        this.damage = 0;
         switch (type) {
             case 0:
                 SoundManager.instance.playSound("arrow-hit");
@@ -102,6 +103,10 @@ public class ProjectileEntity extends GameEntity {
         attributes.rotation_$eq(originalRotation);
     }
 
+    public GameEntity getFiredBy() {
+        return this.firedBy;
+    }
+
     public ProjectileEntity setFiredBy(GameEntity entity) {
         this.firedBy = entity;
         return this;
@@ -123,6 +128,7 @@ public class ProjectileEntity extends GameEntity {
     public void setDamage(int amount) {
         this.damage = amount;
     }
+
 
     public VelocityComponent getVelocity() {
         return velocity;
