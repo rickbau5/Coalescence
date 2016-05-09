@@ -12,6 +12,7 @@ import com.bau5.coalescence.Constants;
 import com.bau5.coalescence.PositionComponent;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
+import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.LivingEntity;
 
 /**
@@ -50,14 +51,19 @@ public class EntityDrawer extends IteratingSystem {
                 int off = Constants.tileSize / 2;
                 boolean flipX = entity instanceof LivingEntity && ((LivingEntity) entity).isFlipped();
                 float rotate = 0;
-                if (entity instanceof ProjectileEntity) {
-                    rotate = rotation % 180 == 0 ? 0 : 180;
+//                if (entity instanceof ProjectileEntity) {
+//                    rotate = rotation % 180 == 0 ? 0 : 180;
+//                }
+
+                if (entity instanceof EnemyEntity && ((EnemyEntity) entity).type == 4) {
+                    batch.begin();
+                    batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off * 2, drawY - off * 2, attributes.width() / 2, attributes.height() / 2, attributes.width() * 2, attributes.height() * 2, 1, 1, rotation + rotate, 0, 0, 32, 32, flipX, false);
+                    batch.end();
+                } else {
+                    batch.begin();
+                    batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, 16, 16, off * 2, off * 2, 1, 1, rotation + rotate, 0, 0, 32, 32, flipX, false);
+                    batch.end();
                 }
-                batch.begin();
-                batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, 16, 16, off * 2, off * 2, 1, 1, rotation + rotate, 0, 0, 32, 32, flipX, false);
-//                batch.draw(((GameEntity) entity).getTextureRegion().getTexture(), drawX - off, drawY - off, attributes.width() / 2, attributes.height() / 2, attributes.width() * 2, attributes.height() * 2, 1, 1, rotation + rotate, 16 - width, 16 - height, attributes.width() * 2, attributes.height() * 2, flipX, false);
-                batch.end();
-//                renderer.rect(drawX - width / 2, drawY - height / 2, width, height);
 
                 if (entity instanceof LivingEntity) {
                     LivingEntity living = (LivingEntity) entity;

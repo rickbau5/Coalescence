@@ -30,7 +30,7 @@ public class GameScreen extends BaseScreen {
 
             if (((GameStage) stage).isPaused()) {
                 gameStage.getBatch().begin();
-                font.draw(gameStage.getBatch(), "Paused", getWidth() / 2, getHeight() - 10);
+                font.draw(gameStage.getBatch(), "Paused", getWidth() / 2, getHeight() - 15);
                 gameStage.getBatch().end();
             }
         }

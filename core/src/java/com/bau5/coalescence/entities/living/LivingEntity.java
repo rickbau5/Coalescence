@@ -36,7 +36,7 @@ public abstract class LivingEntity extends GameEntity {
         this.health = health;
     }
 
-    public void damage(int amount) {
+    public void damage(GameEntity damager, int amount) {
         setHealth(Math.max(0, health - amount));
         if (health <= 0) {
             this.die();

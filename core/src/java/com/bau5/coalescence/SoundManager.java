@@ -139,6 +139,9 @@ public class SoundManager {
         registerSound("arrow-launch",  "projectile.arrow_launch");
         registerSound("rope-break", "objects.rope_break");
         registerSound("gate-close", "objects.gate_close");
+        registerSound("ladder", "objects.ladder");
+        registerSound("battle-horn", "enemy.battle-horn");
+
         registerSoundWithAlternates("arrow-hit", new String[] {"projectile.arrow_hit_1", "projectile.arrow_hit_2", "projectile.arrow_hit_3"});
 
         registerMusic("theme");

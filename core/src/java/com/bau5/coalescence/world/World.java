@@ -67,6 +67,7 @@ public class World implements Disposable {
 
     private boolean canReplay = true;
     private PlayableCharacter activePlayer = null;
+    private ArrayList<PlayableCharacter> characters;
 
     /**
      * Intializes the world, creating the engine and it's base systems,
@@ -81,6 +82,8 @@ public class World implements Disposable {
 
         this.replayActions = new LinkedList<>();
         this.actionList = new LinkedList<>();
+
+        this.characters = new ArrayList<>();
 
         loadMap(mapToLoad);
 
@@ -108,8 +111,6 @@ public class World implements Disposable {
             Action action = replayActions.pop();
             action.execute();
 
-            System.out.println("Replayed " + action);
-
             if (!actionList.contains(action)) {
                 actionList.add(action);
             }
@@ -117,26 +118,29 @@ public class World implements Disposable {
     }
 
     public GameEntity getEntityAt(Vector2 position) {
+        GameEntity atPosition = null;
         for (Entity entity : engine.getEntities()) {
             if (entity instanceof GameEntity) {
                 GameEntity gameEntity = (GameEntity) entity;
 
                 if (gameEntity.getTiledPosition().equals(position)) {
-                    return gameEntity;
+                    atPosition = gameEntity;
                 }
             }
         }
 
-        return null;
+        return atPosition;
     }
 
     public void replacePlayableCharacter(PlayableCharacter character, ReplayableCharacter replayer) {
-        setActivePlayer(null);
-        for (Action worldAction : actionList) {
-            if (worldAction.getActor() == character) {
-                worldAction.setActor(replayer);
-            }
+        if (character == getActivePlayer()) {
+            setActivePlayer(null);
         }
+//        for (Action worldAction : actionList) {
+//            if (worldAction.getActor() == character) {
+//                worldAction.setActor(replayer);
+//            }
+//        }
     }
 
     public void spawnEntity(GameEntity entity) {
@@ -238,6 +242,10 @@ public class World implements Disposable {
         return terrainLayer.getHeight();
     }
 
+    public ArrayList<PlayableCharacter> getCharacters() {
+        return this.characters;
+    }
+
     private void loadMap(Maps mapDef) {
         this.map = loader.load(mapDef.getPath());
         this.terrainLayer = ((TiledMapTileLayer) this.map.getLayers().get(mapDef.getTerrainLayerName()));
@@ -287,7 +295,9 @@ public class World implements Disposable {
                 int type = Integer.parseInt((String)object.getProperties().get("type"));
                 switch (object.getName()) {
                     case "character":
-                        spawnEntity(new PlayableCharacter(type, xPos, yPos, 16, 16, 0f));
+                        PlayableCharacter character = new PlayableCharacter(type, xPos, yPos, 16, 16, 0f);
+                        this.characters.add(character);
+                        spawnEntity(character);
                         break;
                     case "enemy":
                         spawnEntity(Enemy.forType(type, xPos, yPos));

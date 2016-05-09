@@ -32,9 +32,9 @@ public enum Direction {
             case Down:
                 return 180f;
             case Right:
-                return 90f;
-            case Left:
                 return 270f;
+            case Left:
+                return 90f;
         }
 
         return 0f;

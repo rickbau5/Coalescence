@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.*;
 import com.bau5.coalescence.entities.events.DestructibleCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
+import com.bau5.coalescence.entities.events.EntityTerrainCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
 import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
@@ -57,7 +58,16 @@ public class ProjectileEntity extends GameEntity {
                         break;
                     }
                 }
+                if (otherEntity instanceof ProjectileEntity && otherEntity.type == 2) {
+                    if (this.type == 1) {
+                        damage *= .9;
+                    }
+                    break;
+                }
             case EntityStaticCollision:
+                if (event instanceof EntityTerrainCollisionEvent && ((EntityTerrainCollisionEvent) event).getTile().getId() == 3) {
+                    break;
+                }
                 this.die();
                 return true;
 

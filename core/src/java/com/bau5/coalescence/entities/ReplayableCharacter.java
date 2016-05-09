@@ -16,10 +16,10 @@ public class ReplayableCharacter extends GameEntity {
         super(clone.type, new PositionComponent(clone.pos.x(), clone.pos.y()), new AttributeComponent(clone.attributes.width(), clone.attributes.height(), clone.attributes.rotation()));
         this.attributes.rotation_$eq(clone.attributes.rotation());
 
-        for (Action action : clone.actions) {
-            action.setActor(this);
-            this.actions.addLast(action);
-        }
+//        for (Action action : clone.actions) {
+//            action.setActor(this);
+//            this.actions.addLast(action);
+//        }
 
         setWorld(clone.world);
 
@@ -40,7 +40,6 @@ public class ReplayableCharacter extends GameEntity {
     @Override
     public void onDeath() {
         // Nothing; only replaying
-        System.out.println("Killing");
     }
 
     @Override

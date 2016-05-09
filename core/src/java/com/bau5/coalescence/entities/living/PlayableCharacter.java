@@ -3,7 +3,6 @@ package com.bau5.coalescence.entities.living;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.AttributeComponent;
 import com.bau5.coalescence.CharacterStats;
 import com.bau5.coalescence.Direction;
@@ -13,6 +12,7 @@ import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.entities.ReplayableCharacter;
 import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
+import com.bau5.coalescence.entities.actions.FireProjectileAction;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
 import com.bau5.coalescence.entities.events.EntityObjectCollisionEvent;
 import com.bau5.coalescence.entities.events.Event;
@@ -43,9 +43,13 @@ public class PlayableCharacter extends LivingEntity {
 
     @Override
     public MoveAction moveInDirection(Direction dir) {
-        MoveAction action = super.moveInDirection(dir);
-        performAction(action, true);
-        return action;
+        if (playback.isEmpty()) {
+            MoveAction action = super.moveInDirection(dir);
+            performAction(action, true);
+            return action;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -54,10 +58,10 @@ public class PlayableCharacter extends LivingEntity {
             EntityCollisionEvent collision = (EntityCollisionEvent) event;
             GameEntity otherEntity = collision.getOtherEntity(this);
             if (otherEntity instanceof ProjectileEntity && !((ProjectileEntity) otherEntity).isFriendly()) {
-                this.die();
+                this.damage(otherEntity, ((ProjectileEntity) otherEntity).getDamage());
                 return true;
             } else if (otherEntity instanceof EnemyEntity) {
-                this.damage(((EnemyEntity) otherEntity).getAttackDamage());
+                this.damage(otherEntity, ((EnemyEntity) otherEntity).getAttackDamage());
                 Action last = getLastAction();
                 if (last instanceof MoveAction) {
                     ((MoveAction) last).undo();
@@ -74,9 +78,7 @@ public class PlayableCharacter extends LivingEntity {
 
     public void useMainAbility() {
         if (type == 1) {
-            Direction dir = getDirectionFacing();
-            Vector2 vec = Direction.getOffsetForDirection(dir);
-            world.spawnEntity(new ProjectileEntity(1, pos.x() + vec.x / 2, pos.y() + vec.y / 2, vec.scl(4f), Direction.toDegrees(dir)).setFiredBy(this));
+            performAction(new FireProjectileAction(this, 1, pos.x(), pos.y(), this.getDirectionFacing()), true);
         }
     }
 
@@ -87,7 +89,7 @@ public class PlayableCharacter extends LivingEntity {
 
     @Override
     public void onSpawn() {
-
+        this.health = getMaxHealth();
     }
 
     public boolean isActive() {

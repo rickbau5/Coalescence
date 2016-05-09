@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bau5.coalescence.EnemyAttributes;
 import com.bau5.coalescence.EnemyStats;
 import com.bau5.coalescence.PositionComponent;
-import com.bau5.coalescence.ProjectileStats;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.entities.events.EntityCollisionEvent;
@@ -37,14 +36,14 @@ public class EnemyEntity extends LivingEntity {
 
             GameEntity otherEntity = entityCollision.getOtherEntity(this);
             if (otherEntity instanceof PlayableCharacter) {
-                this.damage(((LivingEntity) entityCollision.getOtherEntity(this)).getAttackDamage());
+                this.damage(otherEntity, ((LivingEntity) entityCollision.getOtherEntity(this)).getAttackDamage());
                 return true;
             }
 
             if (otherEntity instanceof ProjectileEntity) {
                 ProjectileEntity projectile = ((ProjectileEntity) otherEntity);
                 if (projectile.isFriendly() || projectile.getFiredBy() == null) {
-                    this.damage(((ProjectileEntity) otherEntity).getDamage());
+                    this.damage(projectile, projectile.getDamage());
                     return true;
                 }
             }
@@ -58,7 +57,7 @@ public class EnemyEntity extends LivingEntity {
 
     @Override
     public void onSpawn() {
-
+        setHealth(getMaxHealth());
     }
 
     @Override

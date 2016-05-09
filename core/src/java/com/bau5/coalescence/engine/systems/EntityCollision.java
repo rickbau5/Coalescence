@@ -74,7 +74,7 @@ public class EntityCollision extends IteratingSystem {
             if (!(entity instanceof PlayableCharacter)) {
                 // Check if collide with tile
                 if (world.isTileCollidable(x, y)) {
-                    gameEntity.handleEvent(new EntityTerrainCollisionEvent(gameEntity));
+                    gameEntity.handleEvent(new EntityTerrainCollisionEvent(gameEntity,  world.getCellAt(x, y).getTile()));
                     continue;
                 }
 

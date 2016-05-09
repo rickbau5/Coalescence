@@ -54,6 +54,10 @@ public class GameStage extends Stage {
         SoundManager.instance.beginFadeMusic();
         this.loadedWorld.playMusicForLevel();
         this.loadedWorld.playAmbienceForLevel();
+
+        if (this.loadedWorld == Maps.Four) {
+            SoundManager.instance.playSound("battle-horn");
+        }
     }
 
     @Override

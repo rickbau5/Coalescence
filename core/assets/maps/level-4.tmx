@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="15" height="15" tilewidth="16" tileheight="16" nextobjectid="162">
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16" tilecount="256">
+  <image source="../tile.png" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="type" value="dangerous"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="terrain" width="15" height="15">
+  <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,1,1,2,2,2,2,2,2,2,2,2,1,1,1,
+1,3,3,8,2,24,24,24,24,24,2,9,3,3,1,
+1,3,3,4,5,3,3,3,3,3,4,5,3,3,1,
+1,3,3,20,21,3,1,1,1,3,20,21,3,3,1,
+1,3,1,2,9,3,1,1,1,3,8,2,1,3,1,
+1,3,1,2,9,3,3,3,3,3,8,2,1,3,1,
+1,3,1,2,2,25,25,25,25,25,2,2,1,3,1,
+1,3,1,1,1,1,2,2,2,1,1,1,1,3,1,
+3,3,3,3,3,1,2,2,2,1,3,3,3,3,3,
+3,3,3,3,3,1,1,1,1,1,3,3,3,3,3
+</data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="145" name="prop" gid="37" x="112" y="240" width="16" height="16"/>
+  <object id="148" name="launcher" type="0" gid="33" x="128" y="144" width="16" height="16">
+   <properties>
+    <property name="triggerable" value="true"/>
+   </properties>
+  </object>
+  <object id="149" name="launcher" type="0" gid="33" x="96" y="144" width="16" height="16">
+   <properties>
+    <property name="triggerable" value="true"/>
+   </properties>
+  </object>
+  <object id="150" name="launcher" type="0" gid="33" x="112" y="144" width="16" height="16">
+   <properties>
+    <property name="triggerable" value="true"/>
+   </properties>
+  </object>
+  <object id="151" name="character" type="0" x="113" y="194" width="13.3333" height="12.3333"/>
+  <object id="152" name="character" type="1" x="96.6667" y="210" width="13.6667" height="12.3333"/>
+  <object id="153" name="character" type="2" x="130.667" y="210" width="10.6667" height="12"/>
+  <object id="154" name="enemy" type="4" x="112.667" y="50" width="14.6667" height="12.6667"/>
+  <object id="156" name="plate" gid="38" x="112" y="32" width="16" height="16">
+   <properties>
+    <property name="triggers" value="6,6;7,6;8,6"/>
+   </properties>
+  </object>
+  <object id="158" name="crate" gid="241" x="64" y="32" width="16" height="16"/>
+  <object id="159" name="crate" gid="241" x="32" y="48" width="16" height="16"/>
+  <object id="160" name="crate" gid="241" x="176" y="48" width="16" height="16"/>
+  <object id="161" name="crate" gid="241" x="208" y="80" width="16" height="16"/>
+ </objectgroup>
+</map>

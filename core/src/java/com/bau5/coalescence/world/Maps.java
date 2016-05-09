@@ -9,7 +9,8 @@ public enum Maps {
     Testing("level-test", null, null),
     One("level-1", null, null),
     Two("level-2", null, "dripping"),
-    Three("level-3", null, "dripping");
+    Three("level-3", null, "dripping"),
+    Four("level-4", "theme", "dripping");
 
     private final String name;
     private final String terrainLayerName;

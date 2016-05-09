@@ -1,6 +1,7 @@
 package com.bau5.coalescence.world.objects;
 
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.bau5.coalescence.SoundManager;
 import com.bau5.coalescence.world.World;
 
 /**
@@ -17,6 +18,7 @@ public class ExitObject extends ControlObject {
 
     @Override
     public void executeControl() {
+        SoundManager.instance.playSound("ladder");
         world.getStage().moveToLevel(level);
     }
 }
