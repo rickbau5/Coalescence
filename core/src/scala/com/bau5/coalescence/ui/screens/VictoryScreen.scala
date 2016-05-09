@@ -1,12 +1,12 @@
 package com.bau5.coalescence.ui.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.{GL20, Texture}
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.bau5.coalescence.{Main, SoundManager}
 import com.bau5.coalescence.ui.elements.{GameButton, GameLabel}
+import com.bau5.coalescence.{Main, SoundManager}
 
 /**
   * Created by Rick on 5/9/16.

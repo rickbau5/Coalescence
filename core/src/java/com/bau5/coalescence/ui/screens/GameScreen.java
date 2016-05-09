@@ -2,7 +2,6 @@ package com.bau5.coalescence.ui.screens;
 
 import com.bau5.coalescence.GameStage;
 import com.bau5.coalescence.Main;
-import com.bau5.coalescence.SoundManager;
 import com.bau5.coalescence.world.Maps;
 
 /**

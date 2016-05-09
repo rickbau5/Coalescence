@@ -1,7 +1,6 @@
 package com.bau5.coalescence.entities.events;
 
 import com.bau5.coalescence.entities.GameEntity;
-import com.bau5.coalescence.entities.ProjectileEntity;
 import com.bau5.coalescence.world.objects.DestructibleObject;
 
 /**

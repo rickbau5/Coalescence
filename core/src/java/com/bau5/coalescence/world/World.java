@@ -26,7 +26,6 @@ import com.bau5.coalescence.entities.actions.Action;
 import com.bau5.coalescence.entities.actions.MoveAction;
 import com.bau5.coalescence.entities.actions.SpawnAction;
 import com.bau5.coalescence.entities.actions.TriggeredAction;
-import com.bau5.coalescence.entities.living.EnemyEntity;
 import com.bau5.coalescence.entities.living.PlayableCharacter;
 import com.bau5.coalescence.world.objects.ExitObject;
 import com.bau5.coalescence.world.objects.Stateful;

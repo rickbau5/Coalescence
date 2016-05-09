@@ -1,12 +1,11 @@
 package com.bau5.coalescence.ui.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.{Color, GL20, Texture}
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.graphics.g3d.particles.ParticleChannels.TextureRegionInitializer
+import com.badlogic.gdx.graphics.{Color, GL20, Texture}
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.bau5.coalescence.ui.elements.GameButton
+import com.bau5.coalescence.ui.elements.{GameButton, GameLabel}
 import com.bau5.coalescence.world.Maps
 import com.bau5.coalescence.{Main, SoundManager}
 
@@ -23,8 +22,6 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
   table.add(new GameButton("Start Game", GameButton.Skin)(() => main.switchToScreen(new GameScreen(main, Maps.One))))
   table.row()
   table.add(new GameButton("Information", GameButton.Skin)(() => main.switchToScreen(new InfoScreen(main))))
-  table.row()
-  table.add(new GameButton("Victory Screen", GameButton.Skin)(() => main.switchToScreen(new VictoryScreen(main))))
   table.row()
   table.add(GameButton.SelectWorld(main))
   table.row()
@@ -45,7 +42,7 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
     font.getColor.lerp(lerpTo, delta)
     stage.getBatch.begin()
     stage.getBatch.draw(background, 0, 0, 480, 480)
-    font.draw(stage.getBatch, "Coalescence", getWidth / 7 * 3, getHeight / 4 * 3)
+    font.draw(stage.getBatch, "Coalescence", getWidth / 7 * 3 - 6, getHeight / 4 * 3)
     stage.getBatch.end()
 
     stage.act(delta)

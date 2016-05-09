@@ -1,7 +1,7 @@
 package com.bau5.coalescence.ui.screens
 
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, Widget}
+import com.badlogic.gdx.scenes.scene2d.ui.{Table, Widget}
 import com.bau5.coalescence.Main
 import com.bau5.coalescence.ui.elements.{GameButton, GameLabel}
 

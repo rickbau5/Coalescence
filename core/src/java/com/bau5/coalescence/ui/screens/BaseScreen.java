@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bau5.coalescence.Main;
-import com.bau5.coalescence.ui.elements.GameButton;
 
 /**
  * Created by Rick on 4/1/16.
