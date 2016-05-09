@@ -1,6 +1,9 @@
 package com.bau5.coalescence.entities.actions;
 
 import com.badlogic.gdx.math.Vector2;
+import com.bau5.coalescence.entities.events.DestructibleCollisionEvent;
+import com.bau5.coalescence.world.objects.Crate;
+import com.bau5.coalescence.world.objects.TiledMapObject;
 
 /**
  * MoveAction is a simple action that moves an entity from
@@ -21,7 +24,11 @@ public class MoveAction extends Action implements Undoable {
     public void execute() {
         super.execute();
 
-        if (getActor().world.isTileCollidable((int)targetX, (int) targetY)) {
+        TiledMapObject object = getActor().world.getCellAt((int) targetX, ((int) targetY)).getObject();
+
+        if (object != null && object instanceof Crate) {
+            ((Crate) object).handleEntityCollision(new DestructibleCollisionEvent(getActor(), ((Crate) object)));
+        } else if (getActor().world.isTileCollidable((int)targetX, (int) targetY)) {
             return;
         }
 

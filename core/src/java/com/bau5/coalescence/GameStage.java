@@ -25,6 +25,7 @@ public class GameStage extends Stage {
     private boolean paused = false;
     private Maps loadedWorld;
     private Maps nextLevel = null;
+    private boolean victory = false;
 
     public GameStage(Main main, Maps map) {
         super(new GameViewport());
@@ -41,8 +42,6 @@ public class GameStage extends Stage {
         table.add(GameButton.MainMenu(main));
         table.row();
         table.add(GameButton.ReloadWorld(main));
-        table.row();
-        table.add(GameButton.SelectWorld(main));
         table.row();
         table.add(GameButton.Exit());
         table.setPosition(getViewport().getWorldWidth() / 2, getViewport().getWorldHeight() / 2);
@@ -132,5 +131,17 @@ public class GameStage extends Stage {
 
     public Maps getNextLevel() {
         return nextLevel;
+    }
+
+    public Main getMain() {
+        return main;
+    }
+
+    public void setVictory(boolean flag) {
+        this.victory = flag;
+    }
+
+    public boolean getVictory() {
+        return victory;
     }
 }

@@ -25,6 +25,8 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
         if (gameStage.getNextLevel() != null) {
             main.switchToScreen(new GameScreen(main, gameStage.getNextLevel()));
+        } else if(gameStage.getVictory()) {
+            main.switchToScreen(new VictoryScreen(main));
         } else {
             super.render(delta);
 

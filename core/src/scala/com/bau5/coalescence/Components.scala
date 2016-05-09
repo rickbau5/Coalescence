@@ -57,7 +57,7 @@ object EnemyStats {
     case 3 =>
       new StatsComponent(25, 5)
     case 4 =>
-      new StatsComponent(400, 3)
+      new StatsComponent(350, 3)
   }
 }
 object ProjectileStats {

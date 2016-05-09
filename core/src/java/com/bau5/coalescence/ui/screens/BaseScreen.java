@@ -16,7 +16,7 @@ public abstract class BaseScreen implements Screen {
     public final Stage stage;
     protected final Main main;
 
-    protected BitmapFont font = GameButton.Font();
+    protected BitmapFont font = new BitmapFont();
 
     public BaseScreen(Main main, Stage stage) {
         this.main = main;

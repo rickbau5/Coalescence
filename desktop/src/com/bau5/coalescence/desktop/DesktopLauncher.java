@@ -13,7 +13,5 @@ public class DesktopLauncher {
         config.height = Constants.sizeY;
 
         new LwjglApplication(new Main(), config);
-
-        SoundManager.instance.initialize();
     }
 }

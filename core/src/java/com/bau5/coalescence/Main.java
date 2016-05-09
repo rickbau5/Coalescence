@@ -11,6 +11,8 @@ import com.bau5.coalescence.ui.screens.MenuScreen;
 public class Main extends Game {
     @Override
     public void create () {
+        SoundManager.instance.initialize();
+
         switchToScreen(new MenuScreen(this));
     }
 

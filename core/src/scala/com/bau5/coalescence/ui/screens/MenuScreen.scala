@@ -24,6 +24,8 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
   table.row()
   table.add(new GameButton("Information", GameButton.Skin)(() => main.switchToScreen(new InfoScreen(main))))
   table.row()
+  table.add(new GameButton("Victory Screen", GameButton.Skin)(() => main.switchToScreen(new VictoryScreen(main))))
+  table.row()
   table.add(GameButton.SelectWorld(main))
   table.row()
   table.add(GameButton.Exit)
@@ -47,7 +49,7 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
     stage.getBatch.end()
 
     stage.act(delta)
-    stage.draw
+    stage.draw()
   }
 
   override def initialize(): Unit = {
@@ -62,6 +64,7 @@ class MenuScreen(main: Main) extends BaseScreen(main, new Stage(new GameViewport
   }
 
   override def dispose(): Unit = {
+    font.setColor(Color.WHITE)
     super.dispose()
   }
 }

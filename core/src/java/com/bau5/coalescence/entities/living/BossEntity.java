@@ -3,6 +3,7 @@ package com.bau5.coalescence.entities.living;
 import com.badlogic.gdx.math.Vector2;
 import com.bau5.coalescence.entities.GameEntity;
 import com.bau5.coalescence.entities.actions.FireProjectileAction;
+import com.bau5.coalescence.ui.screens.VictoryScreen;
 
 /**
  * Created by Rick on 5/8/2016.
@@ -27,5 +28,12 @@ public class BossEntity extends EnemyEntity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onDeath() {
+        super.onDeath();
+
+        world.getStage().setVictory(true);
     }
 }

@@ -25,3 +25,10 @@ Planned content:
 |Enemies|Variation (i.e. appearance & difficulty), progression based difficulty, stats|
 |World Objects|Helpful or harmful to player, trap, loot|
 |Puzzles|Take multiple characters to complete, increasing complexity, require planning and stragegy|
+
+## Attribution
+All sounds sourced from [FreeSound.org]("https://www.freesound.org).
+
+Character and projectile textures created by [Detarame](https://detarame.wordpress.com/).
+
+All other (not so great) textures by me.
